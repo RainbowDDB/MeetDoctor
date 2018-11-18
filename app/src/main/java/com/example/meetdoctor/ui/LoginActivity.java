@@ -2,11 +2,19 @@ package com.example.meetdoctor.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 
-public class LoginActivity extends BaseActivity {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
+
+    private TextView register, forgetPassword;
+    private EditText account, password;
+    private Button login;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -15,11 +23,31 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     public void initView() {
+        register = findViewById(R.id.tv_register);
+        forgetPassword = findViewById(R.id.tv_forget_password);
+        account = findViewById(R.id.edt_account);
+        password = findViewById(R.id.edt_password);
+        login = findViewById(R.id.btn_login);
 
+        register.setOnClickListener(this);
+        forgetPassword.setOnClickListener(this);
+        login.setOnClickListener(this);
     }
 
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.tv_register:
+                break;
+            case R.id.tv_forget_password:
+                break;
+            case R.id.btn_login:
+                break;
+        }
     }
 }

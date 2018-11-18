@@ -5,8 +5,12 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 /**
  * BaseActivity
@@ -49,5 +53,23 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     protected void startActivity(Class<?> clz) {
         Intent intent = new Intent(this, clz);
         startActivity(intent);
+    }
+
+    /**
+     * 接收到分发的事件
+     *
+     * @param event 事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onReceiveEvent(EventMessage event) {
+    }
+
+    /**
+     * 接受到分发的粘性事件
+     *
+     * @param event 粘性事件
+     */
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onReceiveStickyEvent(EventMessage event) {
     }
 }

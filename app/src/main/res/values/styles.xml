@@ -7,6 +7,6 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:fontFamily" tools:ignore="NewApi">@font/hyliangpinxianj</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/yahei</item>
     </style>
 </resources>

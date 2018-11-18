@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">遇医</string>
+    <string name="account">账号</string>
+    <string name="app_main_name">遇  医</string>
+    <string name="password">密码</string>
+    <string name="register_now">立即注册</string>
+    <string name="forget_password">忘记密码？</string>
+    <string name="login">登 陆</string>
 </resources>
