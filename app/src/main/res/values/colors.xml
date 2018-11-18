@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#ffa0aa</color>
-    <color name="colorPrimaryDark">#ffa0aa</color>
+    <color name="colorPrimaryDark">#ffe1e1</color>
     <color name="colorAccent">#ffa0aa</color>
     <color name="windowBackGround">@color/pureWhite</color>
+    <color name="textColorPrimary">@color/black</color>
 
     <color name="pureWhite">#FFFFFF</color>
     <color name="black">#000000</color>
