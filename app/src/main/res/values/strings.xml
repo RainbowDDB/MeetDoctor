@@ -11,7 +11,10 @@
     <string name="input_account_hint">账号（6–18位数）</string>
     <string name="reinput_password">再次填写密码</string>
     <string name="register_and_login">注册并登录</string>
-    <string name="agreement_yuyi">《遇医协议》</string>
+    <string name="agreement_yuyi_2">《遇医协议》</string>
+    <string name="agreement_yuyi_1">遇医协议</string>
     <string name="read_and_agree">我已经阅读并同意</string>
     <string name="input_password_hint">密码（可含数字、符号、18位数之内）</string>
+    <string name="agreement_detail_1">一、特别提示\n二、账号注册\n三、账户安全\n四、用户声明与保证\n五、服务内容\n六、隐私保护\n七、版权申明\n八、协议的用途、更新和效力\n本协议最终所有权归属遇医APP所有，并且保留一切解释和修改的权利</string>
+    <string name="agreement_detail_0">注册前请您仔细阅读以下协议：</string>
 </resources>

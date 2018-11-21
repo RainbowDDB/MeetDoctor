@@ -17,7 +17,7 @@
             app:elevation="0dp">
 
             <android.support.v7.widget.Toolbar
-                android:id="@+id/register_toolbar"
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 app:layout_scrollFlags="enterAlways">
@@ -28,7 +28,6 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:text="@string/register_account"
-                    android:textColor="@color/textColorPrimary"
                     android:textSize="16sp" />
             </android.support.v7.widget.Toolbar>
 
@@ -59,19 +58,31 @@
                     android:layout_gravity="center"
                     android:src="@drawable/register_tel" />
 
-                <EditText
-                    android:id="@+id/edt_account"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="11dp"
                     android:layout_marginLeft="11dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/input_account_hint"
-                    android:inputType="text"
-                    android:textColor="@color/hintGrey"
-                    android:textColorHint="@color/hintGrey"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/input_account_hint"
+                        android:inputType="text"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/hintGrey"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit_text_underline_grey" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -85,19 +96,31 @@
                     android:layout_gravity="center"
                     android:src="@drawable/register_password" />
 
-                <EditText
-                    android:id="@+id/edt_password"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="11dp"
                     android:layout_marginLeft="11dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/input_password_hint"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/hintGrey"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/input_password_hint"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/hintGrey"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit_text_underline_grey" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -111,23 +134,35 @@
                     android:layout_gravity="center"
                     android:src="@drawable/register_password" />
 
-                <EditText
-                    android:id="@+id/edt_password_again"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="11dp"
                     android:layout_marginLeft="11dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/reinput_password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/hintGrey"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_confirm_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/reinput_password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/hintGrey"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit_text_underline_grey" />
+                </LinearLayout>
             </LinearLayout>
 
             <Button
-                android:id="@+id/btn_login"
+                android:id="@+id/btn_register_and_login"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="290dp"
                 android:layout_height="46dp"
@@ -142,6 +177,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="63dp"
+                android:layout_marginBottom="20dp"
                 android:gravity="center">
 
                 <CheckBox
@@ -161,7 +197,7 @@
                     android:id="@+id/tv_agreement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/agreement_yuyi"
+                    android:text="@string/agreement_yuyi_2"
                     android:textColor="@color/green"
                     android:textSize="12sp" />
             </LinearLayout>

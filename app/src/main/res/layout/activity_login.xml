@@ -58,19 +58,31 @@
                     android:layout_gravity="center"
                     android:src="@drawable/account_avatar" />
 
-                <EditText
-                    android:id="@+id/edt_account"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="11dp"
                     android:layout_marginLeft="11dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/account"
-                    android:inputType="text"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/account"
+                        android:inputType="text"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit_text_underline_pink" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
@@ -84,19 +96,32 @@
                     android:layout_gravity="center"
                     android:src="@drawable/account_password" />
 
-                <EditText
-                    android:id="@+id/edt_password"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="11dp"
                     android:layout_marginLeft="11dp"
-                    android:background="@null"
-                    android:gravity="center_vertical"
-                    android:hint="@string/password"
-                    android:inputType="textPassword"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/colorPrimary"
-                    android:textSize="14sp" />
+                    android:orientation="vertical">
+
+                    <EditText
+                        android:id="@+id/edt_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+
+                        android:background="@null"
+                        android:gravity="center_vertical"
+                        android:hint="@string/password"
+                        android:inputType="textPassword"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/colorPrimary"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="4dp"
+                        android:scaleType="centerInside"
+                        android:src="@drawable/edit_text_underline_pink" />
+                </LinearLayout>
             </LinearLayout>
 
             <RelativeLayout
@@ -110,6 +135,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentLeft="true"
+                    android:layout_toStartOf="@id/tv_forget_password"
+                    android:layout_toLeftOf="@id/tv_forget_password"
                     android:gravity="center_vertical"
                     android:text="@string/register_now"
                     android:textColor="@color/colorPrimary"
@@ -180,7 +207,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="21dp">
+                android:layout_marginTop="21dp"
+                android:layout_marginBottom="20dp">
 
                 <ImageView
                     android:id="@+id/img_qq_login"
