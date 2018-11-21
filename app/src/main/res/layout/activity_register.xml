@@ -1,43 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/pureWhite">
 
-    <android.support.design.widget.AppBarLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="207dp"
-        android:background="@drawable/login_background"
-        app:elevation="0dp">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/register_toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            app:layout_scrollFlags="enterAlways">
+            android:layout_height="207dp"
+            android:background="@drawable/login_background"
+            app:elevation="0dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/register_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                app:layout_scrollFlags="enterAlways">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:text="@string/register_account"
+                    android:textColor="@color/textColorPrimary"
+                    android:textSize="16sp" />
+            </android.support.v7.widget.Toolbar>
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:gravity="center"
-                android:text="@string/register_account"
-                android:textColor="@color/black_90"
-                android:textSize="16sp" />
-        </android.support.v7.widget.Toolbar>
+                android:layout_marginTop="20dp"
+                android:src="@drawable/login_avatar" />
+        </android.support.design.widget.AppBarLayout>
 
-        <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:layout_gravity="center"
-            android:src="@drawable/login_avatar" />
-    </android.support.design.widget.AppBarLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="296dp"
@@ -65,7 +67,7 @@
                     android:layout_marginLeft="11dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="@string/input_account"
+                    android:hint="@string/input_account_hint"
                     android:inputType="text"
                     android:textColor="@color/hintGrey"
                     android:textColorHint="@color/hintGrey"
@@ -91,7 +93,7 @@
                     android:layout_marginLeft="11dp"
                     android:background="@null"
                     android:gravity="center_vertical"
-                    android:hint="密码（可含数字、符号、18位数之内）"
+                    android:hint="@string/input_password_hint"
                     android:inputType="textPassword"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/hintGrey"
@@ -143,6 +145,7 @@
                 android:gravity="center">
 
                 <CheckBox
+                    android:id="@+id/check_box_agreement"
                     android:layout_width="wrap_content"
                     android:layout_height="24dp"
                     android:scaleX="0.7"
@@ -155,6 +158,7 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_agreement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/agreement_yuyi"
@@ -162,5 +166,5 @@
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
