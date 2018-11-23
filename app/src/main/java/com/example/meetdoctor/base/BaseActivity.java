@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.view.MenuItem;
 
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.utils.EventBusUtils;
@@ -48,6 +49,16 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     protected void onStop() {
         super.onStop();
         EventBusUtils.unregister(this);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return true;
     }
 
     protected void startActivity(Class<?> clz) {

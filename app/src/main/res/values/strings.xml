@@ -21,4 +21,6 @@
     <string name="verification_secret_question">验证密保问题</string>
     <string name="please_input_name">请输入您的真实姓名</string>
     <string name="next_step">下一步</string>
+    <string name="confirm">确 定</string>
+    <string name="retrieve_success">成功找回密码</string>
 </resources>

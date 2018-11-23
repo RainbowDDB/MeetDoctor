@@ -1,5 +1,6 @@
 package com.example.meetdoctor.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -65,5 +66,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.img_other_login:
                 break;
         }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
     }
 }

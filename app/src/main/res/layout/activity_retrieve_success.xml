@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/login_background"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="@string/retrieve_success"
+                android:textSize="@dimen/title_text_size" />
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/login_avatar" />
+    </android.support.design.widget.AppBarLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="@dimen/page_width"
+        android:layout_height="46dp"
+        android:layout_marginTop="200dp"
+        android:background="@drawable/btn_background"
+        android:text="@string/confirm"
+        android:textColor="@color/pureWhite"
+        android:textSize="20sp" />
+</LinearLayout>

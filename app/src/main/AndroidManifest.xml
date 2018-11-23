@@ -24,6 +24,7 @@
         </activity>
         <activity
             android:name=".ui.LoginActivity"
+            android:launchMode="singleTask"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity
             android:name=".ui.RegisterActivity"
@@ -32,6 +33,10 @@
         <activity
             android:name=".ui.SecretProtectActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity
+            android:name=".ui.RetrievePasswordActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
+        <activity android:name=".ui.RetrieveSuccessActivity" />
     </application>
 
 </manifest>

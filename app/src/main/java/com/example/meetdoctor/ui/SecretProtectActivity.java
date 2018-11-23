@@ -2,7 +2,6 @@ package com.example.meetdoctor.ui;
 
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ public class SecretProtectActivity extends BaseActivity implements View.OnClickL
     @Override
     public void initView() {
         Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -36,19 +36,10 @@ public class SecretProtectActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                break;
-        }
-        return true;
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_next_step:
-
+                startActivity(RetrievePasswordActivity.class);
                 break;
         }
     }
