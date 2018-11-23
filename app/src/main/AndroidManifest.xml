@@ -29,6 +29,9 @@
             android:name=".ui.RegisterActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity android:name=".ui.AgreementActivity" />
+        <activity
+            android:name=".ui.SecretProtectActivity"
+            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
     </application>
 
 </manifest>

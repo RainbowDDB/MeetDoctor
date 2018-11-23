@@ -54,6 +54,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(RegisterActivity.class);
                 break;
             case R.id.tv_forget_password:
+                startActivity(SecretProtectActivity.class);
                 break;
             case R.id.btn_login:
                 break;

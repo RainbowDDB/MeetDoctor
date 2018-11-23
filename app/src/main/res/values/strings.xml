@@ -17,4 +17,8 @@
     <string name="input_password_hint">密码（可含数字、符号、18位数之内）</string>
     <string name="agreement_detail_1">一、特别提示\n二、账号注册\n三、账户安全\n四、用户声明与保证\n五、服务内容\n六、隐私保护\n七、版权申明\n八、协议的用途、更新和效力\n本协议最终所有权归属遇医APP所有，并且保留一切解释和修改的权利</string>
     <string name="agreement_detail_0">注册前请您仔细阅读以下协议：</string>
+    <string name="retrieve_password">找回密码</string>
+    <string name="verification_secret_question">验证密保问题</string>
+    <string name="please_input_name">请输入您的真实姓名</string>
+    <string name="next_step">下一步</string>
 </resources>
