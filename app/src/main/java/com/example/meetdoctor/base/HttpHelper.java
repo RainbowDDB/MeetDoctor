@@ -43,7 +43,7 @@ public class HttpHelper {
      * @param callback 回调
      */
     public static void get(String url, LinkedHashMap<String, String> params, Callback callback) {
-        String getUrl = BASE_URL + url + attachHttpGetParams(url, params);
+        String getUrl = attachHttpGetParams(BASE_URL + url, params);
         Request request = new Request.Builder()
                 .url(getUrl)
                 .get()
@@ -107,9 +107,9 @@ public class HttpHelper {
                     builder.append("&");
                 }
             }
-            return BASE_URL + url + builder.toString();
+            return url + builder.toString();
         } else {
-            return BASE_URL + url;
+            return url;
         }
     }
 }
