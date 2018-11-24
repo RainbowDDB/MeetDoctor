@@ -47,9 +47,11 @@ APP后端
     ①httpcode:200
      'result':1 (登陆成功)
     ②httpcode:200
-     'result':0(账号或者密码错误)
+     'result':0,'name':1(账号或者密码错误)
     ③httpcode:401
     (请求无效参数)
+    ④httpcode:200
+    'result':0,'name':0(账户不存在)
 }
 ```
 
