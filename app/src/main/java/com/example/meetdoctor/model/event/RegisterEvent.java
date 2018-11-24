@@ -1,9 +1,9 @@
 package com.example.meetdoctor.model.event;
 
+import com.example.meetdoctor.model.MessageConstant;
+
 public class RegisterEvent {
 
-    private static final String[] msg =
-            new String[]{"注册成功", "用户已存在", "请求参数无效", "插入数据库发生意外错误,刷新重试", "未知错误"};
     private int responseCode;
 
     public RegisterEvent(int responseCode) {
@@ -14,15 +14,15 @@ public class RegisterEvent {
     public String getMessage() {
         switch (responseCode) {
             case 200:
-                return msg[0];
+                return MessageConstant.REGISTER_SUCCESS;
             case 400:
-                return msg[1];
+                return MessageConstant.USER_EXISTED;
             case 401:
-                return msg[2];
+                return MessageConstant.PARAMS_UNAVAILABLE;
             case 404:
-                return msg[3];
+                return MessageConstant.DATABASE_ERROR;
             default:
-                return msg[4];
+                return MessageConstant.UNKNOWN_ERROR;
         }
     }
 }

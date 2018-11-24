@@ -1,8 +1,9 @@
 package com.example.meetdoctor.model.event;
 
+import com.example.meetdoctor.model.MessageConstant;
+
 public class CheckUserEvent {
 
-    private static final String[] MSG = {"用户已存在", "请求参数无效", "未知错误"};
     private int responseCode;
 
     public CheckUserEvent(int responseCode) {
@@ -14,11 +15,11 @@ public class CheckUserEvent {
             case 200:
                 return "";
             case 400:
-                return MSG[0];
+                return MessageConstant.USER_EXISTED;
             case 401:
-                return MSG[1];
+                return MessageConstant.PARAMS_UNAVAILABLE;
             default:
-                return MSG[2];
+                return MessageConstant.UNKNOWN_ERROR;
         }
     }
 }

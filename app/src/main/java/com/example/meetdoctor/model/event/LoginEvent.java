@@ -1,11 +1,9 @@
 package com.example.meetdoctor.model.event;
 
 import com.example.meetdoctor.model.LoginBean;
+import com.example.meetdoctor.model.MessageConstant;
 
 public class LoginEvent {
-
-    private static final String[] msg =
-            new String[]{"登陆成功", "账号或者密码错误", "账户不存在", "请求无效参数", "未知错误"};
 
     private int responseCode;
     private LoginBean data;
@@ -20,18 +18,18 @@ public class LoginEvent {
         switch (responseCode) {
             case 200:
                 if (data.getResult() == 1) {
-                    return msg[0];
+                    return MessageConstant.LOGIN_SUCCESS;
                 } else {
                     if (data.getName() == 1) {
-                        return msg[1];
+                        return MessageConstant.ACCOUNT_OR_PASSWORD_ERROR;
                     } else {
-                        return msg[2];
+                        return MessageConstant.USER_INEXISTENT;
                     }
                 }
             case 401:
-                return msg[3];
+                return MessageConstant.PARAMS_UNAVAILABLE;
             default:
-                return msg[4];
+                return MessageConstant.UNKNOWN_ERROR;
         }
     }
 }
