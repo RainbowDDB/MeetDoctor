@@ -38,5 +38,15 @@ public class HttpUtils {
         HttpHelper.getInstance().get("/user/registered", params, callback);
     }
 
-
+    /**
+     * 判断用户是否已存在
+     *
+     * @param userName 用户名
+     * @param callback 回调
+     */
+    public static void checkUser(String userName, Callback callback) {
+        LinkedHashMap<String, String> params = new LinkedHashMap<>();
+        params.put("username", userName);
+        HttpHelper.getInstance().get("/user/check", params, callback);
+    }
 }
