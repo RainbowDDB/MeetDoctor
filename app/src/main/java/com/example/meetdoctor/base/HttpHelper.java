@@ -16,9 +16,9 @@ import okhttp3.Request;
  */
 public class HttpHelper {
 
-    private static final String BASE_URL = ".......";
+    private static final String BASE_URL = "http://smile.tamce.cn/MeetDoctor/public/api";
     private static HttpHelper helper;
-    private static OkHttpClient client;
+    private OkHttpClient client;
 
     private HttpHelper() {
         client = new OkHttpClient();
@@ -42,7 +42,7 @@ public class HttpHelper {
      * @param params   参数键值对
      * @param callback 回调
      */
-    public static void get(String url, LinkedHashMap<String, String> params, Callback callback) {
+    public void get(String url, LinkedHashMap<String, String> params, Callback callback) {
         String getUrl = attachHttpGetParams(BASE_URL + url, params);
         Request request = new Request.Builder()
                 .url(getUrl)
@@ -57,7 +57,7 @@ public class HttpHelper {
      * @param url      url
      * @param callback 回调
      */
-    public static void get(String url, Callback callback) {
+    public void get(String url, Callback callback) {
         get(url, null, callback);
     }
 
@@ -68,7 +68,7 @@ public class HttpHelper {
      * @param params   参数键值对
      * @param callback 回调
      */
-    public static void post(String url, HashMap<String, String> params, Callback callback) {
+    public void post(String url, HashMap<String, String> params, Callback callback) {
         url = BASE_URL + url;
         FormBody.Builder builder = new FormBody.Builder();
         for (Map.Entry<String, String> entry : params.entrySet()) {
@@ -88,7 +88,7 @@ public class HttpHelper {
      * @param params 参数键值对
      * @return get请求url
      */
-    private static String attachHttpGetParams(String url, LinkedHashMap<String, String> params) {
+    private String attachHttpGetParams(String url, LinkedHashMap<String, String> params) {
         if (params != null && !params.isEmpty()) {
             Iterator<String> keys = params.keySet().iterator();
             Iterator<String> values = params.values().iterator();

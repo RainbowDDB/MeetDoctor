@@ -1,5 +1,7 @@
 package com.example.meetdoctor.model;
 
+import android.support.annotation.NonNull;
+
 public class EventMessage<T> {
 
     private int code;
@@ -30,6 +32,7 @@ public class EventMessage<T> {
         this.data = data;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "EventMessage{" +

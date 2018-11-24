@@ -5,7 +5,9 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
@@ -73,6 +75,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveEvent(EventMessage event) {
+        if (event.getCode() == EventCode.NET_ERROR) {
+            showToast("网络连接错误，请检查网络连接！");
+        }
     }
 
     /**
@@ -82,5 +87,9 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
      */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onReceiveStickyEvent(EventMessage event) {
+    }
+
+    protected void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
 }
