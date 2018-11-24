@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -18,10 +19,13 @@ public class HttpHelper {
 
     private static final String BASE_URL = "http://smile.tamce.cn/MeetDoctor/public/api";
     private static HttpHelper helper;
-    private OkHttpClient client;
+    private static OkHttpClient client;
 
-    private HttpHelper() {
-        client = new OkHttpClient();
+    static {
+        client = new OkHttpClient.Builder()
+                .connectTimeout(10, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .build();
     }
 
     public static HttpHelper getInstance() {

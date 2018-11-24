@@ -1,4 +1,4 @@
-package com.example.meetdoctor.model;
+package com.example.meetdoctor.model.event;
 
 public class RegisterEvent {
 
@@ -10,6 +10,7 @@ public class RegisterEvent {
         this.responseCode = responseCode;
     }
 
+    // 获取返回的实际信息
     public String getMessage() {
         switch (responseCode) {
             case 200:
