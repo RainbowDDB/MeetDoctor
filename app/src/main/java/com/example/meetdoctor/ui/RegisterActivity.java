@@ -14,7 +14,6 @@ import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.base.HttpHelper;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckUserEvent;

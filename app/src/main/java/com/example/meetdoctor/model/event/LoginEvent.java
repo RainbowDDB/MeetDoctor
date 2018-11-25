@@ -1,6 +1,6 @@
 package com.example.meetdoctor.model.event;
 
-import com.example.meetdoctor.model.LoginBean;
+import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.MessageConstant;
 
 public class LoginEvent {

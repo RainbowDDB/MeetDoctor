@@ -15,7 +15,7 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.LoginBean;
+import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
