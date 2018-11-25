@@ -15,4 +15,5 @@
     <color name="hintGrey">#9d9d9e</color>
     <color name="green">#009744</color>
     <color name="tipGrey">#878787</color>
+    <color name="warning_red">#e64340</color>
 </resources>
