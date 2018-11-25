@@ -23,6 +23,7 @@ import com.example.meetdoctor.model.event.CheckUserEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
+import com.example.meetdoctor.utils.StringUtils;
 
 import java.io.IOException;
 
@@ -36,7 +37,39 @@ public class RegisterActivity extends BaseActivity
     private static final String TAG = "RegisterActivity";
     private EditText mAccount, mPassword, mConfirmedPassword;
     private CheckBox checkAgreement;
-    private TextView accountErr, passwordErr, confirmPasswordErr;
+    private TextView accountMsg, passwordMsg, confirmPasswordMsg;
+
+    // 密码输入观察者
+    private TextWatcher passwordWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            // 动态监听
+            String password = mPassword.getText().toString();
+            String confirmPassword = mConfirmedPassword.getText().toString();
+            if (checkPasswordLength(password)) {
+                hideMessage(passwordMsg);
+                if (!password.equals("")
+                        && !confirmPassword.equals("")
+                        && !checkPassword(password)) {
+                    showMessage(confirmPasswordMsg, "两次输入密码不一致，请重新输入！", true);
+                } else {
+                    hideMessage(confirmPasswordMsg);
+                }
+            } else {
+                showMessage(passwordMsg, "密码长度过长，请检查是否超出18个字符", true);
+            }
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+
+        }
+    };
 
     @Override
     public void initView() {
@@ -54,9 +87,9 @@ public class RegisterActivity extends BaseActivity
         checkAgreement = findViewById(R.id.check_box_agreement);
         TextView agreement = findViewById(R.id.tv_agreement);
         Button register = findViewById(R.id.btn_register_and_login);
-        accountErr = findViewById(R.id.tv_user_name_error);
-        passwordErr = findViewById(R.id.tv_password_error);
-        confirmPasswordErr = findViewById(R.id.tv_confirm_password_error);
+        accountMsg = findViewById(R.id.tv_user_name_msg);
+        passwordMsg = findViewById(R.id.tv_password_msg);
+        confirmPasswordMsg = findViewById(R.id.tv_confirm_password_msg);
 
         agreement.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -69,8 +102,11 @@ public class RegisterActivity extends BaseActivity
             @Override
             public void onTextChanged(CharSequence c, int i, int i1, int i2) {
                 // 输入内容变化
-                hideAllError();
-                checkUser(c.toString());
+                if (!c.toString().equals("")) {
+                    checkUser(c.toString());
+                } else {
+                    hideMessage(accountMsg);
+                }
             }
 
             @Override
@@ -78,39 +114,8 @@ public class RegisterActivity extends BaseActivity
 
             }
         });
-        mPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // 动态监听
-                hideAllError();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-        mConfirmedPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                hideAllError();
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
+        mPassword.addTextChangedListener(passwordWatcher);
+        mConfirmedPassword.addTextChangedListener(passwordWatcher);
     }
 
     @Override
@@ -149,17 +154,17 @@ public class RegisterActivity extends BaseActivity
                 if (event.getData() instanceof RegisterEvent) {
                     String msg = ((RegisterEvent) event.getData()).getMessage();
                     if (!msg.equals(MessageConstant.REGISTER_SUCCESS)) {
-                        showError(passwordErr, msg);
+                        showMessage(passwordMsg, msg, true);
                     } else {
                         // TODO 注册成功，显示模态弹窗
                         showToast(msg);
                     }
                 } else if (event.getData() instanceof CheckUserEvent) {
                     String msg = ((CheckUserEvent) event.getData()).getMessage();
-                    if (!msg.equals("")) {
-                        showError(accountErr, msg);
+                    if (!msg.equals(MessageConstant.USER_NAME_AVAILABLE)) {
+                        showMessage(accountMsg, msg, true);
                     } else {
-                        hideError(accountErr);
+                        showMessage(accountMsg, msg, false);
                     }
                 }
                 break;
@@ -168,21 +173,24 @@ public class RegisterActivity extends BaseActivity
 
     // 注册之前的各种判断
     private void startRegister() {
-        hideAllError();
         String password = mPassword.getText().toString();
         // 同意协议
         if (checkAgreement()) {
-            // 两次输入密码相同
-            if (checkPassword(password)) {
-                String userName = mAccount.getText().toString();
-                register(userName, password);
+            if (checkPasswordLength(password)) {
+                // 两次输入密码相同
+                if (checkPassword(password)) {
+                    String userName = mAccount.getText().toString();
+                    register(userName, password);
+                } else {
+                    // 提示重新输入
+                    showMessage(confirmPasswordMsg, MessageConstant.PASSWORD_DIFFERENT, true);
+                }
             } else {
-                // 提示重新输入
-                showError(confirmPasswordErr, "两次输入密码不一致，请重新输入！");
+                showMessage(confirmPasswordMsg, MessageConstant.PASSWORD_ILLEGAL, true);
             }
         } else {
             // 未同意协议
-            showError(confirmPasswordErr, "请同意遇医协议，否则将无法使用遇医APP哦~");
+            showMessage(confirmPasswordMsg, MessageConstant.AGREEMENT_DISAGREE, true);
         }
     }
 
@@ -209,7 +217,7 @@ public class RegisterActivity extends BaseActivity
 
     // 检查用户是否存在
     private void checkUser(String userName) {
-        if (!userName.equals("")) {
+        if (userName.length() >= 6 && userName.length() <= 18 && StringUtils.isNumber(userName)) {
             HttpUtils.checkUser(userName, new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
@@ -227,6 +235,9 @@ public class RegisterActivity extends BaseActivity
                     }
                 }
             });
+        } else {
+            EventBusUtils.post(new EventMessage<>(
+                    EventCode.SUCCESS, new CheckUserEvent(EventCode.USER_NAME_ILLEGAL)));
         }
     }
 
@@ -235,26 +246,37 @@ public class RegisterActivity extends BaseActivity
         return password.equals(confirmedPassword);
     }
 
+    private boolean checkPasswordLength(String password) {
+        return password.length() <= 18;
+    }
+
     private boolean checkAgreement() {
         return checkAgreement.isChecked();
     }
 
     // 显示错误提示
-    private void showError(TextView textView, String error) {
+    private void showMessage(TextView textView, String msg, boolean isError) {
         if (textView != null) {
-            textView.setText(error);
-            textView.setVisibility(View.VISIBLE);
+            if (isError) {
+                textView.setTextColor(getResources().getColor(R.color.warning_red));
+                textView.setText(msg);
+                textView.setVisibility(View.VISIBLE);
+            } else {
+                textView.setTextColor(getResources().getColor(R.color.green));
+                textView.setText(msg);
+                textView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
     // 隐藏
-    private void hideError(TextView textView) {
+    private void hideMessage(TextView textView) {
         textView.setVisibility(View.INVISIBLE);
     }
 
-    private void hideAllError() {
-        hideError(accountErr);
-        hideError(passwordErr);
-        hideError(confirmPasswordErr);
+    private void hideAllMessage() {
+        hideMessage(accountMsg);
+        hideMessage(passwordMsg);
+        hideMessage(confirmPasswordMsg);
     }
 }

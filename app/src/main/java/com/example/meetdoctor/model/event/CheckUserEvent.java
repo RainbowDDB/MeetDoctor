@@ -1,5 +1,6 @@
 package com.example.meetdoctor.model.event;
 
+import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.MessageConstant;
 
 public class CheckUserEvent {
@@ -12,8 +13,10 @@ public class CheckUserEvent {
 
     public String getMessage() {
         switch (responseCode) {
+            case EventCode.USER_NAME_ILLEGAL:
+                return MessageConstant.USER_NAME_ILLEGAL;
             case 200:
-                return "";
+                return MessageConstant.USER_NAME_AVAILABLE;
             case 400:
                 return MessageConstant.USER_EXISTED;
             case 401:
