@@ -14,7 +14,7 @@ public class LoginEvent {
     }
 
     // 获取返回的实际信息
-    public String getMessage() {
+    private String getMessage() {
         switch (responseCode) {
             case 200:
                 if (data.getResult() == 1) {
@@ -30,6 +30,15 @@ public class LoginEvent {
                 return MessageConstant.PARAMS_UNAVAILABLE;
             default:
                 return MessageConstant.UNKNOWN_ERROR;
+        }
+    }
+
+    // 获取错误信息
+    public String getError() {
+        if (responseCode == 200 && data.getResult() == 1) {
+            return "";
+        } else {
+            return getMessage();
         }
     }
 }

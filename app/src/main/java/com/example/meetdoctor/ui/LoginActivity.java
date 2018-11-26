@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +17,7 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
@@ -30,10 +33,8 @@ import okhttp3.Response;
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private static final String TAG = "LoginActivity";
-    private TextView register, forgetPassword;
     private EditText mAccount, mPassword;
-    private Button login;
-    private ImageView qqLogin, wechatLogin, otherLogin;
+    private TextView errMsg;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,14 +43,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     public void initView() {
-        register = findViewById(R.id.tv_register);
-        forgetPassword = findViewById(R.id.tv_forget_password);
+        TextView register = findViewById(R.id.tv_register);
+        TextView forgetPassword = findViewById(R.id.tv_forget_password);
         mAccount = findViewById(R.id.edt_account);
         mPassword = findViewById(R.id.edt_password);
-        login = findViewById(R.id.btn_login);
-        qqLogin = findViewById(R.id.img_qq_login);
-        wechatLogin = findViewById(R.id.img_wechat_login);
-        otherLogin = findViewById(R.id.img_other_login);
+        Button login = findViewById(R.id.btn_login);
+        ImageView qqLogin = findViewById(R.id.img_qq_login);
+        ImageView wechatLogin = findViewById(R.id.img_wechat_login);
+        ImageView otherLogin = findViewById(R.id.img_other_login);
+        errMsg = findViewById(R.id.tv_error_msg);
 
         register.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
@@ -57,6 +59,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         qqLogin.setOnClickListener(this);
         wechatLogin.setOnClickListener(this);
         otherLogin.setOnClickListener(this);
+
+        TextWatcher watcher = new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // 只要输入即清除错误信息
+                hideErrorMessage(errMsg);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        };
+        mAccount.addTextChangedListener(watcher);
+        mPassword.addTextChangedListener(watcher);
     }
 
     @Override
@@ -91,10 +113,17 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
-            showToast(((LoginEvent) event.getData()).getMessage());
+            String err = ((LoginEvent) event.getData()).getError();
+            if (!err.equals("")) {
+                showErrorMessage(errMsg, err);
+            } else {
+                hideErrorMessage(errMsg);
+                showToast(MessageConstant.LOGIN_SUCCESS);
+            }
         }
     }
 
+    // 忘记密码修改成功后返回调用
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
@@ -120,5 +149,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
             }
         });
+    }
+
+    private void showErrorMessage(TextView tv, String msg) {
+        tv.setText(msg);
+        tv.setVisibility(View.VISIBLE);
+    }
+
+    private void hideErrorMessage(TextView tv) {
+        tv.setVisibility(View.INVISIBLE);
     }
 }
