@@ -1,6 +1,7 @@
 package com.example.meetdoctor.model;
 
 public class MessageConstant {
+    public static final String NET_ERROR = "网络连接错误，请检查网络连接！";
     public static final String USER_EXISTED = "用户已存在";
     public static final String USER_INEXISTENT = "用户不存在";
     public static final String PARAMS_UNAVAILABLE = "请求参数无效";

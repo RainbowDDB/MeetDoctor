@@ -56,12 +56,12 @@ public class RegisterActivity extends BaseActivity
                 if (!password.equals("")
                         && !confirmPassword.equals("")
                         && !checkPassword(password)) {
-                    showMessage(confirmPasswordMsg, "两次输入密码不一致，请重新输入！", true);
+                    showMessage(confirmPasswordMsg, MessageConstant.PASSWORD_DIFFERENT, true);
                 } else {
                     hideMessage(confirmPasswordMsg);
                 }
             } else {
-                showMessage(passwordMsg, "密码长度过长，请检查是否超出18个字符", true);
+                showMessage(passwordMsg, MessageConstant.PASSWORD_ILLEGAL, true);
             }
         }
 
@@ -168,6 +168,9 @@ public class RegisterActivity extends BaseActivity
                     }
                 }
                 break;
+            case EventCode.USER_NAME_ILLEGAL:
+                showMessage(accountMsg, MessageConstant.USER_NAME_ILLEGAL, true);
+                break;
         }
     }
 
@@ -236,8 +239,7 @@ public class RegisterActivity extends BaseActivity
                 }
             });
         } else {
-            EventBusUtils.post(new EventMessage<>(
-                    EventCode.SUCCESS, new CheckUserEvent(EventCode.USER_NAME_ILLEGAL)));
+            EventBusUtils.post(new EventMessage<>(EventCode.USER_NAME_ILLEGAL));
         }
     }
 
@@ -272,11 +274,5 @@ public class RegisterActivity extends BaseActivity
     // 隐藏
     private void hideMessage(TextView textView) {
         textView.setVisibility(View.INVISIBLE);
-    }
-
-    private void hideAllMessage() {
-        hideMessage(accountMsg);
-        hideMessage(passwordMsg);
-        hideMessage(confirmPasswordMsg);
     }
 }

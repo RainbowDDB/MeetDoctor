@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -76,7 +77,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveEvent(EventMessage event) {
         if (event.getCode() == EventCode.NET_ERROR) {
-            showToast("网络连接错误，请检查网络连接！");
+            showToast(MessageConstant.NET_ERROR);
         }
     }
 
