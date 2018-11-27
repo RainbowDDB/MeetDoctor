@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scroll_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/pureWhite">
@@ -11,8 +12,9 @@
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
             android:layout_width="match_parent"
-            android:layout_height="207dp"
+            android:layout_height="220dp"
             android:background="@drawable/login_background"
             app:elevation="0dp">
 
@@ -38,7 +40,6 @@
                 android:layout_marginTop="20dp"
                 android:src="@drawable/login_avatar" />
         </android.support.design.widget.AppBarLayout>
-
 
         <LinearLayout
             android:layout_width="@dimen/page_width"

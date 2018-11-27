@@ -1,6 +1,7 @@
 package com.example.meetdoctor.ui;
 
 import android.support.annotation.NonNull;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -12,6 +13,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
@@ -24,6 +26,7 @@ import com.example.meetdoctor.model.event.RegisterEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
+import com.example.meetdoctor.utils.UIHelper;
 
 import java.io.IOException;
 
@@ -73,6 +76,8 @@ public class RegisterActivity extends BaseActivity
 
     @Override
     public void initView() {
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(this), 0, 0);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -90,6 +95,9 @@ public class RegisterActivity extends BaseActivity
         accountMsg = findViewById(R.id.tv_user_name_msg);
         passwordMsg = findViewById(R.id.tv_password_msg);
         confirmPasswordMsg = findViewById(R.id.tv_confirm_password_msg);
+
+        ScrollView scrollView = findViewById(R.id.scroll_view);
+        UIHelper.setScrollViewHeight(getWindow(), scrollView);
 
         agreement.setOnClickListener(this);
         register.setOnClickListener(this);

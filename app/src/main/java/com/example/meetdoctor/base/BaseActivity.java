@@ -11,6 +11,7 @@ import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.utils.UIHelper;
 import com.umeng.analytics.MobclickAgent;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -26,6 +27,8 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 透明状态栏
+        UIHelper.setImmersiveStatusBar(getWindow());
         setContentView(getLayoutId());
         initView();
     }

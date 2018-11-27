@@ -8,8 +8,9 @@
     android:orientation="vertical">
 
     <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
+        android:layout_height="263dp"
         android:background="@drawable/login_background"
         app:elevation="0dp">
 

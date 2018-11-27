@@ -1,5 +1,6 @@
 package com.example.meetdoctor.ui;
 
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
@@ -8,10 +9,13 @@ import android.widget.Button;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.utils.UIHelper;
 
 public class RetrieveSuccessActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initView() {
+        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
+        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(this), 0, 0);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -19,6 +23,7 @@ public class RetrieveSuccessActivity extends BaseActivity implements View.OnClic
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+
 
         Button confirm = findViewById(R.id.btn_confirm);
         confirm.setOnClickListener(this);

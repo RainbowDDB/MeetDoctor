@@ -23,4 +23,5 @@
     <string name="next_step">下一步</string>
     <string name="confirm">确 定</string>
     <string name="retrieve_success">成功找回密码</string>
+    <string name="skip">跳过</string>
 </resources>

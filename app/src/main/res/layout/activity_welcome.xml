@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.WelcomeActivity">
+    android:background="@drawable/welcome"
+    android:fitsSystemWindows="true">
 
     <TextView
-        android:id="@+id/tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="遇医"
-        android:textSize="50sp" />
-
-</LinearLayout>
+        android:id="@+id/tv_skip"
+        android:layout_width="72dp"
+        android:layout_height="32dp"
+        android:layout_gravity="end"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/button_circle_border_white"
+        android:gravity="center"
+        android:text="@string/skip"
+        android:textColor="@color/pureWhite"
+        android:textSize="16sp" />
+</android.support.design.widget.CoordinatorLayout>

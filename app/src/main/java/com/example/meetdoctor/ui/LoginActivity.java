@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
@@ -22,6 +23,7 @@ import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
+import com.example.meetdoctor.utils.UIHelper;
 import com.google.gson.Gson;
 
 import java.io.IOException;
@@ -52,6 +54,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         ImageView wechatLogin = findViewById(R.id.img_wechat_login);
         ImageView otherLogin = findViewById(R.id.img_other_login);
         errMsg = findViewById(R.id.tv_error_msg);
+
+        ScrollView scrollView = findViewById(R.id.scroll_view);
+        // 监听软键盘状态从而改变ScrollView高度
+        UIHelper.setScrollViewHeight(getWindow(), scrollView);
 
         register.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
