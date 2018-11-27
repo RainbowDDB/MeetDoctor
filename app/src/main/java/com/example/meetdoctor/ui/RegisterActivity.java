@@ -124,6 +124,7 @@ public class RegisterActivity extends BaseActivity
         });
         mPassword.addTextChangedListener(passwordWatcher);
         mConfirmedPassword.addTextChangedListener(passwordWatcher);
+        mConfirmedPassword.setOnEditorActionListener(this);
     }
 
     @Override
@@ -184,6 +185,7 @@ public class RegisterActivity extends BaseActivity
 
     // 注册之前的各种判断
     private void startRegister() {
+        hideAllMessage();
         String password = mPassword.getText().toString();
         // 同意协议
         if (checkAgreement()) {
@@ -282,5 +284,11 @@ public class RegisterActivity extends BaseActivity
     // 隐藏
     private void hideMessage(TextView textView) {
         textView.setVisibility(View.INVISIBLE);
+    }
+
+    private void hideAllMessage() {
+        hideMessage(accountMsg);
+        hideMessage(passwordMsg);
+        hideMessage(confirmPasswordMsg);
     }
 }

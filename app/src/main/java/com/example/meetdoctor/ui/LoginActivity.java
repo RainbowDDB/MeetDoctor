@@ -7,7 +7,9 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -32,7 +34,8 @@ import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
 
-public class LoginActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity
+        implements View.OnClickListener, TextView.OnEditorActionListener {
 
     private static final String TAG = "LoginActivity";
     private EditText mAccount, mPassword;
@@ -85,6 +88,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         };
         mAccount.addTextChangedListener(watcher);
         mPassword.addTextChangedListener(watcher);
+        mPassword.setOnEditorActionListener(this);
     }
 
     @Override
@@ -113,6 +117,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             case R.id.img_other_login:
                 break;
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+        switch (i) {
+            case EditorInfo.IME_ACTION_DONE:
+                String userName = mAccount.getText().toString();
+                String password = mPassword.getText().toString();
+                login(userName, password);
+                break;
+        }
+        return true;
     }
 
     @Override
