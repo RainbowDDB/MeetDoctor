@@ -84,7 +84,7 @@ class AuthController extends Controller
 		if($userid != ''){
 			return response('Success',200);
 		}else{
-			return response('False',400);
+			return response('False',406);
 		}
 	}
 }
