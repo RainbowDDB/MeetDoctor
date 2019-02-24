@@ -11,7 +11,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Model\Users;
+use App\Model\User;
 
 class AuthController extends Controller
 {
@@ -24,7 +24,7 @@ class AuthController extends Controller
 		if ($username == '' || $userpassword == '' || $_SERVER['REQUEST_METHOD'] != 'POST') {
 			return response('Unauthorized', 401);
 		}
-		$info = Users::UserInfoByName($username);
+		$info = User::UserInfoByName($username);
 		if ($info) {
 			$name = 1;
 			if ($info['password'] == $userpassword) {
@@ -50,11 +50,11 @@ class AuthController extends Controller
 		if($username == ''||$userpassword == ''){
 			return response('Unauthorized', 401);
 		}
-		$info = Users::UserInfoByName($username);
+		$info = User::UserInfoByName($username);
 		if($info){
 			return response('User is present!',400);
 		}else{
-			$result = Users::AddUser($username,$userpassword);
+			$result = User::AddUser($username,$userpassword);
 			if($result){
 				return response('Success',200);
 			}else{
@@ -70,7 +70,7 @@ class AuthController extends Controller
 		if($username == ''){
 			return response('Unauthorized', 401);
 		}
-		$info = Users::UserInfoByName($username);
+		$info = User::UserInfoByName($username);
 		if($info){
 			return response('User is present!',400);
 		}else{
@@ -80,8 +80,8 @@ class AuthController extends Controller
 
 	public function checklogin(request $r)
 	{
-		$userid = $r->session()->get('userid');
-		if($userid != ''){
+		$userid = GetUserId($r);
+		if($userid){
 			return response('Success',200);
 		}else{
 			return response('False',406);
