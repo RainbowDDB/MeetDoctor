@@ -2,6 +2,8 @@ package com.example.meetdoctor.base;
 
 import android.app.Application;
 
+import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.Logger;
 import com.umeng.commonsdk.UMConfigure;
 
 /**
@@ -16,5 +18,7 @@ public class MyApplication extends Application {
         UMConfigure.init(this, "5bf14e5ff1f5569ca50006aa", "YuYi"
                 , UMConfigure.DEVICE_TYPE_PHONE, null);
         UMConfigure.setLogEnabled(true);
+        // Logger初始化
+        Logger.addLogAdapter(new AndroidLogAdapter());
     }
 }

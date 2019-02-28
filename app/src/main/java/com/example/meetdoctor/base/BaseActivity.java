@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.meetdoctor.model.EventCode;
@@ -29,7 +30,13 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         super.onCreate(savedInstanceState);
         // 透明状态栏
         UIHelper.setImmersiveStatusBar(getWindow());
-        setContentView(getLayoutId());
+        if (getLayout() instanceof Integer) {
+            setContentView((Integer) getLayout());
+        } else if (getLayout() instanceof View) {
+            setContentView((View) getLayout());
+        } else {
+            throw new RuntimeException("this is not a view or viewId, please check layout form");
+        }
         initView();
     }
 

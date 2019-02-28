@@ -30,7 +30,7 @@ public class RetrieveSuccessActivity extends BaseActivity implements View.OnClic
     }
 
     @Override
-    public int getLayoutId() {
+    public Object getLayout() {
         return R.layout.activity_retrieve_success;
     }
 

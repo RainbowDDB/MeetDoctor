@@ -8,7 +8,7 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.utils.UIHelper;
 
-public class AgreementActivity extends BaseActivity {
+public class HealthProfileActivity extends BaseActivity {
     @Override
     public void initView() {
         AppBarLayout appBarLayout = findViewById(R.id.app_bar);
@@ -24,6 +24,6 @@ public class AgreementActivity extends BaseActivity {
 
     @Override
     public Object getLayout() {
-        return R.layout.activity_agreement;
+        return R.layout.activity_health_profile;
     }
 }

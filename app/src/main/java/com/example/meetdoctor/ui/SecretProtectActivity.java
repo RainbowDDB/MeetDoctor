@@ -39,7 +39,7 @@ public class SecretProtectActivity extends BaseActivity implements View.OnClickL
     }
 
     @Override
-    public int getLayoutId() {
+    public Object getLayout() {
         return R.layout.activity_secret_protect;
     }
 

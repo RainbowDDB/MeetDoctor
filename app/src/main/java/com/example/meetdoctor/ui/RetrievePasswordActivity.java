@@ -41,7 +41,7 @@ public class RetrievePasswordActivity extends BaseActivity implements View.OnCli
     }
 
     @Override
-    public int getLayoutId() {
+    public Object getLayout() {
         return R.layout.acticity_retrieve_password;
     }
 

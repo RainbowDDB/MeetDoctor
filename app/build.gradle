@@ -16,16 +16,33 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.0.0'
     implementation 'com.android.support:design:28.0.0'
+    // 友盟统计
     implementation 'com.umeng.umsdk:analytics:7.5.4'
     implementation 'com.umeng.umsdk:common:1.5.4'
+    // EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
-    implementation 'com.squareup.okhttp3:okhttp:3.12.0'
+    // Retrofit + OkHttp
+    api 'com.squareup.retrofit2:retrofit:2.5.0'
+    api 'com.squareup.retrofit2:converter-scalars:2.5.0'
+    api 'com.squareup.okhttp3:okhttp:3.12.0'
+    api 'com.squareup.okio:okio:2.1.0'
+    // Gson
     implementation 'com.google.code.gson:gson:2.8.5'
+    // Logger日志
+    implementation 'com.orhanobut:logger:2.2.0'
+    // Banner
+    implementation 'com.bigkoo:convenientbanner:2.0.5'
+    // Loading
+    api 'com.wang.avi:library:2.1.3'
     testImplementation 'junit:junit:4.12'
 }

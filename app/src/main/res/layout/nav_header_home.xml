@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/img_avatar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="50dp"
+        android:src="@drawable/login_avatar" />
+
+    <LinearLayout
+        android:id="@+id/ai_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/img_avatar"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/ai"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/collection_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/ai_layout"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/collection"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/health_profile_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/collection_layout"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/health_profile"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/history_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/health_profile_layout"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/history"
+            android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/setting_layout"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@id/history_layout"
+        android:gravity="center_vertical">
+
+        <ImageView
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:paddingLeft="6dp"
+            android:paddingRight="6dp"
+            android:src="@drawable/star" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="@string/setting"
+            android:textSize="16sp" />
+    </LinearLayout>
+</RelativeLayout>

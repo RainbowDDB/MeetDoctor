@@ -2,11 +2,9 @@ package com.example.meetdoctor.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,6 +16,9 @@ import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.core.net.callback.IError;
+import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
@@ -27,12 +28,6 @@ import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
 import com.google.gson.Gson;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class LoginActivity extends BaseActivity
         implements View.OnClickListener, TextView.OnEditorActionListener {
@@ -92,7 +87,7 @@ public class LoginActivity extends BaseActivity
     }
 
     @Override
-    public int getLayoutId() {
+    public Object getLayout() {
         return R.layout.activity_login;
     }
 
@@ -111,6 +106,12 @@ public class LoginActivity extends BaseActivity
                 login(userName, password);
                 break;
             case R.id.img_qq_login:
+//             TODO 待修改   测试登录验证用
+                HttpUtils.checkLogin((code, response) -> {
+                    if (response != null) {
+                        LatteLogger.d(code + "    " + response);
+                    }
+                }, (code, msg) -> LatteLogger.e(TAG, code + "    " + msg));
                 break;
             case R.id.img_wechat_login:
                 break;
@@ -152,25 +153,7 @@ public class LoginActivity extends BaseActivity
     }
 
     private void login(String userName, String password) {
-        HttpUtils.login(userName, password, new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, e.toString());
-                EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.body() != null) {
-                    int code = response.code();
-                    String responseData = response.body().string();
-                    Log.d(TAG, "code=" + code + "   responseData=" + responseData);
-                    Gson gson = new Gson();
-                    LoginBean bean = gson.fromJson(responseData, LoginBean.class);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, bean)));
-                }
-            }
-        });
+        HttpUtils.login(this, userName, password);
     }
 
     private void showErrorMessage(TextView tv, String msg) {

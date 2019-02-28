@@ -16,6 +16,11 @@ public class UIHelper {
         return context.getResources().getDisplayMetrics().widthPixels;
     }
 
+    public static int getScreenHeight(Context context) {
+        return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    // 使状态栏变为透明，从而实现沉浸式状态栏
     public static void setImmersiveStatusBar(Window window) {
         View decorView = window.getDecorView();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -26,6 +31,7 @@ public class UIHelper {
     }
 
     // 监听软键盘状态从而改变ScrollView高度
+    // 解决状态栏透明导致的ScrollView滚动失效的bug
     public static void setScrollViewHeight(Window window, final ScrollView scrollView) {
         final View decorView = window.getDecorView();
         decorView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {

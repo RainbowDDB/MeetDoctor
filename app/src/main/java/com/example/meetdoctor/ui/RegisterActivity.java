@@ -1,12 +1,10 @@
 package com.example.meetdoctor.ui;
 
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -27,12 +25,6 @@ import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class RegisterActivity extends BaseActivity
         implements View.OnClickListener, TextView.OnEditorActionListener {
@@ -128,7 +120,7 @@ public class RegisterActivity extends BaseActivity
     }
 
     @Override
-    public int getLayoutId() {
+    public Object getLayout() {
         return R.layout.activity_register;
     }
 
@@ -209,45 +201,13 @@ public class RegisterActivity extends BaseActivity
 
     // 注册
     private void register(String userName, String password) {
-        HttpUtils.register(userName, password, new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                Log.e(TAG, e.toString());
-                EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                if (response.body() != null) {
-                    int code = response.code();
-                    String responseData = response.body().string();
-                    Log.d(TAG, "code=" + code + "   responseData=" + responseData);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(code)));
-                }
-            }
-        });
+        HttpUtils.register(this, userName, password);
     }
 
     // 检查用户是否存在
     private void checkUser(String userName) {
         if (userName.length() >= 6 && userName.length() <= 18 && StringUtils.isNumber(userName)) {
-            HttpUtils.checkUser(userName, new Callback() {
-                @Override
-                public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                    Log.e(TAG, e.toString());
-                    EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
-                }
-
-                @Override
-                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
-                    if (response.body() != null) {
-                        int code = response.code();
-                        String responseData = response.body().string();
-                        Log.d(TAG, "code=" + code + "   responseData=" + responseData);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(code)));
-                    }
-                }
-            });
+            HttpUtils.checkUser(userName);
         } else {
             EventBusUtils.post(new EventMessage<>(EventCode.USER_NAME_ILLEGAL));
         }
