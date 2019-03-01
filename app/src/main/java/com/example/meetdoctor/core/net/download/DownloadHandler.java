@@ -1,6 +1,5 @@
 package com.example.meetdoctor.core.net.download;
 
-import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
@@ -47,7 +46,7 @@ public class DownloadHandler {
         this.ERROR = iError;
     }
 
-    public final void handleDownload(Context context) {
+    public final void handleDownload() {
         if (REQUEST != null) {
             REQUEST.onRequestStart();
         }
@@ -57,7 +56,7 @@ public class DownloadHandler {
                     public void onResponse(@NonNull Call<ResponseBody> call, @NonNull Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             final ResponseBody body = response.body();
-                            final SaveFileTask task = new SaveFileTask(context, REQUEST, SUCCESS);
+                            final SaveFileTask task = new SaveFileTask(REQUEST, SUCCESS);
                             task.executeOnExecutor(
                                     AsyncTask.THREAD_POOL_EXECUTOR, DOWNLOAD_DIR, EXTENSION, body, NAME);
                             // 这里注意必须判断，否则文件下载不全

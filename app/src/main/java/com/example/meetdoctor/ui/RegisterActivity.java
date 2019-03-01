@@ -1,5 +1,6 @@
 package com.example.meetdoctor.ui;
 
+import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.CheckUserEvent;
+import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -29,6 +31,7 @@ import com.example.meetdoctor.utils.UIHelper;
 public class RegisterActivity extends BaseActivity
         implements View.OnClickListener, TextView.OnEditorActionListener {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "RegisterActivity";
     private EditText mAccount, mPassword, mConfirmedPassword;
     private CheckBox checkAgreement;
@@ -153,12 +156,14 @@ public class RegisterActivity extends BaseActivity
         switch (event.getCode()) {
             case EventCode.SUCCESS:
                 if (event.getData() instanceof RegisterEvent) {
-                    String msg = ((RegisterEvent) event.getData()).getMessage();
+                    RegisterEvent e = (RegisterEvent) event.getData();
+                    String msg = e.getMessage();
                     if (!msg.equals(MessageConstant.REGISTER_SUCCESS)) {
                         showMessage(passwordMsg, msg, true);
                     } else {
-                        // TODO 注册成功，显示模态弹窗
                         showToast(msg);
+                        // 自动登录
+                        HttpUtils.login(this, e.getUserName(), e.getPassword());
                     }
                 } else if (event.getData() instanceof CheckUserEvent) {
                     String msg = ((CheckUserEvent) event.getData()).getMessage();
@@ -166,6 +171,16 @@ public class RegisterActivity extends BaseActivity
                         showMessage(accountMsg, msg, true);
                     } else {
                         showMessage(accountMsg, msg, false);
+                    }
+                } else if (event.getData() instanceof LoginEvent) {
+                    String err = ((LoginEvent) event.getData()).getError();
+                    if (!err.equals("")) {
+                        showMessage(passwordMsg, err, true);
+                    } else {
+                        showToast(MessageConstant.LOGIN_SUCCESS);
+                        startActivity(HomeActivity.class,
+                                Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        finish();
                     }
                 }
                 break;

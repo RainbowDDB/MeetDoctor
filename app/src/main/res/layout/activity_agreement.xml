@@ -17,8 +17,7 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@color/pureWhite"
-            android:fitsSystemWindows="true">
+            android:background="@color/pureWhite">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -30,29 +29,34 @@
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/page_margin_top"
-        android:background="@color/pureWhite"
-        android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="@dimen/page_width"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="36dp"
-            android:text="@string/agreement_detail_0"
-            android:textColor="@color/textBlack"
-            android:textSize="18sp" />
+            android:layout_marginTop="@dimen/page_margin_top"
+            android:background="@color/pureWhite"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
-        <TextView
-            android:layout_width="@dimen/page_width"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
-            android:lineSpacingExtra="6dp"
-            android:text="@string/agreement_detail_1"
-            android:textColor="@color/textBlack"
-            android:textSize="18sp" />
-    </LinearLayout>
+            <TextView
+                android:layout_width="@dimen/page_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="36dp"
+                android:text="@string/agreement_detail_0"
+                android:textColor="@color/textBlack"
+                android:textSize="18sp" />
+
+            <TextView
+                android:layout_width="@dimen/page_width"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="32dp"
+                android:lineSpacingExtra="6dp"
+                android:text="@string/agreement_detail_1"
+                android:textColor="@color/textBlack"
+                android:textSize="18sp" />
+        </LinearLayout>
+    </ScrollView>
 </LinearLayout>

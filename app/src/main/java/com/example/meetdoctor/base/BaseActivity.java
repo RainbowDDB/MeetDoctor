@@ -25,6 +25,8 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class BaseActivity extends AppCompatActivity implements IActivity {
 
+    private long mPressedTime = 0;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +37,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         } else if (getLayout() instanceof View) {
             setContentView((View) getLayout());
         } else {
-            throw new RuntimeException("this is not a view or viewId, please check layout form");
+            throw new RuntimeException("getLayout() is not a view or viewId, please check layout form");
         }
         initView();
     }
@@ -74,9 +76,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
         return true;
     }
 
-    protected void startActivity(Class<?> clz) {
+    protected void startActivity(Class<?> clz, int flag) {
         Intent intent = new Intent(this, clz);
+        intent.setFlags(flag);
         startActivity(intent);
+    }
+
+    protected void startActivity(Class<?> clz) {
+        startActivity(clz, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
     /**
@@ -98,6 +105,18 @@ public abstract class BaseActivity extends AppCompatActivity implements IActivit
      */
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onReceiveStickyEvent(EventMessage event) {
+    }
+
+    @Override
+    public void onBackPressed() {
+        long mNowTime = System.currentTimeMillis();// 获取第一次按键时间
+        if ((mNowTime - mPressedTime) > 2000) {// 比较两次按键时间差
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mPressedTime = mNowTime;
+        } else {// 退出程序
+            finish();
+            System.exit(0);
+        }
     }
 
     protected void showToast(String message) {

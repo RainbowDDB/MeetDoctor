@@ -20,7 +20,7 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void run() {
                 // 如果是首次进入
-                if (!LattePreference.getAppFlag(WelcomeActivity.this,
+                if (!LattePreference.getAppFlag(
                         ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
                     startActivity(new Intent(WelcomeActivity.this, LauncherActivity.class));
                 } else {

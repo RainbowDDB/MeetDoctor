@@ -17,17 +17,12 @@ import android.widget.TextView;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.core.net.callback.IError;
-import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
-import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.event.LoginEvent;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
-import com.google.gson.Gson;
 
 public class LoginActivity extends BaseActivity
         implements View.OnClickListener, TextView.OnEditorActionListener {
@@ -101,15 +96,14 @@ public class LoginActivity extends BaseActivity
                 startActivity(SecretProtectActivity.class);
                 break;
             case R.id.btn_login:
-                String userName = mAccount.getText().toString();
-                String password = mPassword.getText().toString();
-                login(userName, password);
+//                HttpUtils.login(this, mAccount.getText().toString(), mPassword.getText().toString());
+                login();
                 break;
             case R.id.img_qq_login:
 //             TODO 待修改   测试登录验证用
-                HttpUtils.checkLogin((code, response) -> {
+                HttpUtils.checkLogin((response) -> {
                     if (response != null) {
-                        LatteLogger.d(code + "    " + response);
+                        LatteLogger.d(200 + "    " + response);
                     }
                 }, (code, msg) -> LatteLogger.e(TAG, code + "    " + msg));
                 break;
@@ -124,9 +118,7 @@ public class LoginActivity extends BaseActivity
     public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
         switch (i) {
             case EditorInfo.IME_ACTION_DONE:
-                String userName = mAccount.getText().toString();
-                String password = mPassword.getText().toString();
-                login(userName, password);
+                login();
                 break;
         }
         return true;
@@ -142,6 +134,8 @@ public class LoginActivity extends BaseActivity
             } else {
                 hideErrorMessage(errMsg);
                 showToast(MessageConstant.LOGIN_SUCCESS);
+                startActivity(HomeActivity.class,
+                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
             }
         }
     }
@@ -152,8 +146,12 @@ public class LoginActivity extends BaseActivity
         super.onNewIntent(intent);
     }
 
-    private void login(String userName, String password) {
-        HttpUtils.login(this, userName, password);
+    private void login() {
+        String userName = mAccount.getText().toString();
+        String password = mPassword.getText().toString();
+        if (!userName.isEmpty() && !password.isEmpty()) {
+            HttpUtils.login(this, userName, password);
+        }
     }
 
     private void showErrorMessage(TextView tv, String msg) {

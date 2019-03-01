@@ -15,4 +15,6 @@ public class MessageConstant {
     public static final String PASSWORD_ILLEGAL = "密码过长，请检查是否为18个字符之内";
     public static final String PASSWORD_DIFFERENT = "两次输入密码不一致，请重新输入！";
     public static final String AGREEMENT_DISAGREE = "请同意遇医协议，否则将无法使用遇医APP哦~";
+    public static final String LOGINED = "用户已登录";
+    public static final String NOT_LOGINED = "用户未登录";
 }

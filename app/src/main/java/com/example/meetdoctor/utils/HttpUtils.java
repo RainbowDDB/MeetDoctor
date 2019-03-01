@@ -1,7 +1,6 @@
 package com.example.meetdoctor.utils;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.net.RestClient;
@@ -9,11 +8,9 @@ import com.example.meetdoctor.core.net.callback.IError;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.event.CheckUserEvent;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
-import com.google.gson.Gson;
 
 import java.util.WeakHashMap;
 
@@ -32,19 +29,15 @@ public class HttpUtils {
         RestClient.builder().url("user/login")
                 .loader(context)
                 .params(params)
-                .success((code, response) -> {
+                .success((response) -> {
                     if (response != null) {
-                        LatteLogger.d(context.toString(), "code = " + code + ",responseData = " + response);
-                        Gson gson = new Gson();
-                        LoginBean bean = gson.fromJson(response, LoginBean.class);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, bean)));
+                        LatteLogger.d("login success: code = " + 200 + ",responseData = " + response);
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(200, response)));
                     }
                 })
                 .error((code, msg) -> {
-                    LatteLogger.e(context.toString(), "code = " + code + ",responseData = " + msg);
-                    Gson gson = new Gson();
-                    LoginBean bean = gson.fromJson(msg, LoginBean.class);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, bean)));
+                    LatteLogger.e("login error", "code=" + code + "  err=" + msg);
+                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, msg)));
                 })
                 .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
                 .build()
@@ -66,14 +59,14 @@ public class HttpUtils {
         RestClient.builder().url("user/registered")
                 .loader(context)
                 .params(params)
-                .success((code, response) -> {
+                .success((response) -> {
                     if (response != null) {
-                        Log.d("register success", "code=" + code + "   responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(code)));
+                        LatteLogger.d("register success: responseData=" + response);
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(200, userName, password)));
                     }
                 })
                 .error((code, msg) -> {
-                    LatteLogger.e("register error：", msg);
+                    LatteLogger.e("register error", "code=" + code + "  err=" + msg);
                     EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(code)));
                 })
                 .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
@@ -91,14 +84,14 @@ public class HttpUtils {
         params.put("username", userName);
         RestClient.builder().url("user/check")
                 .params(params)
-                .success((code, response) -> {
+                .success((response) -> {
                     if (response != null) {
-                        Log.d("checkUser success：", "code=" + code + "   responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(code)));
+                        LatteLogger.d("checkUser success：responseData=" + response);
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(200)));
                     }
                 })
                 .error((code, msg) -> {
-                    LatteLogger.e("checkUser error：", msg);
+                    LatteLogger.e("checkUser error", "code=" + code + "  err=" + msg);
                     EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(code)));
                 })
                 .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))

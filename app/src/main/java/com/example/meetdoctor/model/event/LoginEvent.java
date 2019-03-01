@@ -2,15 +2,20 @@ package com.example.meetdoctor.model.event;
 
 import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.MessageConstant;
+import com.google.gson.Gson;
 
 public class LoginEvent {
 
     private int responseCode;
     private LoginBean data;
 
-    public LoginEvent(int responseCode, LoginBean data) {
+    public LoginEvent(int responseCode, String data) {
         this.responseCode = responseCode;
-        this.data = data;
+        if (responseCode == 200) {
+            this.data = new Gson().fromJson(data, LoginBean.class);
+        } else {
+            this.data = null;
+        }
     }
 
     // 获取返回的实际信息
@@ -29,7 +34,7 @@ public class LoginEvent {
             case 401:
                 return MessageConstant.PARAMS_UNAVAILABLE;
             default:
-                return MessageConstant.UNKNOWN_ERROR;
+                throw new RuntimeException("ResponseCode is not right, please check.");
         }
     }
 

@@ -41,7 +41,7 @@ public class RequestCallbacks implements Callback<String> {
             // call已执行
             if (call.isExecuted()) {
                 if (SUCCESS != null) {
-                    SUCCESS.onSuccess(response.code(), response.body());
+                    SUCCESS.onSuccess(response.body());
                 }
             }
         } else {

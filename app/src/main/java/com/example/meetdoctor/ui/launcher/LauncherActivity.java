@@ -38,7 +38,7 @@ public class LauncherActivity extends BaseActivity implements OnItemClickListene
     public void onItemClick(int position) {
         // 如果点击的是最后一个，直接进入登录页
         if (position == INTEGERS.size() - 1) {
-            LattePreference.setAppFlag(this,
+            LattePreference.setAppFlag(
                     ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
             startActivity(new Intent(this, LoginActivity.class));
             finish();

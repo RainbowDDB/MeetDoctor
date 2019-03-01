@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import com.example.meetdoctor.base.MyApplication;
+
 @SuppressWarnings("unused")
 public final class LattePreference {
     /**
@@ -12,61 +14,61 @@ public final class LattePreference {
      * PreferenceManager.getDefaultSharedPreferences(Context)生成 包名_preferences.xml
      * Context.getSharedPreferences(String name,int mode)生成name.xml
      */
-    /*
+
     private static final SharedPreferences PREFERENCES =
-            PreferenceManager.getDefaultSharedPreferences(Latte.getApplicationContext());
-            */
+            PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext());
+
     private static final String APP_PREFERENCES_KEY = "profile";
 
-    private static SharedPreferences getAppPreference(Context context) {
-        return PreferenceManager.getDefaultSharedPreferences(context);
+    private static SharedPreferences getAppPreference() {
+        return PREFERENCES;
     }
 
     public static void setAppProfile(Context context, String val) {
-        getAppPreference(context)
+        getAppPreference()
                 .edit()
                 .putString(APP_PREFERENCES_KEY, val)
                 .apply();
     }
 
-    private static String getAppProfile(Context context) {
-        return getAppPreference(context).getString(APP_PREFERENCES_KEY, null);
+    private static String getAppProfile() {
+        return getAppPreference().getString(APP_PREFERENCES_KEY, null);
     }
 
-    public static void removeAppProfile(Context context) {
-        getAppPreference(context)
+    public static void removeAppProfile() {
+        getAppPreference()
                 .edit()
                 .remove(APP_PREFERENCES_KEY)
                 .apply();
     }
 
-    public static void clearAppPreferences(Context context) {
-        getAppPreference(context)
+    public static void clearAppPreferences() {
+        getAppPreference()
                 .edit()
                 .clear()
                 .apply();
     }
 
-    public static void setAppFlag(Context context, String key, boolean flag) {
-        getAppPreference(context)
+    public static void setAppFlag(String key, boolean flag) {
+        getAppPreference()
                 .edit()
                 .putBoolean(key, flag)
                 .apply();
     }
 
-    public static boolean getAppFlag(Context context, String key) {
-        return getAppPreference(context)
+    public static boolean getAppFlag(String key) {
+        return getAppPreference()
                 .getBoolean(key, false);
     }
 
-    public static void addCustomAppProfile(Context context, String key, String val) {
-        getAppPreference(context)
+    public static void addCustomAppProfile(String key, String val) {
+        getAppPreference()
                 .edit()
                 .putString(key, val)
                 .apply();
     }
 
-    public static String getCustomAppProfile(Context context, String key) {
-        return getAppPreference(context).getString(key, "");
+    public static String getCustomAppProfile(String key) {
+        return getAppPreference().getString(key, "");
     }
 }

@@ -1,11 +1,10 @@
 package com.example.meetdoctor.core.net.download;
 
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 
+import com.example.meetdoctor.base.MyApplication;
 import com.example.meetdoctor.core.net.callback.IRequest;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.utils.FileUtils;
@@ -17,13 +16,10 @@ import okhttp3.ResponseBody;
 
 public class SaveFileTask extends AsyncTask<Object, Void, File> {
 
-    @SuppressLint("StaticFieldLeak")
-    private final Context CONTEXT;
     private final IRequest REQUEST;
     private final ISuccess SUCCESS;
 
-    public SaveFileTask(Context context, IRequest request, ISuccess success) {
-        this.CONTEXT = context;
+    SaveFileTask(IRequest request, ISuccess success) {
         this.REQUEST = request;
         this.SUCCESS = success;
     }
@@ -52,7 +48,7 @@ public class SaveFileTask extends AsyncTask<Object, Void, File> {
     protected void onPostExecute(File file) {
         super.onPostExecute(file);
         if (SUCCESS != null) {
-            SUCCESS.onSuccess(200, file.getPath());
+            SUCCESS.onSuccess(file.getPath());
         }
         if (REQUEST != null) {
             REQUEST.onRequestEnd();
@@ -66,7 +62,7 @@ public class SaveFileTask extends AsyncTask<Object, Void, File> {
             install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             install.setAction(Intent.ACTION_VIEW);
             install.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
-            CONTEXT.startActivity(install);
+            MyApplication.getContext().startActivity(install);
         }
     }
 }
