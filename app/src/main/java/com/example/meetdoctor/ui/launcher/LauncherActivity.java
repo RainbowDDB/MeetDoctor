@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.meetdoctor.R;
+
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.ui.LoginActivity;
 import com.example.meetdoctor.core.storage.LattePreference;

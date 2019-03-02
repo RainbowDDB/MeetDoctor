@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.model.EventCode;
+import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.event.CheckPermissionEvent;
 import com.example.meetdoctor.ui.launcher.LauncherActivity;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.core.storage.LattePreference;
@@ -13,10 +16,12 @@ import com.example.meetdoctor.utils.TimerHelper;
 
 public class WelcomeActivity extends BaseActivity {
 
+    private TimerHelper timer;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        TimerHelper timer = new TimerHelper() {
+        timer = new TimerHelper() {
             @Override
             public void run() {
                 // 如果是首次进入
@@ -31,8 +36,6 @@ public class WelcomeActivity extends BaseActivity {
                 finish();
             }
         };
-        // 延迟2s后执行，period的10000可忽略
-        timer.start(2000, 10000);
     }
 
     @Override
@@ -42,5 +45,17 @@ public class WelcomeActivity extends BaseActivity {
     @Override
     public Object getLayout() {
         return R.layout.activity_welcome;
+    }
+
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event.getCode() == EventCode.SUCCESS) {
+            if (event.getData() instanceof CheckPermissionEvent) {
+                // 不用进行requestCode的检测直接开始计时
+                // 延迟2s后执行，period的10000可忽略
+                timer.start(2000, 10000);
+            }
+        }
     }
 }

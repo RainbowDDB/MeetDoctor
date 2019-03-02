@@ -1,5 +1,8 @@
 package com.example.meetdoctor.ui;
 
+import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -16,6 +19,13 @@ public class SecretProtectActivity extends BaseActivity implements View.OnClickL
 
     private Button nextStep;
     private EditText answer;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        UIHelper.setStatusBarColor(getWindow(), Color.WHITE);
+//        UIHelper.setAndroidNativeLightStatusBar(this, false);
+    }
 
     @Override
     public void initView() {

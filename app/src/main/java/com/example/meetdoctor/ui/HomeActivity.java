@@ -1,15 +1,13 @@
 package com.example.meetdoctor.ui;
 
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
@@ -17,6 +15,7 @@ import com.example.meetdoctor.utils.UIHelper;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener {
 
+    private long mPressedTime = 0;
     private DrawerLayout mDrawerLayout;
 
     @Override
@@ -75,5 +74,17 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener {
                 break;
         }
         mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onBackPressed() {
+        long mNowTime = System.currentTimeMillis();// 获取第一次按键时间
+        if ((mNowTime - mPressedTime) > 2000) {// 比较两次按键时间差
+            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            mPressedTime = mNowTime;
+        } else {// 退出程序
+            finish();
+            System.exit(0);
+        }
     }
 }
