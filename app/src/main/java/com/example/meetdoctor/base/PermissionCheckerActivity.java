@@ -8,9 +8,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
+import com.example.meetdoctor.core.storage.LattePreference;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckPermissionEvent;
+import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.utils.EventBusUtils;
 
 import java.util.ArrayList;
@@ -49,9 +51,12 @@ public abstract class PermissionCheckerActivity extends CoreActivity {
             }
         }
         String tmpList[] = new String[toApplyList.size()];
-        if (!toApplyList.isEmpty()) {
-            ActivityCompat.requestPermissions(
-                    this, toApplyList.toArray(tmpList), 123);
+        // 如果是首次进入APP，则申请权限
+        if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
+            if (!toApplyList.isEmpty()) {
+                ActivityCompat.requestPermissions(
+                        this, toApplyList.toArray(tmpList), 123);
+            }
         }
     }
 

@@ -6,6 +6,7 @@
     <color name="windowBackGround">@color/pureWhite</color>
     <color name="textColorPrimary">#3e3a39</color>
 
+    <color name="lightPink">#FFBEC8</color>
     <color name="pureWhite">#FFFFFF</color>
     <color name="black">#000000</color>
     <color name="backgroundGrey">#ededee</color>
@@ -16,4 +17,5 @@
     <color name="green">#009744</color>
     <color name="tipGrey">#878787</color>
     <color name="warning_red">#e64340</color>
+    <color name="headerGrey">#EDEDEE</color>
 </resources>

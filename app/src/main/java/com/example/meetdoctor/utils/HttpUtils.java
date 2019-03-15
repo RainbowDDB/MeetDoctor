@@ -39,10 +39,8 @@ public class HttpUtils {
                     LatteLogger.e("login error", "code=" + code + "  err=" + msg);
                     EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, msg)));
                 })
-                .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
                 .build()
                 .post();
-//        HttpHelper.getInstance().post("/user/login", params, callback);
     }
 
     /**
@@ -69,7 +67,6 @@ public class HttpUtils {
                     LatteLogger.e("register error", "code=" + code + "  err=" + msg);
                     EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(code)));
                 })
-                .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
                 .build()
                 .get();
     }
@@ -94,22 +91,26 @@ public class HttpUtils {
                     LatteLogger.e("checkUser error", "code=" + code + "  err=" + msg);
                     EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(code)));
                 })
-                .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
                 .build()
                 .get();
-//        HttpHelper.getInstance().get("/user/check", params, callback);
     }
 
     /**
      * 判断用户是否已登录，用cookie保存状态
      */
     public static void checkLogin(ISuccess iSuccess, IError iError) {
-        RestClient.builder().url("user/checkLogin")
+        RestClient.builder().url("user/checklogin")
                 .success(iSuccess)
                 .error(iError)
-                .failure(() -> EventBusUtils.post(new EventMessage(EventCode.NET_ERROR)))
                 .build()
                 .get();
-//        HttpHelper.getInstance().get("/user/checkLogin", callback);
+    }
+
+    public static void checkState(ISuccess iSuccess, IError iError) {
+        RestClient.builder().url("ask/state")
+                .success(iSuccess)
+                .error(iError)
+                .build()
+                .get();
     }
 }

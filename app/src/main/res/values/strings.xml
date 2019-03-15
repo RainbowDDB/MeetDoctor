@@ -29,4 +29,7 @@
     <string name="history">历史记录</string>
     <string name="collection">收藏夹</string>
     <string name="ai">AI</string>
+    <string name="ask_content">请输入问诊内容</string>
+    <string name="ask">问诊</string>
+    <string name="pressed_speak">按住说话</string>
 </resources>

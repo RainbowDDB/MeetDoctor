@@ -1,16 +1,13 @@
 package com.example.meetdoctor.core.net;
 
-import android.support.annotation.NonNull;
+import com.example.meetdoctor.base.MyApplication;
+import com.example.meetdoctor.core.net.cookie.CookieManager;
+import com.example.meetdoctor.core.net.cookie.PersistentCookieStore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.WeakHashMap;
 import java.util.concurrent.TimeUnit;
 
-import okhttp3.Cookie;
-import okhttp3.CookieJar;
-import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -46,21 +43,25 @@ public class RestCreator {
         private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
         private static final OkHttpClient OK_HTTP_CLIENT = addInterceptors()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .cookieJar(new CookieJar() { // 全局设置cookie管理器，用户身份校验
-                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-
-                    @Override
-                    public void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
-                        cookieStore.put(url.host(), cookies);
-                    }
-
-                    @NonNull
-                    @Override
-                    public List<Cookie> loadForRequest(@NonNull HttpUrl url) {
-                        List<Cookie> cookies = cookieStore.get(url.host());
-                        return cookies != null ? cookies : new ArrayList<>();
-                    }
-                })
+                .cookieJar(new CookieManager(new PersistentCookieStore(MyApplication.getContext())))
+//                .cookieJar(new CookiesManager(MyApplication.getContext()))
+//                .cookieJar(new CookieJar() { // 全局设置cookie管理器，用户身份校验
+//                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
+//
+//                    @Override
+//                    public void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
+//                        cookieStore.put(url.host(), cookies);
+////                        LattePreference.addCustomAppProfile("cookies",cookies.toString());
+//                    }
+//
+//                    @NonNull
+//                    @Override
+//                    public List<Cookie> loadForRequest(@NonNull HttpUrl url) {
+//                        List<Cookie> cookies = cookieStore.get(url.host());
+//
+//                        return cookies != null ? cookies : new ArrayList<>();
+//                    }
+//                })
                 .build();
 
         // INTERCEPTORS可自行添加

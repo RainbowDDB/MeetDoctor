@@ -3,6 +3,9 @@ package com.example.meetdoctor.core.net.callback;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
+import com.example.meetdoctor.model.EventCode;
+import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.widget.loader.LatteLoader;
 import com.example.meetdoctor.widget.loader.LoaderStyle;
 
@@ -55,6 +58,7 @@ public class RequestCallbacks implements Callback<String> {
     @Override
     public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
         if (FAILURE != null) {
+            EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
             FAILURE.onFailure();
         }
         if (REQUEST != null) {

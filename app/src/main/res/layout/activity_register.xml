@@ -208,7 +208,7 @@
                 android:layout_width="@dimen/page_width"
                 android:layout_height="46dp"
                 android:layout_marginTop="19dp"
-                android:background="@drawable/btn_background"
+                android:background="@drawable/btn_background_large"
                 android:text="@string/register_and_login"
                 android:textColor="@color/pureWhite"
                 android:textSize="20sp" />

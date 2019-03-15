@@ -6,12 +6,15 @@ import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
 import android.view.View;
-import android.view.ViewTreeObserver;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
+import java.util.ArrayList;
+
+@SuppressWarnings("unused")
 public class UIHelper {
 
     public static int getScreenWidth(Context context) {
@@ -20,6 +23,18 @@ public class UIHelper {
 
     public static int getScreenHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+    /**
+     * dp转px
+     *
+     * @param ctx     上下文
+     * @param dpValue dp值
+     * @return px值
+     */
+    public static int dip2px(Context ctx, float dpValue) {
+        final float scale = ctx.getResources().getDisplayMetrics().density;
+        return (int) (dpValue * scale + 0.5f);
     }
 
     // 使状态栏变为透明，从而实现沉浸式状态栏
@@ -85,5 +100,66 @@ public class UIHelper {
                 decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
             }
         }
+    }
+
+    /**
+     * 根据坐标获取相对应的子控件<br>
+     * 在Activity使用
+     *
+     * @return 目标View
+     */
+    public static View getViewAtActivity(Activity activity, int x, int y) {
+        // 从Activity里获取容器
+        View root = activity.getWindow().getDecorView();
+        return findViewByXY(root, x, y);
+    }
+
+    private static View findViewByXY(View view, int x, int y) {
+        View targetView = null;
+        if (view instanceof ViewGroup) {
+            // 父容器,遍历子控件
+            ViewGroup v = (ViewGroup) view;
+            for (int i = 0; i < v.getChildCount(); i++) {
+                targetView = findViewByXY(v.getChildAt(i), x, y);
+                if (targetView != null) {
+                    break;
+                }
+            }
+        } else {
+            targetView = getTouchTarget(view, x, y);
+        }
+        return targetView;
+
+    }
+
+    private static View getTouchTarget(View view, int x, int y) {
+        View targetView = null;
+        // 判断view是否可以聚焦
+        ArrayList<View> TouchableViews = view.getTouchables();
+        for (View child : TouchableViews) {
+            if (isTouchPointInView(child, x, y)) {
+                targetView = child;
+                break;
+            }
+        }
+        return targetView;
+    }
+
+    private static boolean isTouchPointInView(View view, int x, int y) {
+        int[] location = new int[2];
+        view.getLocationOnScreen(location);
+        int left = location[0];
+        int top = location[1];
+        int right = left + view.getMeasuredWidth();
+        int bottom = top + view.getMeasuredHeight();
+        return view.isClickable() && y >= top && y <= bottom && x >= left && x <= right;
+    }
+
+    /**
+     * 根据坐标获取相对应的子控件<br>
+     * 在重写ViewGroup使用
+     */
+    public View getViewAtViewGroup(View v, int x, int y) {
+        return findViewByXY(v, x, y);
     }
 }

@@ -1,49 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/pureWhite">
+        android:layout_height="wrap_content"
+        android:background="@drawable/home_background">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
+        <ImageView
+            android:id="@+id/img_baymax"
             android:layout_width="match_parent"
-            android:layout_height="208dp"
-            android:background="@drawable/login_background"
-            app:elevation="0dp">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="主页" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+            android:layout_height="match_parent" />
 
         <LinearLayout
+            android:id="@+id/ask_input_bar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:background="@drawable/input_border"
+            android:elevation="5dp"
+            android:orientation="horizontal"
+            android:translationZ="2dp"
+            tools:targetApi="lollipop">
 
+            <ImageView
+                android:id="@+id/img_sound_or_text"
+                android:layout_width="48dp"
+                android:layout_height="56dp"
+                android:layout_gravity="bottom"
+                android:padding="10dp"
+                android:src="@drawable/sound" />
+
+            <LinearLayout
+                android:id="@+id/text_input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/edt_ask_content"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="4"
+                    android:background="@null"
+                    android:hint="@string/ask_content"
+                    android:inputType="textMultiLine"
+                    android:maxLines="4"
+                    android:minHeight="56dp"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="10dp"
+                    android:paddingRight="5dp"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/black_70"
+                    android:textCursorDrawable="@drawable/edit_text_cursor"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_ask"
+                    android:layout_width="0dp"
+                    android:layout_height="32dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_background_minor"
+                    android:text="@string/ask"
+                    android:textColor="@color/pureWhite" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btn_sound_input"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/pressed_speak"
+                android:textColor="@color/black"
+                android:textSize="16sp" />
         </LinearLayout>
-    </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        app:headerLayout="@layout/nav_header_home" />
+        android:background="@drawable/nav_header"
+        android:elevation="5dp"
+        app:headerLayout="@layout/nav_header_home"
+        tools:targetApi="lollipop" />
 </android.support.v4.widget.DrawerLayout>
