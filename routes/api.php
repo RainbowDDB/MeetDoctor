@@ -29,6 +29,13 @@ Route::get('/user/checklogin','Auth\AuthController@checklogin');
 // Ask
 
 //问询接口
-Route::get('/ask/answer','AskController@ask');
+Route::post('/ask/answer','AskController@ask');
 //进入问询页面查询状态接口
-Route::post('/ask/state','AskController@enter');
+Route::get('/ask/state','AskController@enter');
+
+// Member
+
+//用户对象列表加载
+Route::get('/person/GetMemberList','PersonController@GetMemberList');
+//用户创建对象
+Route::get('/person/CreateMember','PersonController@CreateMember');
