@@ -27,7 +27,6 @@ class AskController extends Controller
 				$RedisKey = config('Ask.RedisHead') . $member;
 				Redis::del($RedisKey);
 				return response('success', 200);
-				break;
 		}
 		// 拦截空白发送
 		if ($words == '') return response('Parameter:W can\'t be empty!', 401);
