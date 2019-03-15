@@ -18,7 +18,7 @@ use Illuminate\Http\Request;
 //模拟登陆接口
 Route::get('/mock','Mock\MockController@mock');
 //登陆接口
-Route::get('/user/login','Auth\AuthController@login');
+Route::post('/user/login','Auth\AuthController@login');
 //注册接口
 Route::get('/user/registered','Auth\AuthController@register');
 //用户名查重接口
