@@ -13,13 +13,22 @@ use Illuminate\Http\Request;
 |
 */
 
+// Auth
+
 //模拟登陆接口
 Route::get('/mock','Mock\MockController@mock');
 //登陆接口
-Route::post('/user/login','Auth\AuthController@login');
+Route::get('/user/login','Auth\AuthController@login');
 //注册接口
 Route::get('/user/registered','Auth\AuthController@register');
 //用户名查重接口
 Route::get('/user/check','Auth\AuthController@checkname');
 //登陆状态检验
 Route::get('/user/checklogin','Auth\AuthController@checklogin');
+
+// Ask
+
+//问询接口
+Route::get('/ask/answer','AskController@ask');
+//进入问询页面查询状态接口
+Route::post('/ask/state','AskController@enter');

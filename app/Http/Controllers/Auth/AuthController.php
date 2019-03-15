@@ -29,8 +29,12 @@ class AuthController extends Controller
 			$name = 1;
 			if ($info['password'] == $userpassword) {
 				$userid = $info['id'];
-				$r->session()->put('userid', $userid);
+				SaveUserId($r,$userid);
 				$result = 1;
+				if ($info['latest_member']) {
+					$member = 1;
+					SaveUserMember($r,$info['latest_member']['id']);
+				}
 			} else {
 				$result = 0;
 			}
@@ -38,7 +42,7 @@ class AuthController extends Controller
 			$result = 0;
 			$name = 0;
 		}
-		return response()->json(array('result' => $result, 'name' => $name), 200);
+		return response()->json(array('result' => $result, 'name' => $name, 'is_member' => (isset($member)) ? $member : 0), 200);
 	}
 
 	public function register(request $r)
@@ -47,18 +51,18 @@ class AuthController extends Controller
 		$username = $r->input('username');
 		//userpassword
 		$userpassword = md5($r->input('password'));
-		if($username == ''||$userpassword == ''){
+		if ($username == '' || $userpassword == '') {
 			return response('Unauthorized', 401);
 		}
 		$info = User::UserInfoByName($username);
-		if($info){
-			return response('User is present!',400);
-		}else{
-			$result = User::AddUser($username,$userpassword);
-			if($result){
-				return response('Success',200);
-			}else{
-				return response('Error',404);
+		if ($info) {
+			return response('User is present!', 400);
+		} else {
+			$result = User::AddUser($username, $userpassword);
+			if ($result) {
+				return response('Success', 200);
+			} else {
+				return response('Error', 404);
 			}
 		}
 	}
@@ -67,24 +71,24 @@ class AuthController extends Controller
 	{
 		//username
 		$username = $r->input('username');
-		if($username == ''){
+		if ($username == '') {
 			return response('Unauthorized', 401);
 		}
 		$info = User::UserInfoByName($username);
-		if($info){
-			return response('User is present!',400);
-		}else{
-			return response('Username is ability',200);
+		if ($info) {
+			return response('User is present!', 400);
+		} else {
+			return response('Username is ability', 200);
 		}
 	}
 
 	public function checklogin(request $r)
 	{
 		$userid = GetUserId($r);
-		if($userid){
-			return response('Success',200);
-		}else{
-			return response('False',406);
+		if ($userid) {
+			return response('Success', 200);
+		} else {
+			return response('False', 406);
 		}
 	}
 }

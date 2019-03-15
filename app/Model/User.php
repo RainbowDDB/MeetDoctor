@@ -12,7 +12,7 @@ class User extends BasicModel
 
 	// 检验用户是否存在，存在返回本人信息，不存在返回false
 	public static function UserInfoByName($name){
-		$info = User::where('name',$name)->first();
+		$info = User::where('name',$name)->with('latest_member:id,name,alias_name,sex,weight,height,birthday')->first();
 		if($info == null){
 			return false;
 		}else{
@@ -22,7 +22,7 @@ class User extends BasicModel
 
 	//通过id查找用户信息，不存在返回false
 	public static function UserInfoById($id){
-		$info = User::where('id',$id)->first();
+		$info = User::where('id',$id)->with('latest_member:id,name,alias_name,sex,weight,height,birthday')->first();
 		if($info == null){
 			return false;
 		}else{
@@ -39,5 +39,12 @@ class User extends BasicModel
 		return $result;
 	}
 
+	public function member() {
+		return $this->hasMany('App\Model\Member','user_id','id');
+	}
 
+	public function latest_member()
+	{
+		return $this->belongsTo('App\Model\Member', 'latest_member');
+	}
 }

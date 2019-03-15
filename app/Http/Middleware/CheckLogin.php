@@ -15,10 +15,11 @@ class CheckLogin
 	 */
 	public function handle($request, Closure $next)
 	{
+		date_default_timezone_set('Asia/Shanghai');
 		$p = $request->path();
 
 		// 登陆注册页不拦截
-		if($this->StartWith($p,'api/user/') or $this->StartWith($p,'mock/'))
+		if($this->StartWith($p,'api/user/') or $this->StartWith($p,'api/mock'))
 			return $next($request);
 
 		// 未登录返回406
