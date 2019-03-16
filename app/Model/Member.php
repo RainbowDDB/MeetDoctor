@@ -16,7 +16,7 @@ class Member extends BasicModel
 		return $list->toArray();
 	}
 
-	public static function CreateMember($userid, $name, $alias, $sex, $weight, $height, $birthday)
+	public static function CreateMember($userid, $name, $alias=null, $sex=1, $weight=null, $height=null, $birthday=null)
 	{
 		$Member = new Member();
 		$Member->user_id = $userid;

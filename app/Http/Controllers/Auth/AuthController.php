@@ -12,6 +12,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\User;
+use App\Model\Member;
+use App\Jobs\AddDefaultMember;
 
 class AuthController extends Controller
 {
@@ -32,7 +34,6 @@ class AuthController extends Controller
 				SaveUserId($r,$userid);
 				$result = 1;
 				if ($info['latest_member']) {
-					$member = 1;
 					SaveUserMember($r,$info['latest_member']['id']);
 				}
 			} else {
@@ -42,7 +43,7 @@ class AuthController extends Controller
 			$result = 0;
 			$name = 0;
 		}
-		return response()->json(array('result' => $result, 'name' => $name, 'is_member' => (isset($member)) ? $member : 0), 200);
+		return response()->json(array('result' => $result, 'name' => $name), 200);
 	}
 
 	public function register(request $r)
@@ -60,6 +61,7 @@ class AuthController extends Controller
 		} else {
 			$result = User::AddUser($username, $userpassword);
 			if ($result) {
+				AddDefaultMember::dispatch($result);
 				return response('Success', 200);
 			} else {
 				return response('Error', 404);

@@ -39,8 +39,8 @@ class User extends BasicModel
 		$user = new User();
 		$user->name = $username;
 		$user->password = $password;
-		$result = $user->save();
-		return $result;
+		$user->save();
+		return $user->id;
 	}
 
 	// 修改个人信息
