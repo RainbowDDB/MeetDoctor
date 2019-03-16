@@ -7,7 +7,7 @@ import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.meetdoctor.R;
 
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.ui.LoginActivity;
+import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.core.storage.LattePreference;
 
 import java.util.ArrayList;
@@ -41,7 +41,7 @@ public class LauncherActivity extends BaseActivity implements OnItemClickListene
         if (position == INTEGERS.size() - 1) {
             LattePreference.setAppFlag(
                     ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(LoginActivity.class);
             finish();
         }
     }

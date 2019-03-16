@@ -1,4 +1,4 @@
-package com.example.meetdoctor.ui;
+package com.example.meetdoctor.ui.user;
 
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -23,6 +23,7 @@ import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.CheckUserEvent;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
+import com.example.meetdoctor.ui.HomeActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;

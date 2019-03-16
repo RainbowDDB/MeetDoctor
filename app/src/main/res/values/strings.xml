@@ -32,4 +32,9 @@
     <string name="ask_content">请输入问诊内容</string>
     <string name="ask">问诊</string>
     <string name="pressed_speak">按住说话</string>
+    <string name="name">姓名</string>
+    <string name="gender">性别</string>
+    <string name="age">年龄</string>
+    <string name="birthday">生日</string>
+    <string name="note">备注</string>
 </resources>

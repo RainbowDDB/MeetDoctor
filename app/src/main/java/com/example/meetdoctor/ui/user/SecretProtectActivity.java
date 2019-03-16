@@ -1,4 +1,4 @@
-package com.example.meetdoctor.ui;
+package com.example.meetdoctor.ui.user;
 
 import android.graphics.Color;
 import android.os.Bundle;

@@ -1,22 +1,18 @@
-package com.example.meetdoctor.ui;
+package com.example.meetdoctor.ui.user;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ScrollView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.UIHelper;
 
-public class RetrievePasswordActivity extends BaseActivity implements View.OnClickListener {
-
-    private EditText account, password, confirmPassword;
-    private Button confirm;
-
+public class RetrieveSuccessActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void initView() {
         AppBarLayout appBarLayout = findViewById(R.id.app_bar);
@@ -29,27 +25,34 @@ public class RetrievePasswordActivity extends BaseActivity implements View.OnCli
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        ScrollView scrollView = findViewById(R.id.scroll_view);
-        UIHelper.setScrollViewHeight(getWindow(), scrollView);
 
-        account = findViewById(R.id.edt_account);
-        password = findViewById(R.id.edt_password);
-        confirmPassword = findViewById(R.id.edt_confirm_password);
-        confirm = findViewById(R.id.btn_confirm);
-
+        Button confirm = findViewById(R.id.btn_confirm);
         confirm.setOnClickListener(this);
     }
 
     @Override
     public Object getLayout() {
-        return R.layout.acticity_retrieve_password;
+        return R.layout.activity_retrieve_success;
+    }
+
+    // 需复写BaseActivity中的finish方法
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                startActivity(LoginActivity.class);
+                break;
+        }
+        return true;
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_confirm:
-                startActivity(RetrieveSuccessActivity.class);
+                // finish掉 密保、修改密码的活动，直接回到登录页
+                // 无需进行finish()，因为LoginActivity的启动方式为singleTask
+                startActivity(LoginActivity.class);
                 break;
         }
     }

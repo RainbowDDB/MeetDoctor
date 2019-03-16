@@ -4,24 +4,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
-import android.widget.Toast;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.core.net.callback.IError;
-import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckPermissionEvent;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.info.SwitchActivity;
 import com.example.meetdoctor.ui.launcher.LauncherActivity;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.core.storage.LattePreference;
+import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
-import com.google.gson.Gson;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -39,7 +36,7 @@ public class WelcomeActivity extends BaseActivity {
                 // 如果是首次进入
                 if (!LattePreference.getAppFlag(
                         ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
-                    startActivity(new Intent(WelcomeActivity.this, LauncherActivity.class));
+                    startActivity(LauncherActivity.class);
                     finish();
                 } else {
                     // 创建Looper对象以便在子线程创建handler,重点！
@@ -50,21 +47,22 @@ public class WelcomeActivity extends BaseActivity {
                         // 发送粘性事件，当打开HomeActivity时触发
                         HttpUtils.checkState(
                                 (stateResponse) -> {
-                                    EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
-                                    startActivity(new Intent(WelcomeActivity.this, HomeActivity.class));
+                                    EventBusUtils.postSticky(
+                                            new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
+                                    startActivity(HomeActivity.class);
                                     finish();
                                 },
                                 (code, msg) -> {
                                     if (code == 402) {
                                         showToast("您还未创建对象！！！！！");
                                         // 结束此进程，跳转到添加对象页面
-                                        startActivity(new Intent(WelcomeActivity.this, SwitchActivity.class));
+                                        startActivity(SwitchActivity.class);
                                         finish();
                                     }
                                 });
                     }, (code, msg) -> {
                         if (code == 406) {
-                            startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
+                            startActivity(LoginActivity.class);
                         }
                     });
                     Looper.loop();

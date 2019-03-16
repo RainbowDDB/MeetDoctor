@@ -29,4 +29,8 @@
         <!--全屏幕-->
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="ToolbarDark" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@color/pureWhite</item>
+    </style>
 </resources>

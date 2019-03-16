@@ -24,6 +24,7 @@ import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.info.HealthProfileActivity;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
 
@@ -116,7 +117,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.history_layout:
                 break;
             case R.id.health_profile_layout:
-                startActivity(new Intent(this, HealthProfileActivity.class));
+                startActivity(HealthProfileActivity.class);
                 break;
             case R.id.setting_layout:
                 break;

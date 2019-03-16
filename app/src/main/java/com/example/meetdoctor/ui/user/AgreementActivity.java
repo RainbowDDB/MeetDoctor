@@ -1,4 +1,4 @@
-package com.example.meetdoctor.ui;
+package com.example.meetdoctor.ui.user;
 
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
