@@ -22,6 +22,18 @@ APP后端
 
 [1.5 登录状态检验](#15-登录状态检验)
 
+## 2.问诊
+
+[2.1 进入问询页面前查询状态](#21-进入问询页面前查询状态)
+
+[2.2 问询页面的说话接口](#22-问询页面的说话接口)
+
+## 3.个人信息
+
+[3.1 获取对象列表](#31-获取对象列表)
+
+[3.2 创建新的对象](#32-创建新的对象)
+
 ## 一、注册登录
 
 ### 1.1 模拟登录
@@ -161,3 +173,71 @@ APP后端
 }
 ```
 
+## 三、个人信息
+
+### 3.1 获取对象列表
+
+| URL和方式               | 备注 |
+| ----------------------- | ---- |
+| `GET` `/api/person/GetMemberList` |      |
+
+- **响应**
+```
+{
+    `list`:[{
+             "id",
+             "user_id",
+             "name",
+             "alias_name",（别名）
+             "sex",
+             "weight",
+             "height",
+             "birthday"
+            },
+            {}
+           ],
+    `chosen_id`:(int)（当前选中的id）
+}
+```
+
+### 3.2 创建新的对象
+
+| URL和方式               | 备注 |
+| ----------------------- | ---- |
+| `POST` `/api/person/CreateMember` |      |
+
+- **请求参数**
+```
+{
+    `name`:(string)
+    `alias`:(string)
+    `sex`:(0是女性，1是男性)
+    `height`:(double)(单位前端定，不用传上来)
+    `weight`:(double)(身高和体重只传双浮点数)
+    `birthday`:(YYYY-MM-DD)
+}
+```
+- **响应**
+```
+正常响应200
+{
+    `list`:[{
+             "id",
+             "user_id",
+             "name",
+             "alias_name",（别名）
+             "sex",
+             "weight",
+             "height",
+             "birthday"
+            },
+            {}
+           ],(创建对象后刷新一下列表)
+    `chosen_id`:(int)（当前选中的id）
+}
+非正常响应401
+{
+    'Name is required'(没输入用户名)
+    'Weight is no avail!','Height is no avail!','Sex is no avail!','Birthday is no avail!'(各种参数不合法)
+}
+```

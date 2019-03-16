@@ -38,4 +38,4 @@ Route::get('/ask/state','AskController@enter');
 //用户对象列表加载
 Route::get('/person/GetMemberList','PersonController@GetMemberList');
 //用户创建对象
-Route::get('/person/CreateMember','PersonController@CreateMember');
+Route::post('/person/CreateMember','PersonController@CreateMember');
