@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.meetdoctor.model.EventCode;
@@ -24,6 +25,8 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public abstract class CoreActivity extends AppCompatActivity {
 
+    private View mParentView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,6 +38,7 @@ public abstract class CoreActivity extends AppCompatActivity {
         } else {
             throw new RuntimeException("getLayout() is not a view or viewId, please check layout form");
         }
+        mParentView = ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
         initView();
     }
 
@@ -109,5 +113,9 @@ public abstract class CoreActivity extends AppCompatActivity {
 
     protected void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected View getParentView() {
+        return mParentView;
     }
 }

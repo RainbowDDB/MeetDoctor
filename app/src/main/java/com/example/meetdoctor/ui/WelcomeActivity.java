@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckPermissionEvent;
@@ -47,18 +48,14 @@ public class WelcomeActivity extends BaseActivity {
                         // 发送粘性事件，当打开HomeActivity时触发
                         HttpUtils.checkState(
                                 (stateResponse) -> {
+                                    LatteLogger.d(stateResponse);
                                     EventBusUtils.postSticky(
                                             new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
                                     startActivity(HomeActivity.class);
                                     finish();
                                 },
                                 (code, msg) -> {
-                                    if (code == 402) {
-                                        showToast("您还未创建对象！！！！！");
-                                        // 结束此进程，跳转到添加对象页面
-                                        startActivity(SwitchActivity.class);
-                                        finish();
-                                    }
+                                    LatteLogger.e(TAG, code + "   " + msg);
                                 });
                     }, (code, msg) -> {
                         if (code == 406) {

@@ -129,14 +129,16 @@ public class LoginActivity extends BaseActivity
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
-            String err = ((LoginEvent) event.getData()).getError();
-            if (!err.equals("")) {
-                showErrorMessage(errMsg, err);
-            } else {
-                hideErrorMessage(errMsg);
-                showToast(MessageConstant.LOGIN_SUCCESS);
-                startActivity(HomeActivity.class,
-                        Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+            if (event.getData() instanceof LoginEvent) {
+                String err = ((LoginEvent) event.getData()).getError();
+                if (!err.equals("")) {
+                    showErrorMessage(errMsg, err);
+                } else {
+                    hideErrorMessage(errMsg);
+                    showToast(MessageConstant.LOGIN_SUCCESS);
+                    startActivity(HomeActivity.class,
+                            Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
             }
         }
     }

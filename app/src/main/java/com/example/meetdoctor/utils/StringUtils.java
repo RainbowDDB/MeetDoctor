@@ -6,4 +6,33 @@ public class StringUtils {
     public static boolean isNumber(String strNum) {
         return strNum.matches("[0-9]+");
     }
+
+    /**
+     * 格式化日期
+     */
+    public static String getFormatDate(int year, int month, int day) {
+        String Month, Day;
+        if (month < 10)
+            Month = "0" + month;
+        else
+            Month = month + "";
+        if (day < 10)
+            Day = "0" + day;
+        else
+            Day = day + "";
+        return year + "-" + Month + "-" + Day;
+    }
+
+    /**
+     * 将字符串格式化成int数组
+     * 如1999-03-04 --> {1999,3,4}
+     */
+    public static int[] spilt2num(String s) {
+        String[] strs = s.split("-");
+        int[] result = new int[]{};
+        for (int i = 0; i < strs.length; i++) {
+            result[i] = Integer.parseInt(strs[i]);
+        }
+        return result;
+    }
 }

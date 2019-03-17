@@ -19,12 +19,15 @@ import com.bumptech.glide.Glide;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.core.net.callback.IError;
+import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckStateEvent;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
+import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
 
@@ -33,6 +36,7 @@ import java.util.Map;
 
 public class HomeActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
 
+    private static final String TAG = "HomeActivity";
     private LinearLayout inputBar;
     private EditText askContent;
     private long mPressedTime = 0;
@@ -100,6 +104,18 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mAILayout.setOnClickListener(this);
         soundOrText.setOnClickListener(this);
         speak.setOnTouchListener(this);
+
+//        HttpUtils.getMemberList(this, new ISuccess() {
+//            @Override
+//            public void onSuccess(String response) {
+//                LatteLogger.d(response);
+//            }
+//        }, new IError() {
+//            @Override
+//            public void onError(int code, String msg) {
+//                LatteLogger.e(TAG, code + "   " + msg);
+//            }
+//        });
     }
 
     @Override

@@ -14,14 +14,21 @@ import android.widget.Button;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.adapter.PersonAdapter;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.core.net.callback.IError;
+import com.example.meetdoctor.core.net.callback.ISuccess;
+import com.example.meetdoctor.model.bean.MemberListBean;
 import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SwitchActivity extends BaseActivity {
 
+    private static final String TAG = "SwitchActivity";
     private PersonAdapter adapter;
     private Button addPerson;
 
@@ -49,15 +56,30 @@ public class SwitchActivity extends BaseActivity {
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
-        List<PersonBean> list = new ArrayList<>();
-        list.add(new PersonBean("Rainbow", 1, 20, "1999年3月4日", 172, 60, "fuck!"));
-        list.add(new PersonBean("Optimus Prime", 0, 19, "1999年9月9日", 168, 50, "fuck!"));
-        adapter = new PersonAdapter(this, list);
-        recyclerView.setAdapter(adapter);
+
+        HttpUtils.getMemberList(this, new ISuccess() {
+            @Override
+            public void onSuccess(String response) {
+                MemberListBean memberListBean = new Gson().fromJson(response, MemberListBean.class);
+                LatteLogger.json(TAG, response);
+                List<PersonBean> list = memberListBean.getList();
+                LatteLogger.d(list);
+                adapter = new PersonAdapter(SwitchActivity.this, list);
+                recyclerView.setAdapter(adapter);
+            }
+        }, new IError() {
+            @Override
+            public void onError(int code, String msg) {
+                LatteLogger.e(TAG, code + "   " + msg);
+            }
+        });
+
+
 
         addPerson.setOnClickListener(view -> {
             startActivity(EditActivity.class);
         });
+
     }
 
     @Override

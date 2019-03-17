@@ -1,23 +1,43 @@
 package com.example.meetdoctor.model.bean;
 
+import android.support.annotation.Nullable;
+
+import com.google.gson.annotations.SerializedName;
+
 public class PersonBean {
 
+    private int id;
+
+    @SerializedName("user_id")
+    private int userId;
+
     private String name;
+
+    @SerializedName("sex")
     private int gender;
+
     private int age;
     private String birthday;
-    private int height;
-    private int weight;
-    private String note; // 备注
+    private Double height;
+    private Double weight;
 
-    public PersonBean(String name, int gender, int age, String birthday, int height, int weight, String note) {
+    @SerializedName("alias_name")
+    private String alias; // 备注
+
+    public PersonBean(String name,
+                      int gender,
+                      int age,
+                      String birthday,
+                      @Nullable Double height,
+                      @Nullable Double weight,
+                      String alias) {
         this.name = name;
         this.gender = gender;
         this.age = age;
         this.birthday = birthday;
         this.height = height;
         this.weight = weight;
-        this.note = note;
+        this.alias = alias;
     }
 
     public String getName() {
@@ -52,27 +72,35 @@ public class PersonBean {
         this.birthday = birthday;
     }
 
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 
-    public int getWeight() {
-        return weight;
-    }
-
-    public void setWeight(int weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public String getNote() {
-        return note;
+    public String getAlias() {
+        return alias;
     }
 
-    public void setNote(String note) {
-        this.note = note;
+    public void setAlias(String alias) {
+        this.alias = alias;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

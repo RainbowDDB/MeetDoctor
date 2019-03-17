@@ -11,7 +11,12 @@ public class CheckStateEvent {
     public CheckStateEvent(String response) {
         CheckStateEvent bean = new Gson().fromJson(response, CheckStateEvent.class);
         state = bean.state;
-        list = bean.list;
+        if (state == 1) {
+            list = bean.list;
+            // TODO 问用户是否继续之前问询
+        } else {
+            list = null;
+        }
     }
 
     public int getState() {

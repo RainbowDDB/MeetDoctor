@@ -2,7 +2,6 @@ package com.example.meetdoctor.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -28,14 +27,14 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         TextView name = (TextView) holder.getView(R.id.tv_person_name);
         TextView age = (TextView) holder.getView(R.id.tv_person_age);
         TextView birthday = (TextView) holder.getView(R.id.tv_person_birthday);
-        TextView note = (TextView) holder.getView(R.id.tv_person_note);
+        TextView alias = (TextView) holder.getView(R.id.tv_person_alias);
         ImageView genderImg = (ImageView) holder.getView(R.id.img_person_gender);
         ImageView edit = (ImageView) holder.getView(R.id.img_edit_person);
 
         name.setText(bean.getName());
         age.setText(String.valueOf(bean.getAge()));
         birthday.setText(bean.getBirthday());
-        note.setText(bean.getNote());
+        alias.setText(bean.getAlias());
         if (bean.getGender() == 1) {
             Glide.with(getContext()).load(R.drawable.boy).into(genderImg);
         } else if (bean.getGender() == 0) {
@@ -43,13 +42,10 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         } else {
             throw new RuntimeException("gender is not right,please check.");
         }
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // 编辑个人档案信息事件
-                EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-                getContext().startActivity(new Intent(getContext(), EditActivity.class));
-            }
+        edit.setOnClickListener(view -> {
+            // 编辑个人档案信息事件
+            EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
+            getContext().startActivity(new Intent(getContext(), EditActivity.class));
         });
     }
 }

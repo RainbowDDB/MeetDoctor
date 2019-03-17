@@ -1,6 +1,7 @@
 package com.example.meetdoctor.utils;
 
 import android.content.Context;
+import android.support.annotation.Nullable;
 
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.net.RestClient;
@@ -112,5 +113,45 @@ public class HttpUtils {
                 .error(iError)
                 .build()
                 .get();
+    }
+
+    /**
+     * 获取对象列表
+     */
+    public static void getMemberList(Context context, ISuccess iSuccess, IError iError) {
+        RestClient.builder().url("person/GetMemberList")
+                .loader(context)
+                .success(iSuccess)
+                .error(iError)
+                .build()
+                .get();
+    }
+
+    /**
+     * 创建对象
+     */
+    public static void createMember(Context context,
+                                    String name,
+                                    String alias,
+                                    int gender,   // 1男，0女
+                                    @Nullable Double height,
+                                    @Nullable Double weight,
+                                    String birthday,  // YYYY-MM-DD
+                                    ISuccess iSuccess,
+                                    IError iError) {
+        WeakHashMap<String, Object> map = new WeakHashMap<>();
+        map.put("name", name);
+        map.put("alias", alias);
+        map.put("sex", gender);
+        map.put("height", height);
+        map.put("weight", weight);
+        map.put("birthday", birthday);
+        RestClient.builder().url("person/CreateMember")
+                .success(iSuccess)
+                .error(iError)
+                .loader(context)
+                .params(map)
+                .build()
+                .post();
     }
 }

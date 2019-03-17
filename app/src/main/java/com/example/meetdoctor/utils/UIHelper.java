@@ -162,4 +162,13 @@ public class UIHelper {
     public View getViewAtViewGroup(View v, int x, int y) {
         return findViewByXY(v, x, y);
     }
+
+    /**
+     * 设置背景透明色
+     */
+    public static void setBackgroundAlpha(Window window, float bgAlpha) {
+        WindowManager.LayoutParams lp = window.getAttributes();
+        lp.alpha = bgAlpha; // 0.0-1.0
+        window.setAttributes(lp);
+    }
 }

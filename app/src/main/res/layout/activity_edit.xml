@@ -2,12 +2,12 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/backgroundGrey">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundGrey"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -70,7 +70,8 @@
                         android:id="@+id/edt_person_name"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:background="@drawable/edit_text_border" />
+                        android:background="@drawable/text_border"
+                        android:gravity="center_vertical" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -91,11 +92,30 @@
                         android:text="@string/gender"
                         android:textColor="@color/textBlack" />
 
+                    <RadioGroup
+                        android:id="@+id/radio_group_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <RadioButton
+                            android:id="@+id/radio_boy"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/boy" />
+
+                        <RadioButton
+                            android:id="@+id/radio_girl"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text="@string/girl" />
+                    </RadioGroup>
+
                     <EditText
                         android:id="@+id/edt_person_gender"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:background="@drawable/edit_text_border" />
+                        android:background="@drawable/text_border" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,7 +140,8 @@
                         android:id="@+id/edt_person_age"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:background="@drawable/edit_text_border" />
+                        android:background="@drawable/text_border"
+                        android:gravity="center_vertical" />
                 </LinearLayout>
 
 
@@ -142,11 +163,12 @@
                         android:text="@string/birthday"
                         android:textColor="@color/textBlack" />
 
-                    <EditText
-                        android:id="@+id/edt_person_birthday"
+                    <TextView
+                        android:id="@+id/tv_person_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
-                        android:background="@drawable/edit_text_border" />
+                        android:background="@drawable/text_border"
+                        android:gravity="center_vertical" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -167,13 +189,12 @@
                         android:textColor="@color/textBlack" />
 
                     <EditText
-                        android:id="@+id/edt_person_note"
+                        android:id="@+id/edt_person_alias"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:background="@drawable/edit_text_border"
-                        android:minHeight="32dp"
-                        android:minLines="3" />
+                        android:background="@drawable/text_border"
+                        android:minHeight="32dp" />
                 </LinearLayout>
 
                 <Button
