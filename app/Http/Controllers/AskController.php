@@ -81,7 +81,7 @@ class AskController extends Controller
 		$list = Redis::command('lRange', [$RedisKey, 0, -1]);
 		if ($list == [] or $list[0] < $time) {
 			Redis::del($RedisKey);
-			$return = array('state' => 0, 'list' => '空空如也');
+			$return = array('state' => 0, 'list' => []);
 		} else {
 			unset($list[0]);
 			$return = array('state' => 1, 'list' => $list);
