@@ -87,6 +87,7 @@ public class HttpUtils {
                 .success((response) -> {
                     if (response != null) {
                         LatteLogger.d("checkUser success：responseData=" + response);
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS));
                     }
                 })
                 .error(ERROR)

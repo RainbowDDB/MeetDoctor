@@ -5,8 +5,8 @@ import android.content.Intent;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.meetdoctor.R;
+import com.example.meetdoctor.base.GlideApp;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.PersonBean;
@@ -38,9 +38,15 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         alias.setText(bean.getAlias());
 
         if (bean.getGender() == 1) {
-            Glide.with(getContext()).load(R.drawable.boy).into(genderImg);
+            GlideApp.with(getContext())
+                    .load(R.drawable.boy)
+                    .dontAnimate()
+                    .into(genderImg);
         } else if (bean.getGender() == 0) {
-            Glide.with(getContext()).load(R.drawable.girl).into(genderImg);
+            GlideApp.with(getContext())
+                    .load(R.drawable.girl)
+                    .dontAnimate()
+                    .into(genderImg);
         } else {
             throw new RuntimeException("gender is not right,please check.");
         }

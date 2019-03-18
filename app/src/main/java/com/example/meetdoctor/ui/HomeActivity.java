@@ -1,7 +1,6 @@
 package com.example.meetdoctor.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Rect;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
@@ -15,19 +14,17 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baidu.speech.asr.SpeechConstant;
-import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.base.GlideApp;
 import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.core.net.callback.IError;
-import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckStateEvent;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
-import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
 
@@ -88,7 +85,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         soundOrText = findViewById(R.id.img_sound_or_text);
         textInput = findViewById(R.id.text_input);
 
-        Glide.with(this).asGif().load(R.drawable.listen).into(baymax);
+        GlideApp.with(this)
+                .asGif()
+                .load(R.drawable.listen)
+                .into(baymax);
 
         recognizer = new SpeechRecognizer(this, new RecogListener() {
             @Override
@@ -175,7 +175,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             mPressedTime = mNowTime;
         } else {// 退出程序
             // 切换gif，并使inputBar消失
-            Glide.with(this).asGif().load(R.drawable.sleep).into(baymax);
+            GlideApp.with(this)
+                    .asGif()
+                    .load(R.drawable.sleep)
+                    .into(baymax);
             inputBar.setVisibility(View.GONE);
             // 计时器延时gif持续时间 1s 并退出
             new TimerHelper() {
