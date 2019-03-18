@@ -10,7 +10,7 @@ import com.example.meetdoctor.base.GlideApp;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.PersonBean;
-import com.example.meetdoctor.ui.info.EditActivity;
+import com.example.meetdoctor.ui.settings.EditActivity;
 import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.StringUtils;

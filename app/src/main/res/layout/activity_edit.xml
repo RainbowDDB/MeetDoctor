@@ -29,7 +29,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:text="编辑对象"
+                    android:text="@string/edit_object"
                     android:textColor="@color/pureWhite"
                     android:textSize="@dimen/title_text_size" />
             </android.support.v7.widget.Toolbar>
@@ -74,7 +74,7 @@
                         android:gravity="center_vertical"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:text="姓名"
+                        android:text="@string/name"
                         android:textColor="@color/textBlack"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -117,14 +117,7 @@
                             android:layout_marginLeft="20dp"
                             android:text="@string/girl" />
                     </RadioGroup>
-
-                    <EditText
-                        android:id="@+id/edt_person_gender"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:background="@drawable/text_border" />
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
