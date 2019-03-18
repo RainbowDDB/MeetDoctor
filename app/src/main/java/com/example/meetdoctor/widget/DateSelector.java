@@ -27,15 +27,21 @@ public class DateSelector extends MaskedPopupWindow implements View.OnClickListe
     private WheelView yearWheel;
     private WheelView monthWheel;
     private WheelView dayWheel;
-    private ArrayList<String> data;
+    private ArrayList<String> data = new ArrayList<>();
 
     @SuppressLint("InflateParams")
     public DateSelector(Context context, @NotNull ArrayList<String> data) {
         this.mContext = context;
-        if (data.size() != 3) {
+        if (data.size() == 0) {
+            this.data.add("2000");
+            this.data.add("1");
+            this.data.add("1");
+        } else if (data.size() == 3) {
+            this.data = data;
+        } else {
             throw new RuntimeException("size is not 3,please check data.size()");
         }
-        this.data = data;
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if (inflater != null) {
             view = inflater.inflate(R.layout.widget_date_selector, null);

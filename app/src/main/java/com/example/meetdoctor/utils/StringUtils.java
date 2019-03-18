@@ -28,11 +28,16 @@ public class StringUtils {
      * 如1999-03-04 --> {1999,3,4}
      */
     public static int[] spilt2num(String s) {
-        String[] strs = s.split("-");
-        int[] result = new int[]{};
-        for (int i = 0; i < strs.length; i++) {
-            result[i] = Integer.parseInt(strs[i]);
+        if (s != null && !s.equals("")) {
+            String[] strs = s.split("-");
+            int[] result = new int[3];
+            for (int i = 0; i < strs.length; i++) {
+                result[i] = Integer.parseInt(strs[i]);
+            }
+            return result;
+        } else {
+            throw new RuntimeException("string to be partitioned is null or empty!");
         }
-        return result;
+
     }
 }

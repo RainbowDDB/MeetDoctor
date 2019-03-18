@@ -71,7 +71,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@drawable/text_border"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="姓名"
+                        android:textColor="@color/textBlack"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -108,6 +113,8 @@
                             android:id="@+id/radio_girl"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginLeft="20dp"
                             android:text="@string/girl" />
                     </RadioGroup>
 
@@ -116,32 +123,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@drawable/text_border" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="20dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginRight="10dp"
-                        android:gravity="center_vertical"
-                        android:text="@string/age"
-                        android:textColor="@color/textBlack" />
-
-                    <EditText
-                        android:id="@+id/edt_person_age"
-                        android:layout_width="match_parent"
-                        android:layout_height="32dp"
-                        android:background="@drawable/text_border"
-                        android:gravity="center_vertical" />
                 </LinearLayout>
 
 
@@ -168,7 +149,11 @@
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:background="@drawable/text_border"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:text="点击以编辑生日"
+                        android:textColor="@color/tipGrey" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -194,7 +179,12 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
                         android:background="@drawable/text_border"
-                        android:minHeight="32dp" />
+                        android:hint="此对象与您是什么关系？"
+                        android:minHeight="32dp"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textColor="@color/tipGrey"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <Button

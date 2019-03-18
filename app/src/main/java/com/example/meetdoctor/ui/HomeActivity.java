@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.baidu.speech.asr.SpeechConstant;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.base.GlideApp;

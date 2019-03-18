@@ -21,6 +21,7 @@ import com.example.meetdoctor.model.bean.MemberListBean;
 import com.example.meetdoctor.model.bean.PersonBean;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
+import com.example.meetdoctor.widget.recyclerview.LatteRecyclerView;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class SwitchActivity extends BaseActivity {
 
         addPerson = findViewById(R.id.btn_person_add);
 
-        RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        LatteRecyclerView recyclerView = findViewById(R.id.recycler_view);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 

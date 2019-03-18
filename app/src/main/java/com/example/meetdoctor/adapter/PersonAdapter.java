@@ -11,6 +11,7 @@ import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.PersonBean;
 import com.example.meetdoctor.ui.info.EditActivity;
+import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.widget.recyclerview.BaseRecyclerViewAdapter;
@@ -32,10 +33,11 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         ImageView genderImg = (ImageView) holder.getView(R.id.img_person_gender);
         ImageView edit = (ImageView) holder.getView(R.id.img_edit_person);
 
-        name.setText(bean.getName());
-        birthday.setText(bean.getBirthday());
-        age.setText(String.valueOf(StringUtils.spilt2num(bean.getBirthday())[0]));
-        alias.setText(bean.getAlias());
+        name.setText(bean.getName() != null ? bean.getName() : "未填写");
+        age.setText(bean.getBirthday() != null ?
+                String.valueOf(DateUtils.getYear() - StringUtils.spilt2num(bean.getBirthday())[0]) + " 岁" : "未填写");
+        birthday.setText(bean.getBirthday() != null ? bean.getBirthday() : "未填写");
+        alias.setText(bean.getAlias() != null ? bean.getAlias() : "未填写");
 
         if (bean.getGender() == 1) {
             GlideApp.with(getContext())

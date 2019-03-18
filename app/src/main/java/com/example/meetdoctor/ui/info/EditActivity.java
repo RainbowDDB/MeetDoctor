@@ -1,5 +1,6 @@
 package com.example.meetdoctor.ui.info;
 
+import android.nfc.tech.NfcB;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -33,7 +34,6 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
     private static final String TAG = "EditActivity";
     private EditText name;
     private int gender;
-    private EditText age;
     private TextView birthday;
     private EditText alias;
 
@@ -62,7 +62,6 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         }
 
         name = findViewById(R.id.edt_person_name);
-        age = findViewById(R.id.edt_person_age);
         birthday = findViewById(R.id.tv_person_birthday);
         alias = findViewById(R.id.edt_person_alias);
 
@@ -76,13 +75,6 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         });
 
         initData();
-        birthdayData.add("1999");
-        birthdayData.add("3");
-        birthdayData.add("4");
-        birthday.setText(StringUtils.getFormatDate(
-                Integer.parseInt(birthdayData.get(0)),
-                Integer.parseInt(birthdayData.get(1)),
-                Integer.parseInt(birthdayData.get(2))));
     }
 
     @Override
@@ -95,7 +87,21 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
         super.onReceiveStickyEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
             if (event.getData() instanceof PersonBean) {
-                LatteLogger.d("hhhhhhhh");
+                PersonBean bean = (PersonBean) event.getData();
+                name.setText(bean.getName());
+                radioGroup.check(bean.getGender() == 1 ? R.id.radio_boy : R.id.radio_girl);
+                if (bean.getBirthday() != null && !bean.getBirthday().equals("")) {
+                    int[] dates = StringUtils.spilt2num(bean.getBirthday());
+                    birthday.setText(StringUtils.getFormatDate(dates[0], dates[1], dates[2]));
+                    birthday.setTextColor(getResources().getColor(R.color.textBlack));
+                    for (int i = 0; i < dates.length; i++) {
+                        birthdayData.add(i, String.valueOf(dates[i]));
+                    }
+                }
+                if (bean.getAlias() != null && !bean.getAlias().equals("")) {
+                    alias.setText(bean.getAlias());
+                    alias.setTextColor(getResources().getColor(R.color.textBlack));
+                }
             }
         }
     }
