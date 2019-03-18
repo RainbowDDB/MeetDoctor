@@ -57,24 +57,14 @@ public class SwitchActivity extends BaseActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-        HttpUtils.getMemberList(this, new ISuccess() {
-            @Override
-            public void onSuccess(String response) {
-                MemberListBean memberListBean = new Gson().fromJson(response, MemberListBean.class);
-                LatteLogger.json(TAG, response);
-                List<PersonBean> list = memberListBean.getList();
-                LatteLogger.d(list);
-                adapter = new PersonAdapter(SwitchActivity.this, list);
-                recyclerView.setAdapter(adapter);
-            }
-        }, new IError() {
-            @Override
-            public void onError(int code, String msg) {
-                LatteLogger.e(TAG, code + "   " + msg);
-            }
+        HttpUtils.getMemberList(this, response -> {
+            MemberListBean memberListBean = new Gson().fromJson(response, MemberListBean.class);
+            LatteLogger.json(TAG, response);
+            List<PersonBean> list = memberListBean.getList();
+            LatteLogger.d(list);
+            adapter = new PersonAdapter(SwitchActivity.this, list);
+            recyclerView.setAdapter(adapter);
         });
-
-
 
         addPerson.setOnClickListener(view -> {
             startActivity(EditActivity.class);

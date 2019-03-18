@@ -232,7 +232,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (v instanceof EditText) {
             int[] l = {0, 0};
             v.getLocationInWindow(l);
-            LatteLogger.d((int) event.getRawX() + "          " + (int) event.getRawY());
             if (UIHelper.getViewAtActivity(
                     this, (int) event.getRawX(), (int) event.getRawY()) instanceof EditText) {
                 return false;

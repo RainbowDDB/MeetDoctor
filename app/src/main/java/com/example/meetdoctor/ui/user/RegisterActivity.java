@@ -20,11 +20,9 @@ import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
-import com.example.meetdoctor.model.event.CheckUserEvent;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
 import com.example.meetdoctor.ui.HomeActivity;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
@@ -155,28 +153,21 @@ public class RegisterActivity extends BaseActivity
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         switch (event.getCode()) {
+            case EventCode.USER_EXISTED:
+                // 用户存在 400
+                showMessage(accountMsg, MessageConstant.USER_EXISTED, true);
+                break;
             case EventCode.SUCCESS:
+                showMessage(accountMsg, MessageConstant.USER_NAME_AVAILABLE, false);
                 if (event.getData() instanceof RegisterEvent) {
-                    RegisterEvent e = (RegisterEvent) event.getData();
-                    String msg = e.getMessage();
-                    if (!msg.equals(MessageConstant.REGISTER_SUCCESS)) {
-                        showMessage(passwordMsg, msg, true);
-                    } else {
-                        showToast(msg);
-                        // 自动登录
-                        HttpUtils.login(this, e.getUserName(), e.getPassword());
-                    }
-                } else if (event.getData() instanceof CheckUserEvent) {
-                    String msg = ((CheckUserEvent) event.getData()).getMessage();
-                    if (!msg.equals(MessageConstant.USER_NAME_AVAILABLE)) {
-                        showMessage(accountMsg, msg, true);
-                    } else {
-                        showMessage(accountMsg, msg, false);
-                    }
+                    RegisterEvent registerEvent = (RegisterEvent) event.getData();
+                    showToast(registerEvent.getMessage());
+                    // 自动登录
+                    HttpUtils.login(this, registerEvent.getUserName(), registerEvent.getPassword());
                 } else if (event.getData() instanceof LoginEvent) {
-                    String err = ((LoginEvent) event.getData()).getError();
-                    if (!err.equals("")) {
-                        showMessage(passwordMsg, err, true);
+                    LoginEvent bean = (LoginEvent) event.getData();
+                    if (bean.getError() != null) {
+                        showMessage(passwordMsg, bean.getError(), true);
                     } else {
                         showToast(MessageConstant.LOGIN_SUCCESS);
                         startActivity(HomeActivity.class,
@@ -184,9 +175,6 @@ public class RegisterActivity extends BaseActivity
                         finish();
                     }
                 }
-                break;
-            case EventCode.USER_NAME_ILLEGAL:
-                showMessage(accountMsg, MessageConstant.USER_NAME_ILLEGAL, true);
                 break;
         }
     }
@@ -225,7 +213,7 @@ public class RegisterActivity extends BaseActivity
         if (userName.length() >= 6 && userName.length() <= 18 && StringUtils.isNumber(userName)) {
             HttpUtils.checkUser(userName);
         } else {
-            EventBusUtils.post(new EventMessage<>(EventCode.USER_NAME_ILLEGAL));
+            showMessage(accountMsg, MessageConstant.USER_NAME_ILLEGAL, true);
         }
     }
 

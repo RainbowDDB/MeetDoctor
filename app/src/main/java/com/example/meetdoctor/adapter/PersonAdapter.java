@@ -12,6 +12,7 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.PersonBean;
 import com.example.meetdoctor.ui.info.EditActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.widget.recyclerview.BaseRecyclerViewAdapter;
 import com.example.meetdoctor.widget.recyclerview.RecyclerViewHolder;
 
@@ -32,9 +33,10 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         ImageView edit = (ImageView) holder.getView(R.id.img_edit_person);
 
         name.setText(bean.getName());
-        age.setText(String.valueOf(bean.getAge()));
         birthday.setText(bean.getBirthday());
+        age.setText(String.valueOf(StringUtils.spilt2num(bean.getBirthday())[0]));
         alias.setText(bean.getAlias());
+
         if (bean.getGender() == 1) {
             Glide.with(getContext()).load(R.drawable.boy).into(genderImg);
         } else if (bean.getGender() == 0) {

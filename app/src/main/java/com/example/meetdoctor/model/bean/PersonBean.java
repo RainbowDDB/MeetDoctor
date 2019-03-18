@@ -16,7 +16,6 @@ public class PersonBean {
     @SerializedName("sex")
     private int gender;
 
-    private int age;
     private String birthday;
     private Double height;
     private Double weight;
@@ -26,14 +25,12 @@ public class PersonBean {
 
     public PersonBean(String name,
                       int gender,
-                      int age,
                       String birthday,
                       @Nullable Double height,
                       @Nullable Double weight,
                       String alias) {
         this.name = name;
         this.gender = gender;
-        this.age = age;
         this.birthday = birthday;
         this.height = height;
         this.weight = weight;
@@ -54,14 +51,6 @@ public class PersonBean {
 
     public void setGender(int gender) {
         this.gender = gender;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
     }
 
     public String getBirthday() {
@@ -102,5 +91,13 @@ public class PersonBean {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public Double getHeight() {
+        return height;
+    }
+
+    public Double getWeight() {
+        return weight;
     }
 }

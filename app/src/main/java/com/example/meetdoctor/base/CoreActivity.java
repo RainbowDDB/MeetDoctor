@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
+import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -97,8 +98,21 @@ public abstract class CoreActivity extends AppCompatActivity {
      */
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onReceiveEvent(EventMessage event) {
-        if (event.getCode() == EventCode.NET_ERROR) {
-            showToast(MessageConstant.NET_ERROR);
+        // 在此所有EventCode均为Restful常用code
+        switch (event.getCode()) {
+            case EventCode.NET_ERROR:
+                showToast(MessageConstant.NET_ERROR);
+                break;
+            case EventCode.NOT_LOGIN:// 406
+                showToast(MessageConstant.NOT_LOGINED);
+                startActivity(LoginActivity.class);
+                break;
+            case EventCode.PARAMS_INVALID:// 401
+                showToast(MessageConstant.PARAMS_UNAVAILABLE);
+                break;
+            case EventCode.UNEXPECTED_ERROR:// 404
+                showToast(MessageConstant.DATABASE_ERROR);
+                break;
         }
     }
 

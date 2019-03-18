@@ -1,49 +1,45 @@
 package com.example.meetdoctor.model.event;
 
-import com.example.meetdoctor.model.bean.LoginBean;
 import com.example.meetdoctor.model.MessageConstant;
-import com.google.gson.Gson;
 
 public class LoginEvent {
 
-    private int responseCode;
-    private LoginBean data;
+    private int result;
+    private int name;
 
-    public LoginEvent(int responseCode, String data) {
-        this.responseCode = responseCode;
-        if (responseCode == 200) {
-            this.data = new Gson().fromJson(data, LoginBean.class);
-        } else {
-            this.data = null;
-        }
+    public LoginEvent(int result, int name) {
+        this.result = result;
+        this.name = name;
     }
 
-    // 获取返回的实际信息
-    private String getMessage() {
-        switch (responseCode) {
-            case 200:
-                if (data.getResult() == 1) {
-                    return MessageConstant.LOGIN_SUCCESS;
-                } else {
-                    if (data.getName() == 1) {
-                        return MessageConstant.ACCOUNT_OR_PASSWORD_ERROR;
-                    } else {
-                        return MessageConstant.USER_INEXISTENT;
-                    }
-                }
-            case 401:
-                return MessageConstant.PARAMS_UNAVAILABLE;
-            default:
-                throw new RuntimeException("ResponseCode is not right, please check.");
-        }
+    public int getResult() {
+        return result;
     }
 
-    // 获取错误信息
+    public void setResult(int result) {
+        this.result = result;
+    }
+
+    public int getName() {
+        return name;
+    }
+
+    public void setName(int name) {
+        this.name = name;
+    }
+
     public String getError() {
-        if (responseCode == 200 && data.getResult() == 1) {
-            return "";
+        if (result == 1) {
+            // 登录成功
+            return null;
         } else {
-            return getMessage();
+            if (name == 1) {
+                return MessageConstant.ACCOUNT_OR_PASSWORD_ERROR;
+            } else if (name == 0) {
+                return MessageConstant.USER_INEXISTENT;
+            } else {
+                return MessageConstant.UNKNOWN_ERROR;
+            }
         }
     }
 }

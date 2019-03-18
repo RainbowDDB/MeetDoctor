@@ -113,12 +113,6 @@ public class EditActivity extends BaseActivity implements View.OnClickListener,
                             public void onSuccess(String response) {
                                 LatteLogger.d(response);
                             }
-                        },
-                        new IError() {
-                            @Override
-                            public void onError(int code, String msg) {
-                                LatteLogger.e(TAG, code + "   " + msg);
-                            }
                         });
                 break;
             case R.id.tv_person_birthday:

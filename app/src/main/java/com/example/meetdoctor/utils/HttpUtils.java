@@ -9,13 +9,20 @@ import com.example.meetdoctor.core.net.callback.IError;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.event.CheckUserEvent;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
+import com.google.gson.Gson;
 
 import java.util.WeakHashMap;
 
 public class HttpUtils {
+
+    private static final String TAG = "HttpUtils";
+
+    private static IError ERROR = (code, msg) -> {
+        LatteLogger.e(TAG, code + "   " + msg);
+        EventBusUtils.post(new EventMessage<>(code, msg));
+    };
 
     /**
      * 登录
@@ -32,14 +39,12 @@ public class HttpUtils {
                 .params(params)
                 .success((response) -> {
                     if (response != null) {
-                        LatteLogger.d("login success: code = " + 200 + ",responseData = " + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(200, response)));
+                        LatteLogger.d("login success: responseData = " + response);
+                        LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, bean));
                     }
                 })
-                .error((code, msg) -> {
-                    LatteLogger.e("login error", "code=" + code + "  err=" + msg);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new LoginEvent(code, msg)));
-                })
+                .error(ERROR)
                 .build()
                 .post();
     }
@@ -61,13 +66,10 @@ public class HttpUtils {
                 .success((response) -> {
                     if (response != null) {
                         LatteLogger.d("register success: responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(200, userName, password)));
+                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(userName, password)));
                     }
                 })
-                .error((code, msg) -> {
-                    LatteLogger.e("register error", "code=" + code + "  err=" + msg);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(code)));
-                })
+                .error(ERROR)
                 .build()
                 .get();
     }
@@ -85,13 +87,9 @@ public class HttpUtils {
                 .success((response) -> {
                     if (response != null) {
                         LatteLogger.d("checkUser success：responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(200)));
                     }
                 })
-                .error((code, msg) -> {
-                    LatteLogger.e("checkUser error", "code=" + code + "  err=" + msg);
-                    EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckUserEvent(code)));
-                })
+                .error(ERROR)
                 .build()
                 .get();
     }
@@ -99,18 +97,18 @@ public class HttpUtils {
     /**
      * 判断用户是否已登录，用cookie保存状态
      */
-    public static void checkLogin(ISuccess iSuccess, IError iError) {
+    public static void checkLogin(ISuccess iSuccess) {
         RestClient.builder().url("user/checklogin")
                 .success(iSuccess)
-                .error(iError)
+                .error(ERROR)
                 .build()
                 .get();
     }
 
-    public static void checkState(ISuccess iSuccess, IError iError) {
+    public static void checkState(ISuccess iSuccess) {
         RestClient.builder().url("ask/state")
                 .success(iSuccess)
-                .error(iError)
+                .error(ERROR)
                 .build()
                 .get();
     }
@@ -118,11 +116,11 @@ public class HttpUtils {
     /**
      * 获取对象列表
      */
-    public static void getMemberList(Context context, ISuccess iSuccess, IError iError) {
+    public static void getMemberList(Context context, ISuccess iSuccess) {
         RestClient.builder().url("person/GetMemberList")
                 .loader(context)
                 .success(iSuccess)
-                .error(iError)
+                .error(ERROR)
                 .build()
                 .get();
     }
@@ -137,8 +135,7 @@ public class HttpUtils {
                                     @Nullable Double height,
                                     @Nullable Double weight,
                                     String birthday,  // YYYY-MM-DD
-                                    ISuccess iSuccess,
-                                    IError iError) {
+                                    ISuccess iSuccess) {
         WeakHashMap<String, Object> map = new WeakHashMap<>();
         map.put("name", name);
         map.put("alias", alias);
@@ -148,7 +145,7 @@ public class HttpUtils {
         map.put("birthday", birthday);
         RestClient.builder().url("person/CreateMember")
                 .success(iSuccess)
-                .error(iError)
+                .error(ERROR)
                 .loader(context)
                 .params(map)
                 .build()

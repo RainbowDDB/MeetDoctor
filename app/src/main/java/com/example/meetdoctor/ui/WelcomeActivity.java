@@ -1,6 +1,5 @@
 package com.example.meetdoctor.ui;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -12,17 +11,16 @@ import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckPermissionEvent;
 import com.example.meetdoctor.model.event.CheckStateEvent;
-import com.example.meetdoctor.ui.info.SwitchActivity;
 import com.example.meetdoctor.ui.launcher.LauncherActivity;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.core.storage.LattePreference;
-import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 
 public class WelcomeActivity extends BaseActivity {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "WelcomeActivity";
     private TimerHelper timer;
 
@@ -53,14 +51,7 @@ public class WelcomeActivity extends BaseActivity {
                                             new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
                                     startActivity(HomeActivity.class);
                                     finish();
-                                },
-                                (code, msg) -> {
-                                    LatteLogger.e(TAG, code + "   " + msg);
                                 });
-                    }, (code, msg) -> {
-                        if (code == 406) {
-                            startActivity(LoginActivity.class);
-                        }
                     });
                     Looper.loop();
                 }

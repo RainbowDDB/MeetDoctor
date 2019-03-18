@@ -101,18 +101,13 @@ public class LoginActivity extends BaseActivity
                 login();
                 break;
             case R.id.img_qq_login:
-//             TODO 待修改   测试登录验证用
-                HttpUtils.checkLogin((response) -> {
-                    if (response != null) {
-                        LatteLogger.d(200 + "    " + response);
-                    }
-                }, (code, msg) -> LatteLogger.e(TAG, code + "    " + msg));
                 break;
             case R.id.img_wechat_login:
                 break;
             case R.id.img_other_login:
                 break;
         }
+
     }
 
     @Override
@@ -130,14 +125,15 @@ public class LoginActivity extends BaseActivity
         super.onReceiveEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
             if (event.getData() instanceof LoginEvent) {
-                String err = ((LoginEvent) event.getData()).getError();
-                if (!err.equals("")) {
-                    showErrorMessage(errMsg, err);
-                } else {
+                LoginEvent bean = (LoginEvent) event.getData();
+                if (bean.getResult() == 1) {
+                    // 登录成功
                     hideErrorMessage(errMsg);
                     showToast(MessageConstant.LOGIN_SUCCESS);
                     startActivity(HomeActivity.class,
                             Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                } else {
+                    showErrorMessage(errMsg, bean.getError());
                 }
             }
         }
