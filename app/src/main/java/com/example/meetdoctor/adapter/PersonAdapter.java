@@ -2,6 +2,7 @@ package com.example.meetdoctor.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,18 +21,27 @@ import com.example.meetdoctor.widget.recyclerview.RecyclerViewHolder;
 import java.util.List;
 
 public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
-    public PersonAdapter(Context context, List<PersonBean> data) {
+
+    private int chosenId;
+
+    public PersonAdapter(Context context, List<PersonBean> data, int chosenId) {
         super(context, data, R.layout.item_person_card);
+        this.chosenId = chosenId;
     }
 
     @Override
     protected void onBindData(RecyclerViewHolder holder, PersonBean bean, int position) {
+        View personCard = holder.getView(R.id.person_card_background);
+
         TextView name = (TextView) holder.getView(R.id.tv_person_name);
         TextView age = (TextView) holder.getView(R.id.tv_person_age);
         TextView birthday = (TextView) holder.getView(R.id.tv_person_birthday);
         TextView alias = (TextView) holder.getView(R.id.tv_person_alias);
         ImageView genderImg = (ImageView) holder.getView(R.id.img_person_gender);
         ImageView edit = (ImageView) holder.getView(R.id.img_edit_person);
+
+        personCard.setBackgroundResource(bean.getId() == chosenId ?
+                R.drawable.item_person_card_selected : R.drawable.item_person_card_unselected);
 
         name.setText(bean.getName() != null ? bean.getName() : "未填写");
         age.setText(bean.getBirthday() != null ?

@@ -76,6 +76,7 @@
                         android:paddingEnd="5dp"
                         android:text="@string/name"
                         android:textColor="@color/textBlack"
+                        android:textCursorDrawable="@drawable/edit_text_cursor"
                         android:textSize="14sp" />
                 </LinearLayout>
 
@@ -177,6 +178,7 @@
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
                         android:textColor="@color/tipGrey"
+                        android:textCursorDrawable="@drawable/edit_text_cursor"
                         android:textSize="14sp" />
                 </LinearLayout>
 

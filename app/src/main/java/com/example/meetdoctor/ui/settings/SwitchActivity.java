@@ -33,7 +33,7 @@ public class SwitchActivity extends SettingsBaseActivity {
             LatteLogger.json(TAG, response);
             List<PersonBean> list = memberListBean.getList();
             LatteLogger.d(list);
-            adapter = new PersonAdapter(SwitchActivity.this, list);
+            adapter = new PersonAdapter(SwitchActivity.this, list, memberListBean.getMemberId());
             recyclerView.setAdapter(adapter);
         });
 
