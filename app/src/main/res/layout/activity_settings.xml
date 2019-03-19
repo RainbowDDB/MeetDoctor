@@ -47,7 +47,7 @@
 
             <ImageView
                 android:id="@+id/img_avatar"
-                android:layout_width="32dp"
+                android:layout_width="28dp"
                 android:layout_height="32dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
@@ -69,13 +69,14 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_right"
-                tools:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,8 +88,8 @@
 
             <ImageView
                 android:id="@+id/img_account_security"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -109,13 +110,14 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_right"
-                tools:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_right" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -127,8 +129,8 @@
 
             <ImageView
                 android:id="@+id/img_bin"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -150,15 +152,17 @@
 
             <ImageView
                 android:id="@+id/storage_arrow_right"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_right"
-                tools:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_right" />
 
             <TextView
+                android:id="@+id/tv_cache_memory"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginEnd="5dp"
@@ -180,8 +184,8 @@
 
             <ImageView
                 android:id="@+id/img_ai_info"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
@@ -202,13 +206,14 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:src="@drawable/arrow_right"
-                tools:layout_marginRight="10dp" />
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/arrow_right" />
         </RelativeLayout>
     </LinearLayout>
 </ScrollView>

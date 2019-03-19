@@ -1,4 +1,4 @@
-package com.example.meetdoctor.widget;
+package com.example.meetdoctor.widget.popup;
 
 import android.app.Activity;
 import android.content.Context;
