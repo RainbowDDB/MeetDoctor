@@ -16,14 +16,16 @@ import android.widget.Toast;
 import com.baidu.speech.asr.SpeechConstant;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.base.GlideApp;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.info.CollectionActivity;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
+import com.example.meetdoctor.ui.settings.SettingsActivity;
+import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
 
@@ -76,7 +78,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         LinearLayout mCollectionLayout = headerView.findViewById(R.id.collection_layout);
         LinearLayout mProfileLayout = headerView.findViewById(R.id.health_profile_layout);
         LinearLayout mHistoryLayout = headerView.findViewById(R.id.history_layout);
-        LinearLayout mSettingLayout = headerView.findViewById(R.id.setting_layout);
+        LinearLayout mSettingLayout = headerView.findViewById(R.id.settings_layout);
 
         askContent = findViewById(R.id.edt_ask_content);
         baymax = findViewById(R.id.img_baymax);
@@ -84,10 +86,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         soundOrText = findViewById(R.id.img_sound_or_text);
         textInput = findViewById(R.id.text_input);
 
-        GlideApp.with(this)
-                .asGif()
-                .load(R.drawable.listen)
-                .into(baymax);
+        ImageUtils.showGif(this, R.drawable.listen, baymax);
 
         recognizer = new SpeechRecognizer(this, new RecogListener() {
             @Override
@@ -128,13 +127,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.ai_layout:
                 break;
             case R.id.collection_layout:
+                startActivity(CollectionActivity.class);
                 break;
             case R.id.history_layout:
                 break;
             case R.id.health_profile_layout:
                 startActivity(HealthProfileActivity.class);
                 break;
-            case R.id.setting_layout:
+            case R.id.settings_layout:
+                startActivity(SettingsActivity.class);
                 break;
             case R.id.img_sound_or_text:
                 if (speak.getVisibility() == View.VISIBLE) {
@@ -174,10 +175,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             mPressedTime = mNowTime;
         } else {// 退出程序
             // 切换gif，并使inputBar消失
-            GlideApp.with(this)
-                    .asGif()
-                    .load(R.drawable.sleep)
-                    .into(baymax);
+            ImageUtils.showGif(this, R.drawable.sleep, baymax);
             inputBar.setVisibility(View.GONE);
             // 计时器延时gif持续时间 1s 并退出
             new TimerHelper() {

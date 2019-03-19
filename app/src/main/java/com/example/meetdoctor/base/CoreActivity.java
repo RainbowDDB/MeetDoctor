@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.meetdoctor.core.img.GlideApp;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
@@ -69,6 +70,23 @@ public abstract class CoreActivity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         EventBusUtils.unregister(this);
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
+            GlideApp.get(this).clearMemory();
+        }
+        // 根据不同的level清理内存
+        GlideApp.get(this).trimMemory(level);
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        // 内存低回调
+        GlideApp.get(this).clearMemory();
     }
 
     @Override

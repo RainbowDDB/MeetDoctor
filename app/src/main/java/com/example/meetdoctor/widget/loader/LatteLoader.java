@@ -15,7 +15,7 @@ import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class LatteLoader {
 
-    private static final int LOADER_SIZE_SCALE = 8;
+    private static final int LOADER_SIZE_SCALE = 6;
     private static final int LOADER_OFFSET_SCALE = 10;
 
     private static final ArrayList<AppCompatDialog> LOADERS = new ArrayList<>();
@@ -25,7 +25,7 @@ public class LatteLoader {
         showLoading(context, type.name());
     }
 
-    public static void showLoading(Context context, String type) {
+    private static void showLoading(Context context, String type) {
         final AppCompatDialog dialog = new AppCompatDialog(context, R.style.dialog);
         final AVLoadingIndicatorView avLoadingIndicatorView = LoaderCreator.create(context, type);
         dialog.setContentView(avLoadingIndicatorView);

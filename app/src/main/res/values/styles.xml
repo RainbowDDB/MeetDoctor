@@ -13,6 +13,11 @@
         </item>
     </style>
 
+    <style name="AppTheme.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <!--去掉边框-->
         <item name="android:windowFrame">@null</item>

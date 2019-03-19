@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
-import com.example.meetdoctor.base.GlideApp;
+import com.example.meetdoctor.core.img.GlideApp;
 
 public class LatteRecyclerView extends RecyclerView {
 

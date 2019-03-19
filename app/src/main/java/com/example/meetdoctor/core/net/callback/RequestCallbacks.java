@@ -40,6 +40,9 @@ public class RequestCallbacks implements Callback<String> {
 
     @Override
     public void onResponse(@NonNull Call<String> call, @NonNull Response<String> response) {
+        // 不管请求是否成功，先关闭Loader
+        // 防止因 SUCCESS 或 ERROR 中因跳转关闭Activity出现的WindowLeaked情况
+        stopLoading();
         if (response.isSuccessful()) {
             // call已执行
             if (call.isExecuted()) {
@@ -52,11 +55,11 @@ public class RequestCallbacks implements Callback<String> {
                 ERROR.onError(response.code(), response.message());
             }
         }
-        stopLoading();
     }
 
     @Override
     public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
+        stopLoading();
         if (FAILURE != null) {
             EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
             FAILURE.onFailure();
@@ -64,7 +67,6 @@ public class RequestCallbacks implements Callback<String> {
         if (REQUEST != null) {
             REQUEST.onRequestEnd();
         }
-        stopLoading();
     }
 
     private void stopLoading() {

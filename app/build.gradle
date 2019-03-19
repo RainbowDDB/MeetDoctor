@@ -47,6 +47,10 @@ dependencies {
     implementation 'com.bigkoo:convenientbanner:2.0.5'
     // Loading
     api 'com.wang.avi:library:2.1.3'
+    // LeakCanary
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
+    releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
     testImplementation 'junit:junit:4.12'
     implementation files('libs/bdasr_V3_20180801_d6f298a.jar')
 }

@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bigkoo.convenientbanner.holder.Holder;
+import com.example.meetdoctor.utils.ImageUtils;
 
 public class LauncherHolder implements Holder<Integer> {
 
@@ -18,6 +19,6 @@ public class LauncherHolder implements Holder<Integer> {
 
     @Override
     public void UpdateUI(Context context, int position, Integer data) {
-        mImageView.setBackgroundResource(data);
+        ImageUtils.showImg(context, data, mImageView);
     }
 }

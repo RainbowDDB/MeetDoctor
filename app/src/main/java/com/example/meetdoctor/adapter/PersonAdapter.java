@@ -6,13 +6,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.GlideApp;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.PersonBean;
 import com.example.meetdoctor.ui.settings.EditActivity;
 import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.widget.recyclerview.BaseRecyclerViewAdapter;
 import com.example.meetdoctor.widget.recyclerview.RecyclerViewHolder;
@@ -40,15 +40,9 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         alias.setText(bean.getAlias() != null ? bean.getAlias() : "未填写");
 
         if (bean.getGender() == 1) {
-            GlideApp.with(getContext())
-                    .load(R.drawable.boy)
-                    .dontAnimate()
-                    .into(genderImg);
+            ImageUtils.showImg(getContext(), R.drawable.boy, genderImg);
         } else if (bean.getGender() == 0) {
-            GlideApp.with(getContext())
-                    .load(R.drawable.girl)
-                    .dontAnimate()
-                    .into(genderImg);
+            ImageUtils.showImg(getContext(), R.drawable.girl, genderImg);
         } else {
             throw new RuntimeException("gender is not right,please check.");
         }

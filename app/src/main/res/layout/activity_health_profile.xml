@@ -168,6 +168,7 @@
                         android:maxLines="2"
                         android:minHeight="24dp"
                         android:text="体温38℃，伴有咳嗽和喷嚏，判断为发热感冒，哈哈哈哈哈哈哈哈呵呵哈哈哈哈哈哈哈"
+                        android:layout_marginEnd="40dp"
                         android:textColor="@color/pureWhite" />
                 </LinearLayout>
             </LinearLayout>
@@ -210,7 +211,6 @@
             android:background="@drawable/health_brief_card"
             android:gravity="center_vertical"
             android:orientation="horizontal">
-
         </LinearLayout>
     </LinearLayout>
 </ScrollView>

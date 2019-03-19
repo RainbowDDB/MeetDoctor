@@ -1,7 +1,5 @@
 package com.example.meetdoctor.ui.launcher;
 
-import android.content.Intent;
-
 import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.bigkoo.convenientbanner.listener.OnItemClickListener;
 import com.example.meetdoctor.R;

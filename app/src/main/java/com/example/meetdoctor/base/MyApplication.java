@@ -5,6 +5,7 @@ import android.content.Context;
 
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.squareup.leakcanary.LeakCanary;
 import com.umeng.commonsdk.UMConfigure;
 
 /**
@@ -23,6 +24,13 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        if (LeakCanary.isInAnalyzerProcess(this)) {
+            // This process is dedicated to LeakCanary for heap analysis.
+            // You should not init your app in this process.
+            return;
+        }
+        LeakCanary.install(this);
+
         //获取Context
         context = getApplicationContext();
         // 友盟统计注册
