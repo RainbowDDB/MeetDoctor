@@ -109,6 +109,10 @@ public abstract class CoreActivity extends AppCompatActivity {
         startActivity(clz, Intent.FLAG_ACTIVITY_NEW_TASK);
     }
 
+    protected void startNewActivity(Class<?> clz) {
+        startActivity(clz, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
     /**
      * 接收到分发的事件
      *
@@ -123,7 +127,7 @@ public abstract class CoreActivity extends AppCompatActivity {
                 break;
             case EventCode.NOT_LOGIN:// 406
                 showToast(MessageConstant.NOT_LOGINED);
-                startActivity(LoginActivity.class);
+                startNewActivity(LoginActivity.class);
                 break;
             case EventCode.PARAMS_INVALID:// 401
                 showToast(MessageConstant.PARAMS_UNAVAILABLE);

@@ -49,8 +49,7 @@ public class WelcomeActivity extends BaseActivity {
                                     LatteLogger.d(stateResponse);
                                     EventBusUtils.postSticky(
                                             new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
-                                    startActivity(HomeActivity.class);
-                                    finish();
+                                    startNewActivity(HomeActivity.class);
                                 });
                     });
                     Looper.loop();

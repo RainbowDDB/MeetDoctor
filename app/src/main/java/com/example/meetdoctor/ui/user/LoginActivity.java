@@ -130,8 +130,7 @@ public class LoginActivity extends BaseActivity
                     // 登录成功
                     hideErrorMessage(errMsg);
                     showToast(MessageConstant.LOGIN_SUCCESS);
-                    startActivity(HomeActivity.class,
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startNewActivity(HomeActivity.class);
                 } else {
                     showErrorMessage(errMsg, bean.getError());
                 }

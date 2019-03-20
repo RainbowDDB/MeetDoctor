@@ -25,6 +25,7 @@ import com.example.meetdoctor.model.event.CheckStateEvent;
 import com.example.meetdoctor.ui.info.CollectionActivity;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
 import com.example.meetdoctor.ui.settings.SettingsActivity;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
@@ -159,7 +160,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         super.onReceiveStickyEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
             if (event.getData() instanceof CheckStateEvent) {
-                LatteLogger.d("hhhhhhhhhhhhhh");
+                // TODO 处理上次对话记录
+                EventBusUtils.removeStickyEvent(EventMessage.class);
             }
         }
     }

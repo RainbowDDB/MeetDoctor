@@ -39,7 +39,7 @@ public class LauncherActivity extends BaseActivity implements OnItemClickListene
         if (position == INTEGERS.size() - 1) {
             LattePreference.setAppFlag(
                     ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
-            startActivity(LoginActivity.class);
+            startNewActivity(LoginActivity.class);
             finish();
         }
     }
