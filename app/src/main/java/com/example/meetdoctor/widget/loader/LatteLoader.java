@@ -57,5 +57,6 @@ public class LatteLoader {
                 }
             }
         }
+        LOADERS.clear();
     }
 }

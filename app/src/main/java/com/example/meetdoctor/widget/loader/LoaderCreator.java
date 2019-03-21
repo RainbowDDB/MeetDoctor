@@ -7,7 +7,7 @@ import com.wang.avi.Indicator;
 
 import java.util.WeakHashMap;
 
-public class LoaderCreator {
+public final class LoaderCreator {
 
     private static final WeakHashMap<String, Indicator> LOADING_MAP = new WeakHashMap<>();
 

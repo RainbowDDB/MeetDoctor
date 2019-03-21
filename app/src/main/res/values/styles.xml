@@ -38,4 +38,11 @@
     <style name="ToolbarDark" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlNormal">@color/pureWhite</item>
     </style>
+
+
+    <style name="CheckBoxStyle" parent="@android:style/Widget.Material.CompoundButton.CheckBox" tools:targetApi="lollipop">
+        <item name="android:colorControlActivated">@color/black</item>
+        //选中的颜色
+        <item name="android:colorControlNormal">@color/textBlack</item>//默认的颜色
+    </style>
 </resources>

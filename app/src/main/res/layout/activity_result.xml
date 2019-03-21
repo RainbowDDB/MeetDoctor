@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/app_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:elevation="0dp">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/pureWhite" />
+        </android.support.design.widget.AppBarLayout>
+
+        <FrameLayout
+            android:layout_width="320dp"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="30dp">
+
+            <ImageView
+                android:id="@+id/img_baymax"
+                android:layout_width="150dp"
+                android:layout_height="191dp" />
+
+            <LinearLayout
+                android:id="@+id/img_tip_box"
+                android:layout_width="170dp"
+                android:layout_height="100dp"
+                android:layout_marginStart="150dp"
+                android:layout_marginLeft="150dp"
+                android:background="@drawable/tip_box"
+                android:orientation="vertical">
+                <!--TODO 还有其他问题吗？-->
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="@dimen/page_width"
+                android:layout_height="380dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="130dp"
+                android:background="@drawable/btn_background_minor"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_suggest_num"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="总共有20条建议"
+                    android:textColor="@color/textBlack" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:gravity="center_vertical"
+                        android:text="仅显示专家以上级别"
+                        android:textColor="@color/textBlack"
+                        android:textSize="12sp" />
+
+                    <CheckBox
+                        android:id="@+id/check_box_agreement"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:gravity="center"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7"
+                        android:theme="@style/CheckBoxStyle" />
+                </LinearLayout>
+
+                <com.example.meetdoctor.widget.recyclerview.LatteRecyclerView
+                    android:id="@+id/recycler_view"
+                    android:layout_width="280dp"
+                    android:layout_height="276dp" />
+
+                <ImageView
+                    android:id="@+id/img_load_more"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:src="@drawable/down" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</ScrollView>

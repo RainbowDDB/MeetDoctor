@@ -20,6 +20,9 @@ android {
         sourceCompatibility = '1.8'
         targetCompatibility = '1.8'
     }
+    packagingOptions {
+        exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
 }
 
 dependencies {
@@ -31,7 +34,7 @@ dependencies {
     implementation 'com.umeng.umsdk:common:1.5.4'
     // EventBus
     implementation 'org.greenrobot:eventbus:3.1.1'
-    // Retrofit + OkHttp + Glide + Cookie 持久化保存
+    // Retrofit + OkHttp + Glide
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
@@ -51,6 +54,10 @@ dependencies {
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.6.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.6.3'
     debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
-    testImplementation 'junit:junit:4.12'
+    // Chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
+    // Baidu Speech
     implementation files('libs/bdasr_V3_20180801_d6f298a.jar')
+
+    testImplementation 'junit:junit:4.12'
 }

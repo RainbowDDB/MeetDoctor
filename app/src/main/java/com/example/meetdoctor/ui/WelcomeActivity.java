@@ -31,14 +31,12 @@ public class WelcomeActivity extends BaseActivity {
         timer = new TimerHelper() {
             @Override
             public void run() {
-                stop();
                 // 如果是首次进入
                 if (!LattePreference.getAppFlag(
                         ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
                     startActivity(LauncherActivity.class);
-                    finish();
                 } else {
-                    // 创建Looper对象以便在子线程创建handler,重点！
+                    // 创建Looper对象当内部执行完成再执行后续操作，控制线程执行顺序
                     Looper.prepare();
                     // 判断登录状态
                     HttpUtils.checkLogin(response -> {
@@ -49,11 +47,16 @@ public class WelcomeActivity extends BaseActivity {
                                     LatteLogger.d(stateResponse);
                                     EventBusUtils.postSticky(
                                             new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
-                                    startNewActivity(HomeActivity.class);
+                                    startActivity(HomeActivity.class);
                                 });
                     });
                     Looper.loop();
                 }
+                // 虽然TimerTask.cancel()提供了一个及时取消的接口
+                // 但却没有一个自动机制保证失效的任务及时回收（可能需要用户手动处理）
+                stop();
+                // 最后finish是要保证timer能正常cancel，防止leaked
+                finish();
             }
         };
         if (LattePreference.getAppFlag(

@@ -14,7 +14,7 @@ public class LatteRecyclerView extends RecyclerView {
     /**
      * 滚动图片加载性能优化
      */
-    OnScrollListener listener = new OnScrollListener() {
+    private final OnScrollListener LISTENER = new OnScrollListener() {
         @Override
         public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
             super.onScrollStateChanged(recyclerView, newState);
@@ -40,18 +40,18 @@ public class LatteRecyclerView extends RecyclerView {
     public LatteRecyclerView(@NonNull Context context) {
         super(context);
         this.mContext = context;
-        addOnScrollListener(listener);
+        addOnScrollListener(LISTENER);
     }
 
     public LatteRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.mContext = context;
-        addOnScrollListener(listener);
+        addOnScrollListener(LISTENER);
     }
 
     public LatteRecyclerView(@NonNull Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         this.mContext = context;
-        addOnScrollListener(listener);
+        addOnScrollListener(LISTENER);
     }
 }
