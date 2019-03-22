@@ -1,7 +1,11 @@
 package com.example.meetdoctor.ui;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MotionEvent;
@@ -11,11 +15,15 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.speech.asr.SpeechConstant;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.img.GlideApp;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
@@ -44,6 +52,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private Button speak;
     private ImageView soundOrText;
     private LinearLayout textInput;
+    private TextView response;
 
     private SpeechRecognizer recognizer;
 
@@ -86,6 +95,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         speak = findViewById(R.id.btn_sound_input);
         soundOrText = findViewById(R.id.img_sound_or_text);
         textInput = findViewById(R.id.text_input);
+        response = findViewById(R.id.tv_ask_result);
+        Button ask = findViewById(R.id.btn_ask);
 
         ImageUtils.showGif(this, R.drawable.listen, baymax);
 
@@ -93,6 +104,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             @Override
             public void onFinishResult(String recogResult) {
                 showToast(recogResult);
+                response.setText(recogResult);
             }
         });
 
@@ -103,6 +115,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         mAILayout.setOnClickListener(this);
         soundOrText.setOnClickListener(this);
         speak.setOnTouchListener(this);
+        ask.setOnClickListener(this);
 
 //        HttpUtils.getMemberList(this, new ISuccess() {
 //            @Override
@@ -125,6 +138,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
+            case R.id.btn_ask:
+                String content = askContent.getText().toString();
+                response.setText(content);
+                askContent.setText(null);
+                break;
             case R.id.ai_layout:
                 break;
             case R.id.collection_layout:
@@ -186,7 +204,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     finish();
                     System.exit(0);
                 }
-            }.start(1000, 10000);
+            }.start(1000);
         }
     }
 
@@ -234,8 +252,10 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (v instanceof EditText) {
             int[] l = {0, 0};
             v.getLocationInWindow(l);
-            if (UIHelper.getViewAtActivity(
-                    this, (int) event.getRawX(), (int) event.getRawY()) instanceof EditText) {
+            View view = UIHelper.getViewAtActivity(
+                    this, (int) event.getRawX(), (int) event.getRawY());
+            // 除下述几种情况隔离
+            if (view instanceof EditText || view instanceof Button) {
                 return false;
             }
             int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
