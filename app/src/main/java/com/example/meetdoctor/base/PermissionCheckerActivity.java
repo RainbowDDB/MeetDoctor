@@ -11,7 +11,6 @@ import android.support.v4.content.ContextCompat;
 import com.example.meetdoctor.core.storage.LattePreference;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.event.CheckPermissionEvent;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.utils.EventBusUtils;
 
@@ -55,7 +54,7 @@ public abstract class PermissionCheckerActivity extends CoreActivity {
         if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
             if (!toApplyList.isEmpty()) {
                 ActivityCompat.requestPermissions(
-                        this, toApplyList.toArray(tmpList), 123);
+                        this, toApplyList.toArray(tmpList), EventCode.PERMISSION_SUCCESS);
             }
         }
     }
@@ -66,6 +65,6 @@ public abstract class PermissionCheckerActivity extends CoreActivity {
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
         // 通知WelcomeActivity进行计时
-        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new CheckPermissionEvent(requestCode)));
+        EventBusUtils.post(new EventMessage(EventCode.PERMISSION_SUCCESS));
     }
 }

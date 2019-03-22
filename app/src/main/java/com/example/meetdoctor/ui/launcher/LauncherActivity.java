@@ -17,6 +17,7 @@ public class LauncherActivity extends BaseActivity implements OnItemClickListene
 
     @Override
     public void initView() {
+        LattePreference.setAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
         INTEGERS.add(R.drawable.launcher_01);
         INTEGERS.add(R.drawable.launcher_02);
         INTEGERS.add(R.drawable.launcher_03);
@@ -37,8 +38,6 @@ public class LauncherActivity extends BaseActivity implements OnItemClickListene
     public void onItemClick(int position) {
         // 如果点击的是最后一个，直接进入登录页
         if (position == INTEGERS.size() - 1) {
-            LattePreference.setAppFlag(
-                    ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name(), true);
             startNewActivity(LoginActivity.class);
             finish();
         }

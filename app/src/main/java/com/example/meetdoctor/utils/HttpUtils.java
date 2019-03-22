@@ -98,10 +98,10 @@ public class HttpUtils {
     /**
      * 判断用户是否已登录，用cookie保存状态
      */
-    public static void checkLogin(ISuccess iSuccess) {
+    public static void checkLogin(ISuccess iSuccess, IError iError) {
         RestClient.builder().url("user/checklogin")
                 .success(iSuccess)
-                .error(ERROR)
+                .error(iError)
                 .build()
                 .get();
     }

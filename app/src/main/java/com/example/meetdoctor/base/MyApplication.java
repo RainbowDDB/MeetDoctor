@@ -3,6 +3,7 @@ package com.example.meetdoctor.base;
 import android.app.Application;
 import android.content.Context;
 
+import com.example.meetdoctor.core.log.LatteLogger;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.squareup.leakcanary.LeakCanary;
@@ -39,5 +40,6 @@ public class MyApplication extends Application {
         UMConfigure.setLogEnabled(true);
         // Logger初始化
         Logger.addLogAdapter(new AndroidLogAdapter());
+        LatteLogger.setLevel(LatteLogger.DEBUG);
     }
 }

@@ -32,6 +32,18 @@ public abstract class TimerHelper {
         mTimer.schedule(mTimerTask, delay, period);
     }
 
+    public void start(int delay) {
+        pause();
+        mTimer = new Timer();
+        mTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                TimerHelper.this.run();
+            }
+        };
+        mTimer.schedule(mTimerTask, delay);
+    }
+
     public void pause() {
         if (mTimer != null) {
             mTimer.cancel();
@@ -40,13 +52,14 @@ public abstract class TimerHelper {
     }
 
     public void stop() {
-        if (mTimer != null) {
-            mTimer.cancel();
-            mTimer = null;
-        }
         if (mTimerTask != null) {
             mTimerTask.cancel();
             mTimerTask = null;
+        }
+        if (mTimer != null) {
+            mTimer.cancel();
+            mTimer.purge();
+            mTimer = null;
         }
     }
 }

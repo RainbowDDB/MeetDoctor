@@ -127,7 +127,8 @@ public abstract class CoreActivity extends AppCompatActivity {
                 break;
             case EventCode.NOT_LOGIN:// 406
                 showToast(MessageConstant.NOT_LOGINED);
-                startNewActivity(LoginActivity.class);
+                // 此时无需进行New Activity，故仅仅在全局检测登录状态的时候才会使用
+                startActivity(LoginActivity.class);
                 break;
             case EventCode.PARAMS_INVALID:// 401
                 showToast(MessageConstant.PARAMS_UNAVAILABLE);
