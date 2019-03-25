@@ -8,11 +8,11 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.FlagConstant;
 import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.widget.DateSelector;
@@ -33,6 +33,9 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
 
     private ArrayList<String> birthdayData = new ArrayList<>();
 
+    // 获取EventCode==ADD_OR_EDIT传过来的值,true为添加对象，false为编辑修改对象
+    private boolean flag;
+
     @Override
     protected void initView() {
         name = findViewById(R.id.edt_person_name);
@@ -44,9 +47,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
 
         birthday.setOnClickListener(this);
         Button confirm = findViewById(R.id.btn_confirm);
-        confirm.setOnClickListener(view -> {
-
-        });
+        confirm.setOnClickListener(this);
 
         initData();
     }
@@ -79,19 +80,33 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 }
             }
         }
+//        else if (event.getCode() == EventCode.ADD_OR_EDIT) {
+//            if (event.getData() instanceof Boolean) {
+//                flag = (boolean) event.getData();
+//            }
+//        }
+        EventBusUtils.removeStickyEvent(EventMessage.class);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_confirm:
-//                HttpUtils.createMember(this,
-//                        name.getText().toString(),
-//                        alias.getText().toString(), 1,
-//                        null, null, "1999-03-04"
-//                        , response -> {
-//                            LatteLogger.d(response);
-//                        });
+                if (flag) {
+                    HttpUtils.createMember(this,
+                            name.getText().toString(),
+                            alias.getText().toString(),
+                            gender,
+                            null,
+                            null,
+                            birthday.getText().toString(),
+                            response -> {
+                                showToast("创建对象成功！");
+                                finish();
+                            });
+                } else {
+                    // 添加对象
+                }
                 break;
             case R.id.tv_person_birthday:
                 DateSelector selectorView = new DateSelector(this, birthdayData);
@@ -122,6 +137,6 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     }
 
     private void initData() {
-
+        flag = getIntent().getBooleanExtra(FlagConstant.ADD_OR_EDIT, false);
     }
 }

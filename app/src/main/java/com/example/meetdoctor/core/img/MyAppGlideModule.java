@@ -42,6 +42,6 @@ public final class MyAppGlideModule extends AppGlideModule {
         builder.setResizeExecutor(newSourceExecutor(myUncaughtThrowableStrategy));
 
         // Glide 日志等级
-        builder.setLogLevel(Log.DEBUG);
+        builder.setLogLevel(Log.WARN);
     }
 }

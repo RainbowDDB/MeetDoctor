@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.FlagConstant;
 import com.example.meetdoctor.model.bean.PersonBean;
 import com.example.meetdoctor.ui.settings.EditActivity;
 import com.example.meetdoctor.utils.DateUtils;
@@ -59,7 +60,10 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         edit.setOnClickListener(view -> {
             // 编辑个人档案信息事件
             EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-            getContext().startActivity(new Intent(getContext(), EditActivity.class));
+//            EventBusUtils.postSticky(new EventMessage<>(EventCode.ADD_OR_EDIT, false));
+            Intent intent = new Intent(getContext(), EditActivity.class);
+            intent.putExtra(FlagConstant.ADD_OR_EDIT, false);
+            getContext().startActivity(intent);
         });
     }
 }

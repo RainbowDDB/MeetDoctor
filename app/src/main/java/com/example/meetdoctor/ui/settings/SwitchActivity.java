@@ -6,39 +6,60 @@ import android.widget.Button;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.adapter.PersonAdapter;
 import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.model.EventCode;
+import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.FlagConstant;
 import com.example.meetdoctor.model.bean.MemberListBean;
 import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.widget.recyclerview.LatteRecyclerView;
 import com.google.gson.Gson;
 
 import java.util.List;
+import java.util.WeakHashMap;
 
 public class SwitchActivity extends SettingsBaseActivity {
 
     private static final String TAG = "SwitchActivity";
-    private PersonAdapter adapter;
-    private Button addPerson;
+    private PersonAdapter adapter = null;
+    private LatteRecyclerView recyclerView = null;
+
+    private List<PersonBean> dataList = null;
 
     @Override
-    protected void initView() {
-        addPerson = findViewById(R.id.btn_person_add);
-
-        LatteRecyclerView recyclerView = findViewById(R.id.recycler_view);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-
+    protected void onResume() {
+        super.onResume();
         HttpUtils.getMemberList(this, response -> {
             MemberListBean memberListBean = new Gson().fromJson(response, MemberListBean.class);
             LatteLogger.json(TAG, response);
-            List<PersonBean> list = memberListBean.getList();
-            LatteLogger.d(list);
-            adapter = new PersonAdapter(SwitchActivity.this, list, memberListBean.getMemberId());
+            dataList = memberListBean.getList();
+            LatteLogger.d(dataList);
+            if (adapter == null) {
+                // 首次进入此页面加载适配器
+                adapter = new PersonAdapter(SwitchActivity.this,
+                        dataList, memberListBean.getMemberId());
+            } else {
+                // 再次进入则直接刷新
+                adapter.notifyDataSetChanged();
+            }
             recyclerView.setAdapter(adapter);
         });
+    }
+
+    @Override
+    protected void initView() {
+        Button addPerson = findViewById(R.id.btn_person_add);
+
+        recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
 
         addPerson.setOnClickListener(view -> {
-            startActivity(EditActivity.class);
+            WeakHashMap<String, Object> params = new WeakHashMap<>();
+            params.put(FlagConstant.ADD_OR_EDIT, true);
+//            EventBusUtils.postSticky(new EventMessage<>(EventCode.ADD_OR_EDIT, true));
+            startActivity(EditActivity.class, params);
         });
 
     }

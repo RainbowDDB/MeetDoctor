@@ -1,11 +1,7 @@
 package com.example.meetdoctor.ui;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
 import android.graphics.Rect;
-import android.graphics.drawable.Drawable;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MotionEvent;
@@ -19,12 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.speech.asr.SpeechConstant;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.core.img.GlideApp;
-import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.EventCode;

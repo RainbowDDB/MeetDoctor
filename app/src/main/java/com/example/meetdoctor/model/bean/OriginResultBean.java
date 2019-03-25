@@ -5,11 +5,6 @@ public class OriginResultBean {
     private String corpus_no;
     private String err_no;
     private String sn;
-    private ResultBean result;
-
-    public ResultBean getResult() {
-        return result;
-    }
 
     public String getCorpus_no() {
         return corpus_no;

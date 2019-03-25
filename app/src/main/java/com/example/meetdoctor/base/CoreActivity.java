@@ -20,6 +20,8 @@ import com.umeng.analytics.MobclickAgent;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.WeakHashMap;
+
 /**
  * CoreActivity
  * 初始化友盟统计和EventBus
@@ -107,6 +109,25 @@ public abstract class CoreActivity extends AppCompatActivity {
 
     protected void startActivity(Class<?> clz) {
         startActivity(clz, Intent.FLAG_ACTIVITY_NEW_TASK);
+    }
+
+    protected void startActivity(Class<?> clz, WeakHashMap<String, Object> params) {
+        Intent intent = new Intent(this, clz);
+        for (WeakHashMap.Entry<String, Object> entry : params.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (value instanceof Integer) {
+                intent.putExtra(key, (Integer) value);
+            } else if (value instanceof String) {
+                intent.putExtra(key, (String) value);
+            } else if (value instanceof Boolean) {
+                intent.putExtra(key, (Boolean) value);
+            } else {
+                return;
+            }
+        }
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 
     protected void startNewActivity(Class<?> clz) {
