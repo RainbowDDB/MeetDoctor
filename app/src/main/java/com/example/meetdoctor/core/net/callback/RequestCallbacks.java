@@ -3,9 +3,7 @@ package com.example.meetdoctor.core.net.callback;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 
-import com.example.meetdoctor.model.EventCode;
-import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.widget.loader.LatteLoader;
 import com.example.meetdoctor.widget.loader.LoaderStyle;
 
@@ -19,6 +17,7 @@ import retrofit2.Response;
  */
 public class RequestCallbacks implements Callback<String> {
 
+    private static final String TAG = "RequestCallbacks";
     private static final Handler HANDLER = new Handler();
     private final IRequest REQUEST;
     private final ISuccess SUCCESS;
@@ -60,8 +59,8 @@ public class RequestCallbacks implements Callback<String> {
     @Override
     public void onFailure(@NonNull Call<String> call, @NonNull Throwable t) {
         stopLoading();
+        LatteLogger.e(TAG, t.toString());
         if (FAILURE != null) {
-            EventBusUtils.post(new EventMessage(EventCode.NET_ERROR));
             FAILURE.onFailure();
         }
         if (REQUEST != null) {

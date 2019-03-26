@@ -102,6 +102,7 @@
                         android:id="@+id/radio_group_gender"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:checkedButton="@id/radio_boy"
                         android:orientation="horizontal">
 
                         <RadioButton
@@ -177,7 +178,8 @@
                         android:minHeight="32dp"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:textColor="@color/tipGrey"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/tipGrey"
                         android:textCursorDrawable="@drawable/edit_text_cursor"
                         android:textSize="14sp" />
                 </LinearLayout>

@@ -35,14 +35,9 @@ public class SwitchActivity extends SettingsBaseActivity {
             LatteLogger.json(TAG, response);
             dataList = memberListBean.getList();
             LatteLogger.d(dataList);
-            if (adapter == null) {
-                // 首次进入此页面加载适配器
-                adapter = new PersonAdapter(SwitchActivity.this,
-                        dataList, memberListBean.getMemberId());
-            } else {
-                // 再次进入则直接刷新
-                adapter.notifyDataSetChanged();
-            }
+            // 进入此页面加载适配器，重新赋值
+            adapter = new PersonAdapter(SwitchActivity.this,
+                    dataList, memberListBean.getMemberId());
             recyclerView.setAdapter(adapter);
         });
     }

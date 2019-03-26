@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.net.RestClient;
 import com.example.meetdoctor.core.net.callback.IError;
+import com.example.meetdoctor.core.net.callback.IFailure;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
@@ -141,8 +142,10 @@ public class HttpUtils {
         map.put("name", name);
         map.put("alias", alias);
         map.put("sex", gender);
-        map.put("height", height);
-        map.put("weight", weight);
+        // 在Retrofit的post方法中
+        // 传入的 Field Map 的 key 和 value 均不能为null，否则会返回在onFailure中
+        map.put("height", height != null ? height : "");
+        map.put("weight", weight != null ? weight : "");
         map.put("birthday", birthday);
         RestClient.builder().url("person/CreateMember")
                 .success(iSuccess)

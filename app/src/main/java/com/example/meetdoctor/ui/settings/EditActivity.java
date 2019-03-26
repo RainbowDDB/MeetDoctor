@@ -1,5 +1,6 @@
 package com.example.meetdoctor.ui.settings;
 
+import android.graphics.Color;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -24,16 +25,16 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
 
     @SuppressWarnings("unused")
     private static final String TAG = "EditActivity";
+    private static final int TEXT_COLOR = Color.parseColor("#3e3a39");
+
     private EditText name;
-    private int gender;
+    private int gender = 1; // 默认为 1，男
     private TextView birthday;
     private EditText alias;
-
     private RadioGroup radioGroup;
 
     private ArrayList<String> birthdayData = new ArrayList<>();
-
-    // 获取EventCode==ADD_OR_EDIT传过来的值,true为添加对象，false为编辑修改对象
+    // true为添加对象，false为编辑修改对象
     private boolean flag;
 
     @Override
@@ -69,14 +70,13 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 if (bean.getBirthday() != null && !bean.getBirthday().equals("")) {
                     int[] dates = StringUtils.spilt2num(bean.getBirthday());
                     birthday.setText(StringUtils.getFormatDate(dates[0], dates[1], dates[2]));
-                    birthday.setTextColor(getResources().getColor(R.color.textBlack));
+                    birthday.setTextColor(TEXT_COLOR);
                     for (int i = 0; i < dates.length; i++) {
                         birthdayData.add(i, String.valueOf(dates[i]));
                     }
                 }
                 if (bean.getAlias() != null && !bean.getAlias().equals("")) {
                     alias.setText(bean.getAlias());
-                    alias.setTextColor(getResources().getColor(R.color.textBlack));
                 }
             }
         }
@@ -92,36 +92,53 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_confirm:
-                if (flag) {
-                    HttpUtils.createMember(this,
-                            name.getText().toString(),
-                            alias.getText().toString(),
-                            gender,
-                            null,
-                            null,
-                            birthday.getText().toString(),
-                            response -> {
-                                showToast("创建对象成功！");
-                                finish();
-                            });
+                if (checkForm()) {
+                    if (flag) {
+                        // 添加对象
+                        HttpUtils.createMember(this,
+                                name.getText().toString(),
+                                alias.getText().toString(),
+                                gender,
+                                null,
+                                null,
+                                birthday.getText().toString(),
+                                response -> {
+                                    showToast("创建对象成功！");
+                                    finish();
+                                });
+                    } else {
+                        // 编辑对象
+                    }
                 } else {
-                    // 添加对象
+                    showToast("必须输入您的姓名和生日哦~");
                 }
                 break;
             case R.id.tv_person_birthday:
                 DateSelector selectorView = new DateSelector(this, birthdayData);
                 selectorView.setOnConfirmClickListener((year, month, day) -> {
-                    birthdayData.set(0, year);
-                    birthdayData.set(1, month);
-                    birthdayData.set(2, day);
+                    if (birthdayData.size() == 0) {
+                        birthdayData.add(year);
+                        birthdayData.add(month);
+                        birthdayData.add(day);
+                    } else {
+                        birthdayData.set(0, year);
+                        birthdayData.set(1, month);
+                        birthdayData.set(2, day);
+                    }
                     birthday.setText(StringUtils.getFormatDate(
                             Integer.parseInt(year),
                             Integer.parseInt(month),
                             Integer.parseInt(day)));
+                    birthday.setTextColor(TEXT_COLOR);
                 });
                 selectorView.showAtLocation(getParentView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
+    }
+
+    private boolean checkForm() {
+        return !name.getText().toString().equals("")
+                && !birthday.getText().toString().equals("");
     }
 
     @Override
