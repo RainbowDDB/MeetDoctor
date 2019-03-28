@@ -84,7 +84,7 @@
                         android:theme="@style/CheckBoxStyle" />
                 </LinearLayout>
 
-                <com.example.meetdoctor.widget.recyclerview.LatteRecyclerView
+                <com.example.meetdoctor.widget.recycler.LatteRecyclerView
                     android:id="@+id/recycler_view"
                     android:layout_width="280dp"
                     android:layout_height="276dp" />

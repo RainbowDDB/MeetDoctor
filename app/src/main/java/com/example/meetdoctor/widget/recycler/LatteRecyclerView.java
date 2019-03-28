@@ -1,4 +1,4 @@
-package com.example.meetdoctor.widget.recyclerview;
+package com.example.meetdoctor.widget.recycler;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

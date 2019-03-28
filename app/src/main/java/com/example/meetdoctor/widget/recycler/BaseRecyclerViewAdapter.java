@@ -1,6 +1,7 @@
-package com.example.meetdoctor.widget.recyclerview;
+package com.example.meetdoctor.widget.recycler;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +9,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-/**
- * Created by 帅郑 on 2018/9/24.
- */
-
+@SuppressWarnings("unused")
 public abstract class BaseRecyclerViewAdapter<T>
         extends RecyclerView.Adapter<RecyclerViewHolder> implements View.OnClickListener {
     private Context mContext;
@@ -26,15 +24,16 @@ public abstract class BaseRecyclerViewAdapter<T>
         this.mLayoutId = layoutId;
     }
 
+    @NonNull
     @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(mContext).inflate(mLayoutId, parent, false);
         view.setOnClickListener(this);
         return new RecyclerViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         holder.itemView.setTag(position);
         T bean = mData.get(position);
         onBindData(holder, bean, position);

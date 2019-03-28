@@ -6,14 +6,11 @@ import android.widget.Button;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.adapter.PersonAdapter;
 import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.model.EventCode;
-import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.FlagConstant;
 import com.example.meetdoctor.model.bean.MemberListBean;
 import com.example.meetdoctor.model.bean.PersonBean;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
-import com.example.meetdoctor.widget.recyclerview.LatteRecyclerView;
+import com.example.meetdoctor.widget.recycler.LatteRecyclerView;
 import com.google.gson.Gson;
 
 import java.util.List;

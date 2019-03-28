@@ -1,4 +1,4 @@
-package com.example.meetdoctor.widget.recyclerview;
+package com.example.meetdoctor.widget.recycler;
 
 import android.support.v7.widget.RecyclerView;
 import android.util.SparseArray;

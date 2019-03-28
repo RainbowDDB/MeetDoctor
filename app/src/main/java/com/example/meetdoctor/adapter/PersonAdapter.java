@@ -16,8 +16,8 @@ import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.StringUtils;
-import com.example.meetdoctor.widget.recyclerview.BaseRecyclerViewAdapter;
-import com.example.meetdoctor.widget.recyclerview.RecyclerViewHolder;
+import com.example.meetdoctor.widget.recycler.BaseRecyclerViewAdapter;
+import com.example.meetdoctor.widget.recycler.RecyclerViewHolder;
 
 import java.util.List;
 
