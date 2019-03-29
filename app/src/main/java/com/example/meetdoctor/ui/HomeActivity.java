@@ -62,7 +62,8 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             int heightDifference = screenHeight - r.bottom;
             FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
             if (lp.bottomMargin != heightDifference) {
-                lp.setMargins(0, 0, 0, heightDifference);
+                lp.setMargins(0, 0, 0,
+                        heightDifference + UIHelper.getVirtualBarHeight(this));
                 inputBar.setLayoutParams(lp);
             }
         });
@@ -81,6 +82,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         LinearLayout mProfileLayout = headerView.findViewById(R.id.health_profile_layout);
         LinearLayout mHistoryLayout = headerView.findViewById(R.id.history_layout);
         LinearLayout mSettingLayout = headerView.findViewById(R.id.settings_layout);
+        ImageView background = findViewById(R.id.img_home_background);
 
         askContent = findViewById(R.id.edt_ask_content);
         baymax = findViewById(R.id.img_baymax);
@@ -90,6 +92,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         response = findViewById(R.id.tv_ask_result);
         Button ask = findViewById(R.id.btn_ask);
 
+        ImageUtils.showImg(this, R.drawable.home_background, background);
         ImageUtils.showGif(this, R.drawable.listen, baymax);
 
         recognizer = new SpeechRecognizer(this, new RecogListener() {

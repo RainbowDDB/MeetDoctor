@@ -10,8 +10,13 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/home_background">
+
+        <ImageView
+            android:id="@+id/img_home_background"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:layout_width="298dp"
@@ -43,7 +48,6 @@
             android:background="@drawable/input_border"
             android:elevation="5dp"
             android:orientation="horizontal"
-            android:translationZ="2dp"
             tools:targetApi="lollipop">
 
             <ImageView

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Build;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,6 +25,41 @@ public class UIHelper {
 
     public static int getScreenHeight(Context context) {
         return context.getResources().getDisplayMetrics().heightPixels;
+    }
+
+
+    /**
+     * 获取屏幕的真实高度，去除底部虚拟按键的高度
+     */
+    public static int getRealHeight(Context context) {
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        Display display;
+        if (windowManager != null) {
+            display = windowManager.getDefaultDisplay();
+            DisplayMetrics dm = new DisplayMetrics();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                display.getRealMetrics(dm);
+            } else {
+                display.getMetrics(dm);
+            }
+            return dm.heightPixels;
+        } else {
+            throw new NullPointerException("WindowManager.getDefaultDisplay() is null.");
+        }
+    }
+
+    /**
+     * 获取虚拟按键高度
+     */
+    public static int getVirtualBarHeight(Context context) {
+        return getScreenHeight(context) - getRealHeight(context);
+    }
+
+    /**
+     * 虚拟按键是否存在
+     */
+    public static boolean isVirtualBarExist(Context context) {
+        return getVirtualBarHeight(context) != 0;
     }
 
     /**
