@@ -11,9 +11,9 @@
         android:orientation="vertical">
 
         <com.example.meetdoctor.widget.Header
+            android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/header"
             android:theme="@style/ToolbarDark" />
 
         <android.support.v7.widget.CardView
@@ -53,10 +53,11 @@
                         android:layout_height="32dp"
                         android:background="@drawable/text_border"
                         android:gravity="center_vertical"
+                        android:hint="@string/name"
                         android:paddingStart="5dp"
                         android:paddingEnd="5dp"
-                        android:text="@string/name"
                         android:textColor="@color/textBlack"
+                        android:textColorHint="@color/hintGrey"
                         android:textCursorDrawable="@drawable/edit_text_cursor"
                         android:textSize="14sp" />
                 </LinearLayout>
@@ -100,6 +101,74 @@
                             android:layout_marginLeft="20dp"
                             android:text="@string/girl" />
                     </RadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/height"
+                        android:textColor="@color/textBlack" />
+
+                    <EditText
+                        android:id="@+id/edt_person_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@drawable/text_border"
+                        android:gravity="center_vertical"
+                        android:hint="@string/height_unit"
+                        android:inputType="number"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/tipGrey"
+                        android:textCursorDrawable="@drawable/edit_text_cursor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="32dp"
+                        android:layout_marginEnd="10dp"
+                        android:layout_marginRight="10dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/weight"
+                        android:textColor="@color/textBlack" />
+
+                    <EditText
+                        android:id="@+id/edt_person_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:background="@drawable/text_border"
+                        android:gravity="center_vertical"
+                        android:hint="@string/weight_unit"
+                        android:inputType="number"
+                        android:paddingStart="5dp"
+                        android:paddingEnd="5dp"
+                        android:textColor="@color/textBlack"
+                        android:textColorHint="@color/tipGrey"
+                        android:textCursorDrawable="@drawable/edit_text_cursor"
+                        android:textSize="14sp" />
                 </LinearLayout>
 
                 <LinearLayout

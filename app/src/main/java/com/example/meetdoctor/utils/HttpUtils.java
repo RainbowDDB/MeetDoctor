@@ -166,4 +166,39 @@ public class HttpUtils {
                 .build()
                 .post();
     }
+
+    /**
+     * 编辑对象
+     */
+    public static void modifyMember(Context context,
+                                    int memberId,
+                                    String name,
+                                    String alias,
+                                    int gender,   // 1男，0女
+                                    @Nullable Double height,
+                                    @Nullable Double weight,
+                                    String birthday,  // YYYY-MM-DD
+                                    ISuccess iSuccess) {
+        if (name.equals("")) {
+            throw new IllegalArgumentException("name is not empty!");
+        }
+        WeakHashMap<String, Object> map = new WeakHashMap<>();
+        map.put("member_id", memberId);
+        map.put("name", name); // name不能为""
+        map.put("alias", alias);
+        map.put("sex", gender);
+        // 在Retrofit的post方法中
+        // 传入的 Field Map 的 key 和 value 均不能为null，否则会返回在onFailure中
+        map.put("height", height != null ? height : "");
+        map.put("weight", weight != null ? weight : "");
+        map.put("birthday", birthday);
+
+        RestClient.builder().url("person/ModifyMember")
+                .success(iSuccess)
+                .error(ERROR)
+                .loader(context)
+                .params(map)
+                .build()
+                .post();
+    }
 }

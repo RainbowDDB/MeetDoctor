@@ -40,7 +40,6 @@ public class SwitchActivity extends SettingsBaseActivity {
             MemberListBean memberListBean = new Gson().fromJson(response, MemberListBean.class);
             LatteLogger.json(TAG, response);
             dataList = memberListBean.getList();
-            LatteLogger.d(dataList);
             // 进入此页面加载适配器，重新赋值
             adapter = new MemberAdapter(SwitchActivity.this,
                     dataList, memberListBean.getMemberId());

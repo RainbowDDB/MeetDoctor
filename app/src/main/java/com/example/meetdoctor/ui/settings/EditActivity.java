@@ -31,7 +31,10 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
 
     private EditText name;
     private int gender = 1; // 默认为 1，男
+    private int memberId;
     private TextView birthday;
+    private EditText height;
+    private EditText weight;
     private EditText alias;
     private RadioGroup radioGroup;
 
@@ -50,6 +53,8 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     protected void initView() {
         name = findViewById(R.id.edt_person_name);
         birthday = findViewById(R.id.tv_person_birthday);
+        height = findViewById(R.id.edt_person_height);
+        weight = findViewById(R.id.edt_person_weight);
         alias = findViewById(R.id.edt_person_alias);
 
         radioGroup = findViewById(R.id.radio_group_gender);
@@ -75,6 +80,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 MemberBean bean = (MemberBean) event.getData();
                 name.setText(bean.getName());
                 gender = bean.getGender();
+                memberId = bean.getId();
                 radioGroup.check(gender == 1 ? R.id.radio_boy : R.id.radio_girl);
                 if (bean.getBirthday() != null && !bean.getBirthday().equals("")) {
                     int[] dates = StringUtils.spilt2num(bean.getBirthday());
@@ -87,13 +93,14 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 if (bean.getAlias() != null && !bean.getAlias().equals("")) {
                     alias.setText(bean.getAlias());
                 }
+                if (bean.getHeight() != null) {
+                    height.setText(String.valueOf(bean.getHeight()));
+                }
+                if (bean.getWeight() != null) {
+                    weight.setText(String.valueOf(bean.getWeight()));
+                }
             }
         }
-//        else if (event.getCode() == EventCode.ADD_OR_EDIT) {
-//            if (event.getData() instanceof Boolean) {
-//                flag = (boolean) event.getData();
-//            }
-//        }
         EventBusUtils.removeStickyEvent(EventMessage.class);
     }
 
@@ -102,14 +109,16 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.btn_confirm:
                 if (checkForm()) {
+                    String h = height.getText().toString();
+                    String w = weight.getText().toString();
                     if (flag) {
                         // 添加对象
                         HttpUtils.createMember(this,
                                 name.getText().toString(),
                                 alias.getText().toString(),
                                 gender,
-                                null,
-                                null,
+                                h.equals("") ? Double.valueOf(h) : null,
+                                w.equals("") ? Double.valueOf(w) : null,
                                 birthday.getText().toString(),
                                 response -> {
                                     showToast("创建对象成功！");
@@ -117,6 +126,18 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                                 });
                     } else {
                         // 编辑对象
+                        HttpUtils.modifyMember(this,
+                                memberId,
+                                name.getText().toString(),
+                                alias.getText().toString(),
+                                gender,
+                                h.equals("") ? null : Double.valueOf(h),
+                                w.equals("") ? null : Double.valueOf(w),
+                                birthday.getText().toString(),
+                                response -> {
+                                    showToast("修改对象成功！");
+                                    finish();
+                                });
                     }
                 } else {
                     showToast("必须输入您的姓名和生日哦~");

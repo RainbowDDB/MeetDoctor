@@ -44,4 +44,8 @@
     <string name="switch_object">切换对象</string>
     <string name="clear_storage">清理缓存</string>
     <string name="add">添加</string>
+    <string name="height">身高</string>
+    <string name="weight">体重</string>
+    <string name="height_unit">身高（cm）</string>
+    <string name="weight_unit">体重（kg）</string>
 </resources>
