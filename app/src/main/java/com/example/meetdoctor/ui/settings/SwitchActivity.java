@@ -1,5 +1,7 @@
 package com.example.meetdoctor.ui.settings;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Button;
 
@@ -25,6 +27,13 @@ public class SwitchActivity extends SettingsBaseActivity {
     private List<PersonBean> dataList = null;
 
     @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTitle("切换对象");
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         HttpUtils.getMemberList(this, response -> {
@@ -41,6 +50,7 @@ public class SwitchActivity extends SettingsBaseActivity {
 
     @Override
     protected void initView() {
+
         Button addPerson = findViewById(R.id.btn_person_add);
 
         recyclerView = findViewById(R.id.recycler_view);

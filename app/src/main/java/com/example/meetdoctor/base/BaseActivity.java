@@ -6,9 +6,7 @@ import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
-import com.example.meetdoctor.R;
 import com.example.meetdoctor.utils.UIHelper;
 
 /**

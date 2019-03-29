@@ -22,7 +22,7 @@
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="n">
         <activity
-            android:name=".ui.WelcomeActivity"
+            android:name=".ui.settings.SettingsActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +55,7 @@
         <activity
             android:name=".ui.settings.EditActivity"
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.settings.SettingsActivity" />
+        <!--<activity android:name=".ui.settings.SettingsActivity" />-->
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"

@@ -1,5 +1,7 @@
 package com.example.meetdoctor.ui.user;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -7,19 +9,25 @@ import android.support.v7.widget.Toolbar;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
 import com.example.meetdoctor.utils.UIHelper;
+import com.example.meetdoctor.widget.Header;
 
 public class AgreementActivity extends BaseActivity {
+
     @Override
-    public void initView() {
-        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
-        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(this), 0, 0);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        Header header = findViewById(R.id.header);
+        header.setTitle("遇医协议");
+        setSupportActionBar(header.getToolbar());
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
+    }
+
+    @Override
+    public void initView() {
     }
 
     @Override

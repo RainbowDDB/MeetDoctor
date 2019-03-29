@@ -10,30 +10,11 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/app_bar"
+        <com.example.meetdoctor.widget.Header
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/ToolbarDark"
-            app:elevation="0dp">
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/textBlack"
-                app:layout_scrollFlags="enterAlways">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center"
-                    android:gravity="center"
-                    android:text="@string/edit_object"
-                    android:textColor="@color/pureWhite"
-                    android:textSize="@dimen/title_text_size" />
-            </android.support.v7.widget.Toolbar>
-        </android.support.design.widget.AppBarLayout>
+            android:id="@+id/header"
+            android:theme="@style/ToolbarDark" />
 
         <android.support.v7.widget.CardView
             android:layout_width="320dp"

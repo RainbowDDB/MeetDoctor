@@ -1,6 +1,8 @@
 package com.example.meetdoctor.ui.settings;
 
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +38,13 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     private ArrayList<String> birthdayData = new ArrayList<>();
     // true为添加对象，false为编辑修改对象
     private boolean flag;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setTitle("编辑/添加对象");
+    }
 
     @Override
     protected void initView() {
