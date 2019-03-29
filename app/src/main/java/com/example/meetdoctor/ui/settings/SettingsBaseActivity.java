@@ -2,9 +2,7 @@ package com.example.meetdoctor.ui.settings;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
-import android.support.v7.widget.Toolbar;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
