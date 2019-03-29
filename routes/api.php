@@ -39,3 +39,5 @@ Route::get('/ask/state','AskController@enter');
 Route::get('/person/GetMemberList','PersonController@GetMemberList');
 //用户创建对象
 Route::post('/person/CreateMember','PersonController@CreateMember');
+//切换对象
+Route::post('/person/ChangeMember','PersonController@ChangeMember');

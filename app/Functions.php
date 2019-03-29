@@ -2,7 +2,8 @@
 
 use Illuminate\Http\Request;
 
-function SaveUserId(Request $r,$userid){
+function SaveUserId(Request $r, $userid)
+{
 	$r->session()->put('userid', $userid);
 }
 
@@ -15,8 +16,9 @@ function GetUserId(Request $r)
 	}
 }
 
-function SaveUserMember(Request $r,$memberid){
-	$r->session()->put('user_member',$memberid);
+function SaveUserMember(Request $r, $memberid)
+{
+	$r->session()->put('user_member', $memberid);
 }
 
 function GetUserMember(Request $r)

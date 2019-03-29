@@ -19,6 +19,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->timestamp('question')->nullable();
             $table->string('answer')->nullable();
+            $table->integer('latest_member')->default(0);
             $table->timestamps();
         });
     }

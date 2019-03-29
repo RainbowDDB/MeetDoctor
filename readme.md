@@ -241,3 +241,26 @@ APP后端
     'Weight is no avail!','Height is no avail!','Sex is no avail!','Birthday is no avail!'(各种参数不合法)
 }
 ```
+
+### 3.3 切换对象
+
+| URL和方式               | 备注 |
+| ----------------------- | ---- |
+| `POST` `/api/person/ChangeMember` |      |
+
+- **请求参数**
+```
+{
+    `object`:(int)要切换的对象id
+}
+```
+- **响应**
+```
+{
+    ①httpcode:401
+    body:'object is required' => 参数object缺失
+    body:'object  is no avail' => 参数object不合法，可能非本人的对象
+    ②httpcode:200 （切换成功）
+}
+
+```
