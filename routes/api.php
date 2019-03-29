@@ -41,3 +41,5 @@ Route::get('/person/GetMemberList','PersonController@GetMemberList');
 Route::post('/person/CreateMember','PersonController@CreateMember');
 //切换对象
 Route::post('/person/ChangeMember','PersonController@ChangeMember');
+//编辑对象
+Route::post('/person/ModifyMember','PersonController@ModifyMember');

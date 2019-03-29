@@ -264,3 +264,47 @@ APP后端
 }
 
 ```
+
+### 3.4 编辑对象
+
+| URL和方式               | 备注 |
+| ----------------------- | ---- |
+| `POST` `/api/person/ModifyMember` |      |
+
+- **请求参数**
+```
+{
+    `member_id`:(int)对象id （必填，其余非必填）
+    `name`:(string)
+    `alias`:(string)
+    `sex`:(0是女性，1是男性)
+    `height`:(double)(单位前端定，不用传上来)
+    `weight`:(double)(身高和体重只传双浮点数)
+    `birthday`:(YYYY-MM-DD)
+}
+（基本和新建一样，多了一个member_id，而且name不能修改成空白名字
+```
+- **响应**
+```
+正常响应200
+{
+    `list`:[{
+             "id",
+             "user_id",
+             "name",
+             "alias_name",（别名）
+             "sex",
+             "weight",
+             "height",
+             "birthday"
+            },
+            {}
+           ],(刷新一下对象列表)
+    `chosen_id`:(int)（当前选中的id）
+}
+非正常响应401
+{
+    'Member_id is required'(没输入对象id)
+    'Name is no avail!','Weight is no avail!','Height is no avail!','Sex is no avail!','Birthday is no avail!','Member_id is no avail'(各种参数不合法)
+}
+```

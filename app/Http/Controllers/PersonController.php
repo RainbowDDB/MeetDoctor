@@ -80,9 +80,65 @@ class PersonController extends Controller
 			}
 		}
 		if ($status == 0) {
-			return response('object  is no avail',401);
+			return response('object  is no avail', 401);
 		}
 		User::ModifyUser($userid, array('latest_member' => $object_id));
-		return response('success',200);
+		return response('success', 200);
+	}
+
+	//编辑对象
+	public function ModifyMember(Request $r)
+	{
+		$userid = GetUserId($r);
+		// 输入对象的信息
+		$member_id = $r->input('member_id',0);
+		$name = $r->input('name',null);
+		$alias = $r->input('alias', null);
+		$sex = $r->input('sex', 1);
+
+		$weight = $r->input('weight', null);
+		if ($weight == '') $weight = null;
+
+		$height = $r->input('height', null);
+		if ($height == '') $height = null;
+
+		$birthday = $r->input('birthday', null);
+		// 检查数据有效性
+		if($member_id == 0) return response('member_id is required',401);
+
+		if ($name != null and trim($name) == '') return response('Name is no avail!', 401);
+
+		preg_match(config('Person.Double'), $weight, $result);
+		if ($weight != null and !isset($result[0])) return response('Weight is no avail!', 401);
+
+		preg_match(config('Person.Double'), $height, $result);
+		if ($height != null and !isset($result[0])) return response('Height is no avail!', 401);
+
+		preg_match(config('Person.Sex'), $sex, $result);
+		if (!isset($result[0])) return response('Sex is no avail!', 401);
+
+		preg_match(config('Person.Birthday'), $birthday, $result);
+		if ($birthday != null and !isset($result[0])) return response('Birthday is no avail!', 401);
+
+		// 查询本人的对象列表
+		$list = Member::GetMemberList($userid);
+		$status = 0;
+		foreach($list as $member){
+			if($member_id == $member['id']){
+				$status = 1;
+				break;
+			}
+		}
+		if($status == 0){
+			return response('Member_id is no avail!',401);
+		}
+		$contents = array('name'=>$name,'alias_name'=>$alias,'sex'=>$sex,'weight'=>$weight,'height'=>$height,'birthday'=>$birthday);
+		foreach($contents as $key=>$content){
+			if($content == null) unset($contents[$key]);
+		}
+		Member::ModifyMember($member_id,$contents);
+		$list = Member::GetMemberList($userid);
+		$Chosen = User::UserInfoById($userid)['latest_member']['id'];
+		return response()->json(array('list' => $list, 'chosen_id' => $Chosen));
 	}
 }

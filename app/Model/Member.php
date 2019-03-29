@@ -30,6 +30,15 @@ class Member extends BasicModel
 		return $Member->id;
 	}
 
+	public static function ModifyMember($member_id,$contents)
+	{
+		$member = new Member();
+		$result = $member->where('id', $member_id)
+			->update($contents);
+		return $result;
+		return $Member->id;
+	}
+
 	public function user()
 	{
 		return $this->belongsTo('App\Model\User');
