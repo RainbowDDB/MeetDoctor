@@ -6,16 +6,16 @@ import java.util.ArrayList;
 
 public class MemberListBean {
 
-    private ArrayList<PersonBean> list;
+    private ArrayList<MemberBean> list;
 
     @SerializedName("chosen_id")
     private int memberId;
 
-    public ArrayList<PersonBean> getList() {
+    public ArrayList<MemberBean> getList() {
         return list;
     }
 
-    public void setList(ArrayList<PersonBean> list) {
+    public void setList(ArrayList<MemberBean> list) {
         this.list = list;
     }
 

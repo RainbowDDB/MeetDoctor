@@ -6,7 +6,6 @@ import android.support.annotation.Nullable;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.net.RestClient;
 import com.example.meetdoctor.core.net.callback.IError;
-import com.example.meetdoctor.core.net.callback.IFailure;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
@@ -152,6 +151,18 @@ public class HttpUtils {
                 .error(ERROR)
                 .loader(context)
                 .params(map)
+                .build()
+                .post();
+    }
+
+    /**
+     * 切换对象
+     */
+    public static void switchMember(int memberId, ISuccess iSuccess) {
+        RestClient.builder().url("person/ChangeMember")
+                .success(iSuccess)
+                .error(ERROR)
+                .params("object", memberId)
                 .build()
                 .post();
     }

@@ -6,11 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.widget.Button;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.adapter.PersonAdapter;
+import com.example.meetdoctor.adapter.MemberAdapter;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.FlagConstant;
 import com.example.meetdoctor.model.bean.MemberListBean;
-import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.widget.recycler.LatteRecyclerView;
 import com.google.gson.Gson;
@@ -21,10 +21,10 @@ import java.util.WeakHashMap;
 public class SwitchActivity extends SettingsBaseActivity {
 
     private static final String TAG = "SwitchActivity";
-    private PersonAdapter adapter = null;
+    private MemberAdapter adapter = null;
     private LatteRecyclerView recyclerView = null;
 
-    private List<PersonBean> dataList = null;
+    private List<MemberBean> dataList = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class SwitchActivity extends SettingsBaseActivity {
             dataList = memberListBean.getList();
             LatteLogger.d(dataList);
             // 进入此页面加载适配器，重新赋值
-            adapter = new PersonAdapter(SwitchActivity.this,
+            adapter = new MemberAdapter(SwitchActivity.this,
                     dataList, memberListBean.getMemberId());
             recyclerView.setAdapter(adapter);
         });

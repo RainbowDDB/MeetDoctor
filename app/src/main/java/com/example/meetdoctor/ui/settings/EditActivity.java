@@ -14,7 +14,7 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.FlagConstant;
-import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
@@ -71,8 +71,8 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     public void onReceiveStickyEvent(EventMessage event) {
         super.onReceiveStickyEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
-            if (event.getData() instanceof PersonBean) {
-                PersonBean bean = (PersonBean) event.getData();
+            if (event.getData() instanceof MemberBean) {
+                MemberBean bean = (MemberBean) event.getData();
                 name.setText(bean.getName());
                 gender = bean.getGender();
                 radioGroup.check(gender == 1 ? R.id.radio_boy : R.id.radio_girl);

@@ -7,13 +7,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
+import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.FlagConstant;
-import com.example.meetdoctor.model.bean.PersonBean;
+import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.ui.settings.EditActivity;
 import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.widget.recycler.BaseRecyclerViewAdapter;
@@ -21,17 +23,19 @@ import com.example.meetdoctor.widget.recycler.RecyclerViewHolder;
 
 import java.util.List;
 
-public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
+public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
 
+    private static final String TAG = "MemberAdapter";
     private int chosenId;
+    private int chosenPosition;
 
-    public PersonAdapter(Context context, List<PersonBean> data, int chosenId) {
+    public MemberAdapter(Context context, List<MemberBean> data, int chosenId) {
         super(context, data, R.layout.item_person_card);
         this.chosenId = chosenId;
     }
 
     @Override
-    protected void onBindData(RecyclerViewHolder holder, PersonBean bean, int position) {
+    protected void onBindData(RecyclerViewHolder holder, MemberBean bean, int position) {
         View personCard = holder.getView(R.id.person_card_background);
 
         TextView name = (TextView) holder.getView(R.id.tv_person_name);
@@ -41,8 +45,12 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         ImageView genderImg = (ImageView) holder.getView(R.id.img_person_gender);
         ImageView edit = (ImageView) holder.getView(R.id.img_edit_person);
 
-        personCard.setBackgroundResource(bean.getId() == chosenId ?
-                R.drawable.item_person_card_selected : R.drawable.item_person_card_unselected);
+        if (bean.getId() == chosenId) {
+            chosenPosition = position;
+            personCard.setBackgroundResource(R.drawable.item_person_card_selected);
+        } else {
+            personCard.setBackgroundResource(R.drawable.item_person_card_unselected);
+        }
 
         name.setText(bean.getName() != null ? bean.getName() : "未填写");
         age.setText(bean.getBirthday() != null ?
@@ -60,10 +68,18 @@ public class PersonAdapter extends BaseRecyclerViewAdapter<PersonBean> {
         edit.setOnClickListener(view -> {
             // 编辑个人档案信息事件
             EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-//            EventBusUtils.postSticky(new EventMessage<>(EventCode.ADD_OR_EDIT, false));
             Intent intent = new Intent(getContext(), EditActivity.class);
             intent.putExtra(FlagConstant.ADD_OR_EDIT, false);
             getContext().startActivity(intent);
         });
+
+        holder.itemView.setOnClickListener(view ->
+                HttpUtils.switchMember(bean.getId(), response -> {
+                    LatteLogger.i(TAG, response);
+                    chosenId = bean.getId();
+                    notifyItemChanged(chosenPosition);
+                    notifyItemChanged(position);
+                    chosenPosition = position;
+                }));
     }
 }

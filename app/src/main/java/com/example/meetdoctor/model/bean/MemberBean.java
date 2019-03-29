@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
-public class PersonBean {
+public class MemberBean {
 
     private int id;
 
@@ -23,7 +23,7 @@ public class PersonBean {
     @SerializedName("alias_name")
     private String alias; // 备注
 
-    public PersonBean(String name,
+    public MemberBean(String name,
                       int gender,
                       String birthday,
                       @Nullable Double height,
