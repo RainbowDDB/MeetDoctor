@@ -312,3 +312,25 @@ APP后端
     'Name is no avail!','Weight is no avail!','Height is no avail!','Sex is no avail!','Birthday is no avail!','Member_id is no avail'(各种参数不合法)
 }
 ```
+
+### 3.5 加载历史记录
+
+| URL和方式               | 备注 |
+| ----------------------- | ---- |
+| `GET` `/api/person/LoadHistory` |      |
+
+- **响应**
+```
+{
+    {
+        (这一层是一次对话)
+        {
+            (这一层是一句话)
+            `u_a`:`u`(用户发的话）；`a`(ai回复的话),
+            `result`:0(还没结束)；1(最后一句话，结果页的标志）,
+            `words`:(result = 0) (普通的字符串型)
+                    (result = 1) {`name`:(病症名),`treatment`:(治疗方法)}
+        },{}
+    },{}
+}
+```

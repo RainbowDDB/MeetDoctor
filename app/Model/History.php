@@ -17,6 +17,14 @@ class History extends Model
 		return $history->id;
 	}
 
+	public static function GetHistory($userid)
+	{
+		$history = new History();
+		$result = $history->where('user_id',$userid)->orderBy('id', 'DESC')->get();
+		return $result;
+
+	}
+
 	public function user()
 	{
 		return $this->belongsTo('App\Model\User');

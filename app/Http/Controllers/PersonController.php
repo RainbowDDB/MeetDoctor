@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Model\Member;
 use App\Model\User;
+use App\Model\History;
 
 class PersonController extends Controller
 {
@@ -83,7 +84,7 @@ class PersonController extends Controller
 			return response('object  is no avail', 401);
 		}
 		User::ModifyUser($userid, array('latest_member' => $object_id));
-		SaveUserMember($r,$object_id);
+		SaveUserMember($r, $object_id);
 		return response('success', 200);
 	}
 
@@ -92,8 +93,8 @@ class PersonController extends Controller
 	{
 		$userid = GetUserId($r);
 		// 输入对象的信息
-		$member_id = $r->input('member_id',0);
-		$name = $r->input('name',null);
+		$member_id = $r->input('member_id', 0);
+		$name = $r->input('name', null);
 		$alias = $r->input('alias', null);
 		$sex = $r->input('sex', 1);
 
@@ -105,7 +106,7 @@ class PersonController extends Controller
 
 		$birthday = $r->input('birthday', null);
 		// 检查数据有效性
-		if($member_id == 0) return response('member_id is required',401);
+		if ($member_id == 0) return response('member_id is required', 401);
 
 		if ($name != null and trim($name) == '') return response('Name is no avail!', 401);
 
@@ -124,22 +125,40 @@ class PersonController extends Controller
 		// 查询本人的对象列表
 		$list = Member::GetMemberList($userid);
 		$status = 0;
-		foreach($list as $member){
-			if($member_id == $member['id']){
+		foreach ($list as $member) {
+			if ($member_id == $member['id']) {
 				$status = 1;
 				break;
 			}
 		}
-		if($status == 0){
-			return response('Member_id is no avail!',401);
+		if ($status == 0) {
+			return response('Member_id is no avail!', 401);
 		}
-		$contents = array('name'=>$name,'alias_name'=>$alias,'sex'=>$sex,'weight'=>$weight,'height'=>$height,'birthday'=>$birthday);
-		foreach($contents as $key=>$content){
-			if($content == null) unset($contents[$key]);
+		$contents = array('name' => $name, 'alias_name' => $alias, 'sex' => $sex, 'weight' => $weight, 'height' => $height, 'birthday' => $birthday);
+		foreach ($contents as $key => $content) {
+			if ($content == null) unset($contents[$key]);
 		}
-		Member::ModifyMember($member_id,$contents);
+		Member::ModifyMember($member_id, $contents);
 		$list = Member::GetMemberList($userid);
 		$Chosen = User::UserInfoById($userid)['latest_member']['id'];
 		return response()->json(array('list' => $list, 'chosen_id' => $Chosen));
+	}
+
+	//加载历史记录
+	public function LoadHistory(Request $r)
+	{
+		$userid = GetUserId($r);
+		$history_list = History::GetHistory($userid);
+		$list = [];
+		foreach($history_list as $history){
+			$temp = json_decode($history['content'],true);
+			foreach($temp as $key=>$_temp){
+				if($_temp['result'] == 1){
+					$temp[$key]['words'] = json_decode($temp[$key]['words'],true);
+				}
+			}
+			$list[] = $temp;
+		}
+		return response()->json($list);
 	}
 }

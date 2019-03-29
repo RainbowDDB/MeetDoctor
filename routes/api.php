@@ -43,3 +43,5 @@ Route::post('/person/CreateMember','PersonController@CreateMember');
 Route::post('/person/ChangeMember','PersonController@ChangeMember');
 //编辑对象
 Route::post('/person/ModifyMember','PersonController@ModifyMember');
+//历史记录加载
+Route::get('/person/LoadHistory','PersonController@LoadHistory');
