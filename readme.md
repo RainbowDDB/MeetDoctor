@@ -167,9 +167,13 @@ APP后端
     ①httpcode:401(缺乏一些参数,或者type参数无效)
     ②httpcode:402(用户没有创建对象)
     ③httpcode:200(正常回复)
-     'type'=>1(文字回复) 'answer'=>（内容）
-     'type'=>2(提出问题回复,程度问题) 'answer'=>（问题题目）
-     'type'=>3(提出问题回复,boolean问题) 'anser'=>(问题题目）
+     `type`=>4(type4为跳转结果页）
+     `success`=>1(成功)
+     `content`=>{`name`=>(病症名字),`treatment`=>(治疗方法）}
+    ④httpcode:500(算法接口端出错）
+     `type`=>4
+     `success`=>0
+     `msg`=>'服务器故障'
 }
 ```
 

@@ -83,6 +83,7 @@ class PersonController extends Controller
 			return response('object  is no avail', 401);
 		}
 		User::ModifyUser($userid, array('latest_member' => $object_id));
+		SaveUserMember($r,$object_id);
 		return response('success', 200);
 	}
 

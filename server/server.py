@@ -55,7 +55,7 @@ def main():
     app = tornado.web.Application([
         (r'/', MainHandler),
     ])
-    app.listen(8087)
+    app.listen(8085)
     tornado.ioloop.IOLoop.current().start()
 
 class MainHandler(tornado.web.RequestHandler):
