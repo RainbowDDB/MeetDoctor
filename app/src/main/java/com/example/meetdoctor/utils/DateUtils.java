@@ -24,11 +24,11 @@ public class DateUtils {
     }
 
     /**
-     * 获取某月的天数
+     * 获取某年某月的天数
      */
-    public static int getDaysOfMonth(int month) {
+    public static int getDaysOfMonth(int year, int month) {
         Calendar c = Calendar.getInstance();
-        c.set(Calendar.YEAR, getYear());
+        c.set(Calendar.YEAR, year);
         c.set(Calendar.MONTH, month - 1);
         return c.getActualMaximum(Calendar.DAY_OF_MONTH);
     }

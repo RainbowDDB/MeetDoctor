@@ -104,7 +104,8 @@ public class DateSelector extends MaskedPopupWindow implements View.OnClickListe
                 String year = yearWheel.getCenterData();
                 String month = monthWheel.getCenterData();
                 String day = dayWheel.getCenterData();
-                if (Integer.parseInt(day) > DateUtils.getDaysOfMonth(Integer.parseInt(month))) {
+                if (Integer.parseInt(day) >
+                        DateUtils.getDaysOfMonth(Integer.parseInt(year), Integer.parseInt(month))) {
                     Toast.makeText(mContext, "请检查日期哦~", Toast.LENGTH_SHORT).show();
                 } else {
                     listener.onConfirmClick(year, month, day);
