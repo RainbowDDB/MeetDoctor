@@ -183,7 +183,7 @@
                 android:layout_toEndOf="@id/img_ai_info"
                 android:layout_toRightOf="@id/img_ai_info"
                 android:gravity="center_vertical"
-                android:text="关于AI"
+                android:text="关于"
                 android:textColor="@color/hintGrey"
                 android:textSize="16sp" />
 

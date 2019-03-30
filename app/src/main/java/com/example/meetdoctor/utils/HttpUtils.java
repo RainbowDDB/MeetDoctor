@@ -5,8 +5,10 @@ import android.support.annotation.Nullable;
 
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.core.net.RestClient;
+import com.example.meetdoctor.core.net.RestClientBuilder;
 import com.example.meetdoctor.core.net.callback.IError;
 import com.example.meetdoctor.core.net.callback.ISuccess;
+import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.LoginEvent;
@@ -200,5 +202,38 @@ public class HttpUtils {
                 .params(map)
                 .build()
                 .post();
+    }
+
+    /**
+     * 问询
+     *
+     * @param type     类型，参照Constant.AskType说明
+     * @param question 问题，当type为NORMAL_ASK或RE_ASK时为null，不传此参数
+     * @param response 回答
+     * @param iSuccess 成功的回调
+     */
+    public static void ask(int type, String question, String response, ISuccess iSuccess) {
+        RestClientBuilder builder = RestClient.builder()
+                .url("ask/answer")
+                .params("type", type)
+                .params("w", response)
+                .success(iSuccess)
+                .error(ERROR);
+        switch (type) {
+            case Constant.AskType.LEVEL_ASK:
+            case Constant.AskType.SELECTION_ASK:
+                builder.params("question", question).build().post();
+                break;
+            case Constant.AskType.NORMAL_ASK:
+            case Constant.AskType.RE_ASK:
+                builder.build().post();
+                break;
+            default:
+                throw new IllegalArgumentException("type is not right.");
+        }
+    }
+
+    public static void ask(int type, String response, ISuccess iSuccess) {
+        ask(type, null, response, iSuccess);
     }
 }

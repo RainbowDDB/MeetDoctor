@@ -17,18 +17,26 @@ import android.widget.Toast;
 import com.baidu.speech.asr.SpeechConstant;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
+import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
+import com.example.meetdoctor.model.MessageConstant;
+import com.example.meetdoctor.model.bean.AskResultBean;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.ask.ResultActivity;
 import com.example.meetdoctor.ui.info.CollectionActivity;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
 import com.example.meetdoctor.ui.settings.SettingsActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
+import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.example.meetdoctor.utils.UIHelper;
+import com.google.gson.Gson;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -136,6 +144,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.btn_ask:
                 String content = askContent.getText().toString();
                 response.setText(content);
+                ask(content);
                 askContent.setText(null);
                 break;
             case R.id.ai_layout:
@@ -166,6 +175,31 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 break;
         }
         mDrawerLayout.closeDrawers();
+    }
+
+    @Override
+    public void onReceiveEvent(EventMessage event) {
+        super.onReceiveEvent(event);
+        if (event.getCode() == EventCode.SUCCESS) {
+            AskResultBean resultBean = new Gson().fromJson(
+                    String.valueOf(event.getData()), AskResultBean.class);
+            if (resultBean.getCode() == 1) {
+                // success
+                switch (resultBean.getType()) {
+                    case Constant.AskType.RE_ASK: // type=4 重开问询，引导进入结果页
+                        EventBusUtils.postSticky(new EventMessage<>(
+                                EventCode.SUCCESS,
+                                resultBean.getResultContent()
+                        ));
+                        startActivity(ResultActivity.class);
+                        break;
+                    default: // type= 1 2 3
+                        break;
+                }
+            } else {
+                showToast(MessageConstant.SERVER_ERROR);
+            }
+        }
     }
 
     @Override
@@ -271,5 +305,15 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         // params.put(SpeechConstant.VAD, SpeechConstant.VAD_DNN);
         params.put(SpeechConstant.PID, 15373); // 中文输入法模型，有逗号，语义解析
         recognizer.start(params);
+    }
+
+    private void ask(String content) {
+        HttpUtils.ask(
+                Constant.AskType.NORMAL_ASK,
+                content,
+                response -> EventBusUtils.post(new EventMessage<>(
+                        EventCode.SUCCESS,
+                        response
+                )));
     }
 }
