@@ -16,7 +16,7 @@ class CreateHistorysTable extends Migration
         Schema::create('histories', function (Blueprint $table) {
             $table->increments('id');
 			$table->integer('user_id')->comment('users表外键');
-			$table->string('content')->comment('问询记录');
+			$table->text('content')->comment('问询记录');
             $table->timestamps();
         });
     }

@@ -157,6 +157,8 @@ class PersonController extends Controller
 					$temp[$key]['words'] = json_decode($temp[$key]['words'],true);
 				}
 			}
+			$temp['time'] = $history['created_at']->toDateTimeString();
+			unset($temp['created_at']);
 			$list[] = $temp;
 		}
 		return response()->json($list);

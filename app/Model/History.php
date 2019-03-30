@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class History extends Model
 {
-	protected $hidden = ['created_at', 'updated_at'];
+	protected $hidden = ['updated_at'];
 
 	public static function CreateHistory($userid, $content)
 	{
