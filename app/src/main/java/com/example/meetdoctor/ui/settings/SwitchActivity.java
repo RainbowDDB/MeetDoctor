@@ -8,7 +8,7 @@ import android.widget.Button;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.adapter.MemberAdapter;
 import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.model.FlagConstant;
+import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.bean.MemberListBean;
 import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -58,7 +58,7 @@ public class SwitchActivity extends SettingsBaseActivity {
 
         addPerson.setOnClickListener(view -> {
             WeakHashMap<String, Object> params = new WeakHashMap<>();
-            params.put(FlagConstant.ADD_OR_EDIT, true);
+            params.put(Constant.ADD_OR_EDIT, true);
 //            EventBusUtils.postSticky(new EventMessage<>(EventCode.ADD_OR_EDIT, true));
             startActivity(EditActivity.class, params);
         });

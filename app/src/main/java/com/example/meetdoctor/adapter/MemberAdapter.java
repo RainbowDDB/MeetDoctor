@@ -10,7 +10,7 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.FlagConstant;
+import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.ui.settings.EditActivity;
 import com.example.meetdoctor.utils.DateUtils;
@@ -69,7 +69,7 @@ public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
             // 编辑个人档案信息事件
             EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
             Intent intent = new Intent(getContext(), EditActivity.class);
-            intent.putExtra(FlagConstant.ADD_OR_EDIT, false);
+            intent.putExtra(Constant.ADD_OR_EDIT, false);
             getContext().startActivity(intent);
         });
 

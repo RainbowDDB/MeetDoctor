@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
-import com.example.meetdoctor.model.FlagConstant;
+import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.bean.MemberBean;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -131,8 +131,8 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                                 name.getText().toString(),
                                 alias.getText().toString(),
                                 gender,
-                                h.equals("") ? null : Double.valueOf(h),
-                                w.equals("") ? null : Double.valueOf(w),
+                                h.equals("") ? Double.valueOf(h) : null,
+                                w.equals("") ? Double.valueOf(w) : null,
                                 birthday.getText().toString(),
                                 response -> {
                                     showToast("修改对象成功！");
@@ -184,6 +184,6 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     }
 
     private void initData() {
-        flag = getIntent().getBooleanExtra(FlagConstant.ADD_OR_EDIT, false);
+        flag = getIntent().getBooleanExtra(Constant.ADD_OR_EDIT, false);
     }
 }
