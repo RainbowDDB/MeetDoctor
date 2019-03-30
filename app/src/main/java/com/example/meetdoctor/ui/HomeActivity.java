@@ -181,23 +181,25 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     public void onReceiveEvent(EventMessage event) {
         super.onReceiveEvent(event);
         if (event.getCode() == EventCode.SUCCESS) {
-            AskResultBean resultBean = new Gson().fromJson(
-                    String.valueOf(event.getData()), AskResultBean.class);
-            if (resultBean.getCode() == 1) {
-                // success
-                switch (resultBean.getType()) {
-                    case Constant.AskType.RE_ASK: // type=4 重开问询，引导进入结果页
-                        EventBusUtils.postSticky(new EventMessage<>(
-                                EventCode.SUCCESS,
-                                resultBean.getResultContent()
-                        ));
-                        startActivity(ResultActivity.class);
-                        break;
-                    default: // type= 1 2 3
-                        break;
+            if (event.getData() instanceof String) {
+                AskResultBean resultBean = new Gson().fromJson(
+                        String.valueOf(event.getData()), AskResultBean.class);
+                if (resultBean.getCode() == 1) {
+                    // success
+                    switch (resultBean.getType()) {
+                        case Constant.AskType.RE_ASK: // type=4 重开问询，引导进入结果页
+                            EventBusUtils.postSticky(new EventMessage<>(
+                                    EventCode.SUCCESS,
+                                    resultBean.getResultContent()
+                            ));
+                            startActivity(ResultActivity.class);
+                            break;
+                        default: // type= 1 2 3
+                            break;
+                    }
+                } else {
+                    showToast(MessageConstant.SERVER_ERROR);
                 }
-            } else {
-                showToast(MessageConstant.SERVER_ERROR);
             }
         }
     }

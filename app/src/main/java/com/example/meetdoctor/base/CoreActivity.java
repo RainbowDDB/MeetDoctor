@@ -157,6 +157,12 @@ public abstract class CoreActivity extends AppCompatActivity {
             case EventCode.UNEXPECTED_ERROR:// 404
                 showToast(MessageConstant.DATABASE_ERROR);
                 break;
+            case EventCode.MEMBER_NOT_CREATED:// 402
+                showToast(MessageConstant.MEMBER_NOT_CREATED);
+                break;
+            case EventCode.SERVER_ERROR:// 500
+                showToast(MessageConstant.SERVER_ERROR);
+                break;
         }
     }
 

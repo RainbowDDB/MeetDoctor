@@ -37,7 +37,8 @@
 
             <LinearLayout
                 android:layout_width="@dimen/page_width"
-                android:layout_height="380dp"
+                android:layout_height="wrap_content"
+                android:minHeight="380dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="130dp"
                 android:background="@drawable/btn_background_minor"
@@ -75,10 +76,16 @@
                         android:theme="@style/CheckBoxStyle" />
                 </LinearLayout>
 
-                <com.example.meetdoctor.widget.recycler.LatteRecyclerView
-                    android:id="@+id/recycler_view"
-                    android:layout_width="280dp"
-                    android:layout_height="276dp" />
+                <!--<com.example.meetdoctor.widget.recycler.LatteRecyclerView-->
+                <!--android:id="@+id/recycler_view"-->
+                <!--android:layout_width="280dp"-->
+                <!--android:layout_height="276dp" />-->
+
+                <TextView
+                    android:id="@+id/result"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/textBlack" />
 
                 <ImageView
                     android:id="@+id/img_load_more"

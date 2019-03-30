@@ -17,4 +17,6 @@ public class MessageConstant {
     public static final String AGREEMENT_DISAGREE = "请同意遇医协议，否则将无法使用遇医APP哦~";
     public static final String LOGINED = "用户已登录";
     public static final String NOT_LOGINED = "用户未登录";
+    public static final String MEMBER_NOT_CREATED = "您还未创建对象！";
+    public static final String SERVER_ERROR = "服务器错误，请重试！";
 }
