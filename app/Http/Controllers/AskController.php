@@ -33,7 +33,7 @@ class AskController extends Controller
 			return response('success', 200);
 		}
 		// 拦截空白发送
-		if ($words == '') return response('Parameter:W can\'t be empty!', 401);
+		if (trim($words) == '') return response('Parameter:W can\'t be empty!', 401);
 		switch ($type) {
 			// 正常输入语音
 			case 1:
@@ -128,7 +128,7 @@ class AskController extends Controller
 	// curl请求ai算法
 	private function CurlAI($words)
 	{
-		$response = $this->request(config('Ask.AI_API') . '?content=' . $words);
+		$response = $this->request(config('Ask.AI_API') ,array('content'=>$words));
 		if (!$response['status']) {
 			return false;
 		} else {

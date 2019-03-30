@@ -59,7 +59,7 @@ def main():
     tornado.ioloop.IOLoop.current().start()
 
 class MainHandler(tornado.web.RequestHandler):
-    def get(self):
+    def post(self):
         ai = options.ai
         content = self.get_argument('content')
         print('---------->接收到的信息：'+content)
