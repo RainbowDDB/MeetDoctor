@@ -152,11 +152,6 @@ class PersonController extends Controller
 		$list = [];
 		foreach($history_list as $history){
 			$temp = json_decode($history['content'],true);
-			foreach($temp as $key=>$_temp){
-				if($_temp['result'] == 1){
-					$temp[$key]['words'] = json_decode($temp[$key]['words'],true);
-				}
-			}
 			$list[] = array('list'=>$temp,'time'=>$history['created_at']->toDateTimeString());
 		}
 		return response()->json($list);

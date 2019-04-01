@@ -43,7 +43,7 @@ class AskController extends Controller
 					$return = $this->CurlAI($words);
 					if ($return) {
 						$AI_back = $return;
-						$history_list = json_encode(array(array('u_a'=>'u','result'=>0,'words'=>$words),array('u_a'=>'a','result'=>1,'words'=>$AI_back)));
+						$history_list = json_encode(array(array('u_a'=>'u','result'=>0,'words'=>array('string'=>$words)),array('u_a'=>'a','result'=>1,'words'=>json_decode($AI_back,false))));
 						History::CreateHistory($userid,$history_list);
 						// 处理信息 type=4 结果页
 						return response()->json(['type' => 4, 'content' => json_decode($AI_back, false), 'success' => 1], 200);
