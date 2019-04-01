@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.model.bean.HistoryBean;
+import com.example.meetdoctor.model.bean.HistoryListBean;
 import com.example.meetdoctor.widget.recycler.BaseRecyclerViewAdapter;
 import com.example.meetdoctor.widget.recycler.RecyclerViewHolder;
 
@@ -29,8 +30,15 @@ public class HistoryAdapter extends BaseRecyclerViewAdapter<HistoryBean> {
             topLine.setVisibility(View.GONE);
         }
 
-        date.setText(bean.getDate());
-        detail.setText(bean.getWay() == 0 ? "导诊：" : "问诊：" + bean.getQuestion());
+        date.setText(bean.getTime());
+
+//        bean.getHistoryList();
+        for (HistoryListBean data : bean.getHistoryList()) {
+            if (data.getResult() == 1) { // 判断是此次问询最后一次的结果，结束
+                detail.setText(data.getWord().getName() + "\n" + data.getWord().getTreatment());
+            }
+        }
+
 //        detail.setText(MessageFormat.format("{0}:{1}", bean.getWay(), bean.getQuestion()));
 
         holder.itemView.setOnClickListener(view -> {

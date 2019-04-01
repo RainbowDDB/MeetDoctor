@@ -1,40 +1,29 @@
 package com.example.meetdoctor.model.bean;
 
+import com.google.gson.annotations.SerializedName;
+
+import java.util.List;
+
 public class HistoryBean {
 
-    private String date;
+    @SerializedName("list")
+    private List<HistoryListBean> historyList = null;
 
-    private int way;
+    private String time;
 
-    private String question;
-
-    public HistoryBean(String date, int way, String question) {
-        this.date = date;
-        this.way = way;
-        this.question = question;
+    public List<HistoryListBean> getHistoryList() {
+        return historyList;
     }
 
-    public String getDate() {
-        return date;
+    public void setHistoryList(List<HistoryListBean> historyList) {
+        this.historyList = historyList;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public String getTime() {
+        return time;
     }
 
-    public int getWay() {
-        return way;
-    }
-
-    public void setWay(int way) {
-        this.way = way;
-    }
-
-    public String getQuestion() {
-        return question;
-    }
-
-    public void setQuestion(String question) {
-        this.question = question;
+    public void setTime(String time) {
+        this.time = time;
     }
 }

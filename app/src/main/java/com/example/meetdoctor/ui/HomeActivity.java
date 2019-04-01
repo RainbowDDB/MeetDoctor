@@ -30,6 +30,7 @@ import com.example.meetdoctor.model.event.CheckStateEvent;
 import com.example.meetdoctor.ui.ask.ResultActivity;
 import com.example.meetdoctor.ui.info.CollectionActivity;
 import com.example.meetdoctor.ui.info.HealthProfileActivity;
+import com.example.meetdoctor.ui.info.HistoryActivity;
 import com.example.meetdoctor.ui.settings.SettingsActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -153,6 +154,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                 startActivity(CollectionActivity.class);
                 break;
             case R.id.history_layout:
+                startActivity(HistoryActivity.class);
                 break;
             case R.id.health_profile_layout:
                 startActivity(HealthProfileActivity.class);

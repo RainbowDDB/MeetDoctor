@@ -236,4 +236,16 @@ public class HttpUtils {
     public static void ask(int type, String response, ISuccess iSuccess) {
         ask(type, null, response, iSuccess);
     }
+
+    /**
+     * 加载历史
+     */
+    public static void getHistory(Context context, ISuccess iSuccess) {
+        RestClient.builder().url("person/LoadHistory")
+                .loader(context)
+                .success(iSuccess)
+                .error(ERROR)
+                .build()
+                .get();
+    }
 }

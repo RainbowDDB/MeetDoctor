@@ -57,6 +57,7 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.ask.ResultActivity" />
+        <activity android:name=".ui.info.HistoryActivity" />
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"
