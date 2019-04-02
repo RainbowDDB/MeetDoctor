@@ -1,6 +1,14 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        release {
+            keyAlias 'Doctor'
+            keyPassword 'RainbowDoctor'
+            storeFile file('E:/Android/MeetDoctor/keystore.jks')
+            storePassword 'Rainbow0304DDB'
+        }
+    }
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.example.meetdoctor"
@@ -12,8 +20,13 @@ android {
     }
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true // 开启混淆
+            shrinkResources true // 资源压缩
+            zipAlignEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
@@ -22,6 +35,23 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+    applicationVariants.all {
+        // 判断是release还是debug版本
+        def buildType = it.buildType.name
+        def fileName
+        def outputFile
+        // 下面的channel是获取渠道号，你获取渠道号不一定会和我的代码一样，
+//        def channel = it.productFlavors[0].name.split("-")[0]
+        // 获取当前时间的"YYYY-MM-dd"格式。
+//        def createTime = new Date().format("YYYY-MM-dd", TimeZone.getTimeZone("GMT+08:00"))
+        it.outputs.each {
+            outputFile = it.outputFile
+            // 命名规则是：渠道名_项目名_版本名_创建时间_构建类型.apk
+            fileName = "meetdoctor_v${defaultConfig.versionName}_${buildType}.apk"
+            // 重新对apk命名。(适用于Gradle4.0（含）以上版本)如果你Gradle版本是4.x则将上面的一行代码注释，解开注释下面的这一行。
+            it.outputFileName = fileName
+        }
     }
 }
 
@@ -39,7 +69,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-scalars:2.5.0'
     implementation 'com.squareup.okhttp3:okhttp:3.12.0'
     implementation 'com.squareup.okio:okio:2.1.0'
-//    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+    //    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     // Gson
@@ -58,6 +88,5 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0-alpha'
     // Baidu Speech
     implementation files('libs/bdasr_V3_20180801_d6f298a.jar')
-
     testImplementation 'junit:junit:4.12'
 }
