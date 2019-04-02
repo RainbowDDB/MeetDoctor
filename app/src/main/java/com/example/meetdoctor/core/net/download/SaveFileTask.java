@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.example.meetdoctor.base.MyApplication;
+import com.example.meetdoctor.core.MyApplication;
 import com.example.meetdoctor.core.net.callback.IRequest;
 import com.example.meetdoctor.core.net.callback.ISuccess;
 import com.example.meetdoctor.utils.FileUtils;
