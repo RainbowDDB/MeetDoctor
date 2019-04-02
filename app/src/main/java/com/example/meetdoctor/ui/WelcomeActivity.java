@@ -16,6 +16,7 @@ import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
+import com.google.gson.Gson;
 
 public class WelcomeActivity extends BaseActivity {
 
@@ -77,8 +78,9 @@ public class WelcomeActivity extends BaseActivity {
                     // 发送粘性事件，当打开HomeActivity时触发
                     HttpUtils.checkState((stateResponse) -> {
                         LatteLogger.d(stateResponse);
-                        EventBusUtils.postSticky(
-                                new EventMessage<>(EventCode.SUCCESS, new CheckStateEvent(stateResponse)));
+                        CheckStateEvent bean = new Gson()
+                                .fromJson(stateResponse, CheckStateEvent.class);
+                        EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
                         startNewActivity(HomeActivity.class);
                     });
                 }, (code, msg) -> {

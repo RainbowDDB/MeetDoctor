@@ -212,6 +212,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         if (event.getCode() == EventCode.SUCCESS) {
             if (event.getData() instanceof CheckStateEvent) {
                 // TODO 处理上次对话记录
+                CheckStateEvent bean = (CheckStateEvent) event.getData();
+                if (bean.getState() == 1) {
+                    // TODO 问用户是否继续之前问询
+                    String[] list = bean.getList();
+                }
                 EventBusUtils.removeStickyEvent(EventMessage.class);
             }
         }
