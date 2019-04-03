@@ -13,7 +13,7 @@ import com.example.meetdoctor.core.img.GlideApp;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
-import com.example.meetdoctor.ui.user.LoginActivity;
+import com.example.meetdoctor.ui.user.LoginDelegate;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
 
@@ -149,7 +149,7 @@ public abstract class CoreActivity extends AppCompatActivity {
             case EventCode.NOT_LOGIN:// 406
                 showToast(MessageConstant.NOT_LOGINED);
                 // 此时无需进行New Activity，故仅仅在全局检测登录状态的时候才会使用
-                startActivity(LoginActivity.class);
+                startActivity(LoginDelegate.class);
                 break;
             case EventCode.PARAMS_INVALID:// 401
                 showToast(MessageConstant.PARAMS_UNAVAILABLE);

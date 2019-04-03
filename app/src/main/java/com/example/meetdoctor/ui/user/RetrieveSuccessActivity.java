@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.UIHelper;
 
 public class RetrieveSuccessActivity extends BaseActivity implements View.OnClickListener {
@@ -40,7 +39,7 @@ public class RetrieveSuccessActivity extends BaseActivity implements View.OnClic
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                startActivity(LoginActivity.class);
+                startActivity(LoginDelegate.class);
                 break;
         }
         return true;
@@ -52,7 +51,7 @@ public class RetrieveSuccessActivity extends BaseActivity implements View.OnClic
             case R.id.btn_confirm:
                 // finish掉 密保、修改密码的活动，直接回到登录页
                 // 无需进行finish()，因为LoginActivity的启动方式为singleTask
-                startActivity(LoginActivity.class);
+                startActivity(LoginDelegate.class);
                 break;
         }
     }

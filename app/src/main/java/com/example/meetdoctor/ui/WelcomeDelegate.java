@@ -2,42 +2,50 @@ package com.example.meetdoctor.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.event.CheckStateEvent;
-import com.example.meetdoctor.ui.launcher.LauncherActivity;
+import com.example.meetdoctor.ui.launcher.LauncherDelegate;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.core.storage.LattePreference;
-import com.example.meetdoctor.ui.user.LoginActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.google.gson.Gson;
 
-public class WelcomeActivity extends BaseActivity {
+public class WelcomeDelegate extends LatteDelegate {
 
     @SuppressWarnings("unused")
     private static final String TAG = "WelcomeActivity";
     private TimerHelper mTimer;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Object setLayout() {
+        return R.layout.activity_welcome;
+    }
 
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mTimer = new TimerHelper() {
             @Override
             public void run() {
                 // 如果是首次进入
                 if (!LattePreference.getAppFlag(
                         ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
-                    startActivity(LauncherActivity.class);
-                    finish();
+                    WelcomeDelegate.this.startWithPop(new LauncherDelegate());
                 } else {
-                    EventBusUtils.post(new EventMessage(EventCode.NOT_FIRST_LAUNCHER_APP));
+                    EventBusUtils.post(getProxyActivity(),
+                            new EventMessage(EventCode.NOT_FIRST_LAUNCHER_APP));
                 }
             }
         };
@@ -48,16 +56,7 @@ public class WelcomeActivity extends BaseActivity {
     }
 
     @Override
-    public void initView() {
-    }
-
-    @Override
-    public Object getLayout() {
-        return R.layout.activity_welcome;
-    }
-
-    @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mTimer.stop();
     }
@@ -81,11 +80,11 @@ public class WelcomeActivity extends BaseActivity {
                         CheckStateEvent bean = new Gson()
                                 .fromJson(stateResponse, CheckStateEvent.class);
                         EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-                        startNewActivity(HomeActivity.class);
+//                        startWithPop(HomeActivity.class);
                     });
                 }, (code, msg) -> {
                     if (code == 406) {
-                        startNewActivity(LoginActivity.class);
+//                        startWithPop(LoginActivity.class);
                     }
                 });
                 break;

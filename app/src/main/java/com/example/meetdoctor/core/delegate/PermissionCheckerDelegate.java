@@ -53,8 +53,7 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
         // 如果是首次进入APP，则申请权限
         if (!LattePreference.getAppFlag(ScrollLauncherTag.HAS_FIRST_LAUNCHER_APP.name())) {
             if (!toApplyList.isEmpty()) {
-                ActivityCompat.requestPermissions(
-                        getProxyActivity(), toApplyList.toArray(tmpList), EventCode.PERMISSION_SUCCESS);
+                requestPermissions(toApplyList.toArray(tmpList), EventCode.PERMISSION_SUCCESS);
             }
         }
     }
@@ -64,7 +63,7 @@ public abstract class PermissionCheckerDelegate extends BaseDelegate {
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
-        // 通知WelcomeActivity进行计时
+        // 通知WelcomeDelegate进行计时
         EventBusUtils.post(getProxyActivity(), new EventMessage(EventCode.PERMISSION_SUCCESS));
     }
 }

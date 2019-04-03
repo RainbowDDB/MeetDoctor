@@ -2,12 +2,9 @@ package com.example.meetdoctor.ui;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
 
-import com.example.meetdoctor.TestDelegate;
-import com.example.meetdoctor.core.ProxyActivity;
+import com.example.meetdoctor.core.app.ProxyActivity;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
-import com.example.meetdoctor.core.log.LatteLogger;
 
 public class MainActivity extends ProxyActivity {
 
@@ -23,6 +20,6 @@ public class MainActivity extends ProxyActivity {
 
     @Override
     public LatteDelegate setRootDelegate() {
-        return new TestDelegate();
+        return new WelcomeDelegate();
     }
 }

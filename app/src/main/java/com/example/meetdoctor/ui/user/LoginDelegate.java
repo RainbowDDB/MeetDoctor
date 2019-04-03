@@ -25,7 +25,7 @@ import com.example.meetdoctor.ui.HomeActivity;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
 
-public class LoginActivity extends BaseActivity
+public class LoginDelegate extends BaseActivity
         implements View.OnClickListener, TextView.OnEditorActionListener {
 
     private static final String TAG = "LoginActivity";

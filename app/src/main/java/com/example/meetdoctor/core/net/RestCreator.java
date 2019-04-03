@@ -1,6 +1,6 @@
 package com.example.meetdoctor.core.net;
 
-import com.example.meetdoctor.core.MyApplication;
+import com.example.meetdoctor.core.app.MyApplication;
 import com.example.meetdoctor.core.net.cookie.CookieManager;
 import com.example.meetdoctor.core.net.cookie.PersistentCookieStore;
 

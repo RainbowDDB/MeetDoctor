@@ -1,4 +1,4 @@
-package com.example.meetdoctor.core;
+package com.example.meetdoctor.core.app;
 
 import android.app.Application;
 import android.content.Context;

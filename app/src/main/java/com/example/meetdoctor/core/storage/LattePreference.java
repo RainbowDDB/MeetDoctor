@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.meetdoctor.core.MyApplication;
+import com.example.meetdoctor.core.app.MyApplication;
 
 @SuppressWarnings("unused")
 public final class LattePreference {
