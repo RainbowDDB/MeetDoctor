@@ -94,19 +94,16 @@ public class UIHelper {
 
     // 监听软键盘状态从而改变ScrollView高度
     // 解决状态栏透明导致的ScrollView滚动失效的bug
-    public static void setScrollViewHeight(Window window, final ScrollView scrollView) {
-        final View decorView = window.getDecorView();
-        decorView.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect rect = new Rect();
-            decorView.getWindowVisibleDisplayFrame(rect);
-            int screenHeight = decorView.getRootView().getHeight();
-            // 计算软键盘占有的高度  = 屏幕高度 - 视图可见高度
-            int heightDifference = screenHeight - rect.bottom;
-            FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) scrollView.getLayoutParams();
-            // 设置ScrollView的marginBottom的值为软键盘占有的高度即可
-            layoutParams.setMargins(0, 0, 0, heightDifference);
-            scrollView.requestLayout();
-        });
+    public static void setScrollViewHeight(View decorView, ScrollView scrollView) {
+        Rect rect = new Rect();
+        decorView.getWindowVisibleDisplayFrame(rect);
+        int screenHeight = decorView.getRootView().getHeight();
+        // 计算软键盘占有的高度  = 屏幕高度 - 视图可见高度
+        int heightDifference = screenHeight - rect.bottom;
+        FrameLayout.LayoutParams layoutParams = (FrameLayout.LayoutParams) scrollView.getLayoutParams();
+        // 设置ScrollView的marginBottom的值为软键盘占有的高度即可
+        layoutParams.setMargins(0, 0, 0, heightDifference);
+        scrollView.requestLayout();
     }
 
     /**

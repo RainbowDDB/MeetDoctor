@@ -1,14 +1,18 @@
 package com.example.meetdoctor.ui.user;
 
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -27,12 +31,14 @@ import com.example.meetdoctor.utils.UIHelper;
 import com.google.gson.Gson;
 
 public class LoginDelegate extends LatteDelegate
-        implements View.OnClickListener, TextView.OnEditorActionListener {
+        implements View.OnClickListener, TextView.OnEditorActionListener,
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "LoginActivity";
     private EditText mAccount, mPassword;
     private TextView errMsg;
+    private ScrollView scrollView;
 
     @Override
     public Object setLayout() {
@@ -51,9 +57,7 @@ public class LoginDelegate extends LatteDelegate
         ImageView otherLogin = rootView.findViewById(R.id.img_other_login);
         errMsg = rootView.findViewById(R.id.tv_error_msg);
 
-        ScrollView scrollView = rootView.findViewById(R.id.scroll_view);
-        // 监听软键盘状态从而改变ScrollView高度
-        UIHelper.setScrollViewHeight(getProxyActivity().getWindow(), scrollView);
+        scrollView = rootView.findViewById(R.id.scroll_view);
 
         register.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
@@ -61,6 +65,11 @@ public class LoginDelegate extends LatteDelegate
         qqLogin.setOnClickListener(this);
         wechatLogin.setOnClickListener(this);
         otherLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
 
         TextWatcher watcher = new TextWatcher() {
             @Override
@@ -82,6 +91,8 @@ public class LoginDelegate extends LatteDelegate
         mAccount.addTextChangedListener(watcher);
         mPassword.addTextChangedListener(watcher);
         mPassword.setOnEditorActionListener(this);
+
+        scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     @Override
@@ -105,6 +116,22 @@ public class LoginDelegate extends LatteDelegate
                 break;
         }
 
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        final View decorView = getProxyActivity().getWindow().getDecorView();
+        UIHelper.setScrollViewHeight(decorView, scrollView);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
+        super.onDestroyView();
     }
 
     @Override

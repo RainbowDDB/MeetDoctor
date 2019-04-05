@@ -12,21 +12,28 @@ import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.utils.UIHelper;
 
 import me.yokeyword.fragmentation.SupportHelper;
+import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
+import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
 public class MainActivity extends ProxyActivity {
+
+    @Override
+    public LatteDelegate setRootDelegate() {
+        return new WelcomeDelegate();
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         // 透明状态栏
         UIHelper.setImmersiveStatusBar(getWindow());
-        // 状态栏字体颜色
         UIHelper.setAndroidNativeLightStatusBar(this, true);
     }
 
     @Override
-    public LatteDelegate setRootDelegate() {
-        return new WelcomeDelegate();
+    public FragmentAnimator onCreateFragmentAnimator() {
+        // 横向转场动画
+        return new DefaultHorizontalAnimator();
     }
 
     /**

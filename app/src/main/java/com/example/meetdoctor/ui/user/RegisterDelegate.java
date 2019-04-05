@@ -1,5 +1,7 @@
 package com.example.meetdoctor.ui.user;
 
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -9,10 +11,12 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -31,14 +35,16 @@ import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
 import com.google.gson.Gson;
 
-public class RegisterDelegate extends LatteDelegate
-        implements View.OnClickListener, TextView.OnEditorActionListener {
+public class RegisterDelegate extends LatteDelegate implements
+        View.OnClickListener, TextView.OnEditorActionListener,
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "RegisterActivity";
     private EditText mAccount, mPassword, mConfirmedPassword;
     private CheckBox checkAgreement;
     private TextView accountMsg, passwordMsg, confirmPasswordMsg;
+    private ScrollView scrollView;
 
     // 密码输入观察者
     private TextWatcher passwordWatcher = new TextWatcher() {
@@ -99,11 +105,18 @@ public class RegisterDelegate extends LatteDelegate
         passwordMsg = rootView.findViewById(R.id.tv_password_msg);
         confirmPasswordMsg = rootView.findViewById(R.id.tv_confirm_password_msg);
 
-        ScrollView scrollView = rootView.findViewById(R.id.scroll_view);
-        UIHelper.setScrollViewHeight(getProxyActivity().getWindow(), scrollView);
+        scrollView = rootView.findViewById(R.id.scroll_view);
+//        UIHelper.setScrollViewHeight(getProxyActivity().getWindow(), scrollView);
 
         agreement.setOnClickListener(this);
         register.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+
         mAccount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -128,6 +141,8 @@ public class RegisterDelegate extends LatteDelegate
         mPassword.addTextChangedListener(passwordWatcher);
         mConfirmedPassword.addTextChangedListener(passwordWatcher);
         mConfirmedPassword.setOnEditorActionListener(this);
+
+        scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
     }
 
     @Override
@@ -140,6 +155,22 @@ public class RegisterDelegate extends LatteDelegate
                 start(new AgreementDelegate());
                 break;
         }
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        final View decorView = getProxyActivity().getWindow().getDecorView();
+        UIHelper.setScrollViewHeight(decorView, scrollView);
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
+        super.onDestroyView();
     }
 
     // 再次输入密码时，点击右下角done按键可直接注册

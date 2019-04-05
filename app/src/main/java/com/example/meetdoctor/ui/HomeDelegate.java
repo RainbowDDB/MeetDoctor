@@ -50,6 +50,7 @@ public class HomeDelegate extends LatteDelegate implements View.OnClickListener,
     private ImageView soundOrText;
     private LinearLayout textInput;
     private TextView response;
+    private ImageView background;
 
     private SpeechRecognizer recognizer;
 
@@ -71,7 +72,7 @@ public class HomeDelegate extends LatteDelegate implements View.OnClickListener,
         LinearLayout mProfileLayout = headerView.findViewById(R.id.health_profile_layout);
         LinearLayout mHistoryLayout = headerView.findViewById(R.id.history_layout);
         LinearLayout mSettingLayout = headerView.findViewById(R.id.settings_layout);
-        ImageView background = rootView.findViewById(R.id.img_home_background);
+        background = rootView.findViewById(R.id.img_home_background);
 
         askContent = rootView.findViewById(R.id.edt_ask_content);
         baymax = rootView.findViewById(R.id.img_baymax);
@@ -80,9 +81,6 @@ public class HomeDelegate extends LatteDelegate implements View.OnClickListener,
         textInput = rootView.findViewById(R.id.text_input);
         response = rootView.findViewById(R.id.tv_ask_result);
         Button ask = rootView.findViewById(R.id.btn_ask);
-
-        ImageUtils.showImg(getContext(), R.drawable.home_background, background);
-        ImageUtils.showGif(getContext(), R.drawable.listen, baymax);
 
         recognizer = new SpeechRecognizer(getContext(), new RecogListener() {
             @Override
@@ -102,10 +100,13 @@ public class HomeDelegate extends LatteDelegate implements View.OnClickListener,
         ask.setOnClickListener(this);
     }
 
-    // TODO 修改
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onLazyInitView(@Nullable Bundle savedInstanceState) {
+        super.onLazyInitView(savedInstanceState);
+
+        ImageUtils.showImg(getContext(), R.drawable.home_background, background);
+        ImageUtils.showGif(getContext(), R.drawable.listen, baymax);
+
         // 当键盘弹出隐藏的时候会 调用此方法。
         askContent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             Rect r = new Rect();

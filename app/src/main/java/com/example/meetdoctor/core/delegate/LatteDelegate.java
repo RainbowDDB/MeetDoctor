@@ -1,15 +1,28 @@
 package com.example.meetdoctor.core.delegate;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
-import com.example.meetdoctor.core.log.LatteLogger;
+import com.example.meetdoctor.utils.UIHelper;
+
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * 基础UI布局
  * 解决各种UI问题
+ * 生命周期：
+ * -> onActivityCreated()
+ * -> onCreate()
+ * -> onResume()
+ * -> onSupportVisible
+ * -> onLazyInitView()
+ * -> onSupportInvisible()
+ * -> onPause()
  */
 public abstract class LatteDelegate extends PermissionCheckerDelegate {
 

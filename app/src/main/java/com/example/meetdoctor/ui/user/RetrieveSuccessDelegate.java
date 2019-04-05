@@ -24,7 +24,8 @@ public class RetrieveSuccessDelegate extends LatteDelegate implements View.OnCli
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         AppBarLayout appBarLayout = rootView.findViewById(R.id.app_bar);
-        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(getProxyActivity()), 0, 0);
+        int statusBarHeight = UIHelper.getStatusBarHeight(getProxyActivity());
+        appBarLayout.setPadding(0, statusBarHeight, 0, 0);
         Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setToolbar(toolbar);

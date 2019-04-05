@@ -60,6 +60,7 @@ public class Header extends AppBarLayout {
     }
 
     public void setBackgroundColor(int color) {
+        mAppBarLayout.setBackgroundColor(color);
         mToolbar.setBackgroundColor(color);
     }
 
