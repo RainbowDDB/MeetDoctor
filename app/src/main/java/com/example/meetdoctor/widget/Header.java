@@ -47,6 +47,8 @@ public class Header extends AppBarLayout {
 
         mAppBarLayout.setPadding(0, UIHelper.getStatusBarHeight(mContext), 0, 0);
         mToolbar.setTitle("");
+
+        setFitsSystemWindows(true);
         setTitleColor(DEFAULT_TITLE_COLOR);
         setBackgroundColor(DEFAULT_BAR_COLOR);
     }

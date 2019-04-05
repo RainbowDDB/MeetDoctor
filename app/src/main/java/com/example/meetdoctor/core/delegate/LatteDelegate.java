@@ -35,4 +35,15 @@ public abstract class LatteDelegate extends PermissionCheckerDelegate {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
     }
+
+    /**
+     * 当一个碎片销毁时，其包裹类 ProxyActivity 内
+     * （Activity.mToolbar）仍持有对该碎片的引用，故会发生泄漏
+     * 解决方法如下！
+     */
+    @Override
+    public void onDestroyView() {
+        setToolbar(null);
+        super.onDestroyView();
+    }
 }
