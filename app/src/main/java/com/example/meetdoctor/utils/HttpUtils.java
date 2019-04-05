@@ -32,20 +32,14 @@ public class HttpUtils {
      * @param userName 用户名
      * @param password 密码
      */
-    public static void login(Context context, String userName, String password) {
+    public static void login(Context context, String userName, String password, ISuccess iSuccess) {
         WeakHashMap<String, Object> params = new WeakHashMap<>();
         params.put("username", userName);
         params.put("password", SecurityUtils.md5(password));
         RestClient.builder().url("user/login")
                 .loader(context)
                 .params(params)
-                .success((response) -> {
-                    if (response != null) {
-                        LatteLogger.d("login success: responseData = " + response);
-                        LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, bean));
-                    }
-                })
+                .success(iSuccess)
                 .error(ERROR)
                 .build()
                 .post();

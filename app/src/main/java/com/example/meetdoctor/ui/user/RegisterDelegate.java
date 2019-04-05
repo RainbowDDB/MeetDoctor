@@ -1,5 +1,7 @@
 package com.example.meetdoctor.ui.user;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
@@ -15,18 +17,21 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.delegate.LatteDelegate;
+import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
-import com.example.meetdoctor.ui.HomeActivity;
+import com.example.meetdoctor.ui.HomeDelegate;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
+import com.google.gson.Gson;
 
-public class RegisterActivity extends BaseActivity
+public class RegisterDelegate extends LatteDelegate
         implements View.OnClickListener, TextView.OnEditorActionListener {
 
     @SuppressWarnings("unused")
@@ -68,29 +73,34 @@ public class RegisterActivity extends BaseActivity
     };
 
     @Override
-    public void initView() {
-        AppBarLayout appBarLayout = findViewById(R.id.app_bar);
-        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(this), 0, 0);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+    public Object setLayout() {
+        return R.layout.activity_register;
+    }
+
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        AppBarLayout appBarLayout = rootView.findViewById(R.id.app_bar);
+        appBarLayout.setPadding(0, UIHelper.getStatusBarHeight(getProxyActivity()), 0, 0);
+        Toolbar toolbar = rootView.findViewById(R.id.toolbar);
         toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-        ActionBar actionBar = getSupportActionBar();
+        getProxyActivity().setSupportActionBar(toolbar);
+        ActionBar actionBar = getProxyActivity().getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mAccount = findViewById(R.id.edt_account);
-        mPassword = findViewById(R.id.edt_password);
-        mConfirmedPassword = findViewById(R.id.edt_confirm_password);
-        checkAgreement = findViewById(R.id.check_box_agreement);
-        TextView agreement = findViewById(R.id.tv_agreement);
-        Button register = findViewById(R.id.btn_register_and_login);
-        accountMsg = findViewById(R.id.tv_user_name_msg);
-        passwordMsg = findViewById(R.id.tv_password_msg);
-        confirmPasswordMsg = findViewById(R.id.tv_confirm_password_msg);
+        mAccount = rootView.findViewById(R.id.edt_account);
+        mPassword = rootView.findViewById(R.id.edt_password);
+        mConfirmedPassword = rootView.findViewById(R.id.edt_confirm_password);
+        checkAgreement = rootView.findViewById(R.id.check_box_agreement);
+        TextView agreement = rootView.findViewById(R.id.tv_agreement);
+        Button register = rootView.findViewById(R.id.btn_register_and_login);
+        accountMsg = rootView.findViewById(R.id.tv_user_name_msg);
+        passwordMsg = rootView.findViewById(R.id.tv_password_msg);
+        confirmPasswordMsg = rootView.findViewById(R.id.tv_confirm_password_msg);
 
-        ScrollView scrollView = findViewById(R.id.scroll_view);
-        UIHelper.setScrollViewHeight(getWindow(), scrollView);
+        ScrollView scrollView = rootView.findViewById(R.id.scroll_view);
+        UIHelper.setScrollViewHeight(getProxyActivity().getWindow(), scrollView);
 
         agreement.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -121,18 +131,13 @@ public class RegisterActivity extends BaseActivity
     }
 
     @Override
-    public Object getLayout() {
-        return R.layout.activity_register;
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register_and_login:
                 startRegister();
                 break;
             case R.id.tv_agreement:
-                startActivity(AgreementActivity.class);
+                start(new AgreementDelegate());
                 break;
         }
     }
@@ -162,15 +167,22 @@ public class RegisterActivity extends BaseActivity
                     RegisterEvent registerEvent = (RegisterEvent) event.getData();
                     showToast(registerEvent.getMessage());
                     // 自动登录
-                    HttpUtils.login(this, registerEvent.getUserName(), registerEvent.getPassword());
+                    HttpUtils.login(getContext(), registerEvent.getUserName(), registerEvent.getPassword(),
+                            (response) -> {
+                                if (response != null) {
+                                    LatteLogger.d("login success: responseData = " + response);
+                                    LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
+                                    EventBusUtils.post(getProxyActivity(),
+                                            new EventMessage<>(EventCode.SUCCESS, bean));
+                                }
+                            });
                 } else if (event.getData() instanceof LoginEvent) {
                     LoginEvent bean = (LoginEvent) event.getData();
                     if (bean.getError() != null) {
                         showMessage(passwordMsg, bean.getError(), true);
                     } else {
                         showToast(MessageConstant.LOGIN_SUCCESS);
-                        startNewActivity(HomeActivity.class);
-                        finish();
+                        startWithPop(new HomeDelegate());
                     }
                 }
                 break;
@@ -203,7 +215,7 @@ public class RegisterActivity extends BaseActivity
 
     // 注册
     private void register(String userName, String password) {
-        HttpUtils.register(this, userName, password);
+        HttpUtils.register(getContext(), userName, password);
     }
 
     // 检查用户是否存在

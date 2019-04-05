@@ -11,13 +11,12 @@ import com.umeng.commonsdk.UMConfigure;
 
 import me.yokeyword.fragmentation.BuildConfig;
 import me.yokeyword.fragmentation.Fragmentation;
-import me.yokeyword.fragmentation.helper.ExceptionHandler;
 
 /**
  * 全局Application
  * 作用：初始化以及销毁一些东西
  */
-public class MyApplication extends Application {
+public class App extends Application {
 
     // 此处有坑，慎用！
     private static Context context;
@@ -40,9 +39,9 @@ public class MyApplication extends Application {
         context = getApplicationContext();
 
         Fragmentation.builder()
-                // 设置 栈视图 模式为 悬浮球模式   SHAKE: 摇一摇唤出   NONE：隐藏
+                // 设置 栈视图 模式为 悬浮球模式   SHAKE: 摇一摇唤出   NONE：隐藏  BUBBLE 显示
                 .stackViewMode(Fragmentation.BUBBLE)
-                .debug(BuildConfig.DEBUG)
+                .debug(true) // BuildConfig.DEBUG
                 // 在遇到After onSaveInstanceState时，不会抛出异常，会回调到下面的ExceptionHandler
                 .handleException(e -> {
                     // 建议在该回调处上传至我们的Crash监测服务器

@@ -11,7 +11,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name=".core.app.MyApplication"
+        android:name=".core.app.App"
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:label="@string/app_name"
@@ -31,24 +31,6 @@
             </intent-filter>
         </activity>
 
-        <activity
-            android:name=".ui.HomeActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity
-            android:name=".ui.user.LoginDelegate"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity
-            android:name=".ui.user.RegisterActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.user.AgreementActivity" />
-        <activity
-            android:name=".ui.user.SecretProtectActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity
-            android:name=".ui.user.RetrievePasswordActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.user.RetrieveSuccessActivity" />
         <!--<activity android:name=".ui.launcher.LauncherDelegate" />-->
         <activity android:name=".ui.info.HealthProfileActivity" />
         <activity android:name=".ui.info.CollectionActivity" />

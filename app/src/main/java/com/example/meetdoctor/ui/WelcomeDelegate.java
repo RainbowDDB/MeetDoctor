@@ -13,6 +13,7 @@ import com.example.meetdoctor.model.event.CheckStateEvent;
 import com.example.meetdoctor.ui.launcher.LauncherDelegate;
 import com.example.meetdoctor.ui.launcher.ScrollLauncherTag;
 import com.example.meetdoctor.core.storage.LattePreference;
+import com.example.meetdoctor.ui.user.LoginDelegate;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
@@ -79,12 +80,13 @@ public class WelcomeDelegate extends LatteDelegate {
                         LatteLogger.d(stateResponse);
                         CheckStateEvent bean = new Gson()
                                 .fromJson(stateResponse, CheckStateEvent.class);
-                        EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-//                        startWithPop(HomeActivity.class);
+                        EventBusUtils.postSticky(getProxyActivity(),
+                                new EventMessage<>(EventCode.SUCCESS, bean));
+                        startWithPop(new HomeDelegate());
                     });
                 }, (code, msg) -> {
                     if (code == 406) {
-//                        startWithPop(LoginActivity.class);
+                        startWithPop(new LoginDelegate());
                     }
                 });
                 break;

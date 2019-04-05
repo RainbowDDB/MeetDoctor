@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.meetdoctor.core.app.MyApplication;
+import com.example.meetdoctor.core.app.App;
 
 @SuppressWarnings("unused")
 public final class LattePreference {
@@ -16,7 +16,7 @@ public final class LattePreference {
      */
 
     private static final SharedPreferences PREFERENCES =
-            PreferenceManager.getDefaultSharedPreferences(MyApplication.getContext());
+            PreferenceManager.getDefaultSharedPreferences(App.getContext());
 
     private static final String APP_PREFERENCES_KEY = "profile";
 

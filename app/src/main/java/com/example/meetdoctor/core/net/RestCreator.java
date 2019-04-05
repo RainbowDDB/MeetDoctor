@@ -1,6 +1,6 @@
 package com.example.meetdoctor.core.net;
 
-import com.example.meetdoctor.core.app.MyApplication;
+import com.example.meetdoctor.core.app.App;
 import com.example.meetdoctor.core.net.cookie.CookieManager;
 import com.example.meetdoctor.core.net.cookie.PersistentCookieStore;
 
@@ -43,7 +43,7 @@ public class RestCreator {
         private static final ArrayList<Interceptor> INTERCEPTORS = new ArrayList<>();
         private static final OkHttpClient OK_HTTP_CLIENT = addInterceptors()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
-                .cookieJar(new CookieManager(new PersistentCookieStore(MyApplication.getContext())))
+                .cookieJar(new CookieManager(new PersistentCookieStore(App.getContext())))
 //                .cookieJar(new CookiesManager(MyApplication.getContext()))
 //                .cookieJar(new CookieJar() { // 全局设置cookie管理器，用户身份校验
 //                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();

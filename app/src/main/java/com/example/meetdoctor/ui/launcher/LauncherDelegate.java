@@ -23,9 +23,7 @@ public class LauncherDelegate extends LatteDelegate implements OnItemClickListen
     public void onItemClick(int position) {
         // 如果点击的是最后一个，直接进入登录页
         if (position == INTEGERS.size() - 1) {
-//            start(LoginDelegate.class);
-//            startNewActivity(LoginActivity.class);
-//            finish();
+            startWithPop(new LoginDelegate());
         }
     }
 

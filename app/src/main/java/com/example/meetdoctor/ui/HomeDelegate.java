@@ -2,6 +2,8 @@ package com.example.meetdoctor.ui;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
+import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MotionEvent;
@@ -16,9 +18,7 @@ import android.widget.Toast;
 
 import com.baidu.speech.asr.SpeechConstant;
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.BaseActivity;
-import com.example.meetdoctor.core.log.LatteLogger;
-import com.example.meetdoctor.core.net.callback.ISuccess;
+import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.core.speech.RecogListener;
 import com.example.meetdoctor.core.speech.SpeechRecognizer;
 import com.example.meetdoctor.model.Constant;
@@ -27,11 +27,6 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.bean.AskResultBean;
 import com.example.meetdoctor.model.event.CheckStateEvent;
-import com.example.meetdoctor.ui.ask.ResultActivity;
-import com.example.meetdoctor.ui.info.CollectionActivity;
-import com.example.meetdoctor.ui.info.HealthProfileActivity;
-import com.example.meetdoctor.ui.info.HistoryActivity;
-import com.example.meetdoctor.ui.settings.SettingsActivity;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.ImageUtils;
@@ -42,8 +37,9 @@ import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class HomeActivity extends BaseActivity implements View.OnClickListener, View.OnTouchListener {
+public class HomeDelegate extends LatteDelegate implements View.OnClickListener, View.OnTouchListener {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "HomeActivity";
     private LinearLayout inputBar;
     private EditText askContent;
@@ -58,53 +54,37 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
     private SpeechRecognizer recognizer;
 
     @Override
-    protected void onResume() {
-        super.onResume();
-        // 当键盘弹出隐藏的时候会 调用此方法。
-        askContent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect r = new Rect();
-            // 获取当前界面可视部分
-            getWindow().getDecorView().getWindowVisibleDisplayFrame(r);
-            // 获取屏幕的高度
-            int screenHeight = getWindow().getDecorView().getRootView().getHeight();
-            // 此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
-            int heightDifference = screenHeight - r.bottom;
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
-            if (lp.bottomMargin != heightDifference) {
-                lp.setMargins(0, 0, 0,
-                        heightDifference + UIHelper.getVirtualBarHeight(this));
-                inputBar.setLayoutParams(lp);
-            }
-        });
+    public Object setLayout() {
+        return R.layout.acticity_home;
     }
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
-    public void initView() {
-        inputBar = findViewById(R.id.ask_input_bar);
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        inputBar = rootView.findViewById(R.id.ask_input_bar);
 
-        mDrawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navView = findViewById(R.id.nav_view);
+        mDrawerLayout = rootView.findViewById(R.id.drawer_layout);
+        NavigationView navView = rootView.findViewById(R.id.nav_view);
         View headerView = navView.getHeaderView(0);
         LinearLayout mAILayout = headerView.findViewById(R.id.ai_layout);
         LinearLayout mCollectionLayout = headerView.findViewById(R.id.collection_layout);
         LinearLayout mProfileLayout = headerView.findViewById(R.id.health_profile_layout);
         LinearLayout mHistoryLayout = headerView.findViewById(R.id.history_layout);
         LinearLayout mSettingLayout = headerView.findViewById(R.id.settings_layout);
-        ImageView background = findViewById(R.id.img_home_background);
+        ImageView background = rootView.findViewById(R.id.img_home_background);
 
-        askContent = findViewById(R.id.edt_ask_content);
-        baymax = findViewById(R.id.img_baymax);
-        speak = findViewById(R.id.btn_sound_input);
-        soundOrText = findViewById(R.id.img_sound_or_text);
-        textInput = findViewById(R.id.text_input);
-        response = findViewById(R.id.tv_ask_result);
-        Button ask = findViewById(R.id.btn_ask);
+        askContent = rootView.findViewById(R.id.edt_ask_content);
+        baymax = rootView.findViewById(R.id.img_baymax);
+        speak = rootView.findViewById(R.id.btn_sound_input);
+        soundOrText = rootView.findViewById(R.id.img_sound_or_text);
+        textInput = rootView.findViewById(R.id.text_input);
+        response = rootView.findViewById(R.id.tv_ask_result);
+        Button ask = rootView.findViewById(R.id.btn_ask);
 
-        ImageUtils.showImg(this, R.drawable.home_background, background);
-        ImageUtils.showGif(this, R.drawable.listen, baymax);
+        ImageUtils.showImg(getContext(), R.drawable.home_background, background);
+        ImageUtils.showGif(getContext(), R.drawable.listen, baymax);
 
-        recognizer = new SpeechRecognizer(this, new RecogListener() {
+        recognizer = new SpeechRecognizer(getContext(), new RecogListener() {
             @Override
             public void onFinishResult(String recogResult) {
                 showToast(recogResult);
@@ -120,23 +100,29 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         soundOrText.setOnClickListener(this);
         speak.setOnTouchListener(this);
         ask.setOnClickListener(this);
-
-//        HttpUtils.getMemberList(this, new ISuccess() {
-//            @Override
-//            public void onSuccess(String response) {
-//                LatteLogger.d(response);
-//            }
-//        }, new IError() {
-//            @Override
-//            public void onError(int code, String msg) {
-//                LatteLogger.e(TAG, code + "   " + msg);
-//            }
-//        });
     }
 
+    // TODO 修改
     @Override
-    public Object getLayout() {
-        return R.layout.acticity_home;
+    public void onResume() {
+        super.onResume();
+        // 当键盘弹出隐藏的时候会 调用此方法。
+        askContent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            Rect r = new Rect();
+            // 获取当前界面可视部分
+            View decorView = getProxyActivity().getWindow().getDecorView();
+            decorView.getWindowVisibleDisplayFrame(r);
+            // 获取屏幕的高度
+            int screenHeight = decorView.getRootView().getHeight();
+            // 此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
+            int heightDifference = screenHeight - r.bottom;
+            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
+            if (lp.bottomMargin != heightDifference) {
+                lp.setMargins(0, 0, 0,
+                        heightDifference + UIHelper.getVirtualBarHeight(getContext()));
+                inputBar.setLayoutParams(lp);
+            }
+        });
     }
 
     @Override
@@ -151,16 +137,16 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
             case R.id.ai_layout:
                 break;
             case R.id.collection_layout:
-                startActivity(CollectionActivity.class);
+// TODO               startActivity(CollectionActivity.class);
                 break;
             case R.id.history_layout:
-                startActivity(HistoryActivity.class);
+// TODO               startActivity(HistoryActivity.class);
                 break;
             case R.id.health_profile_layout:
-                startActivity(HealthProfileActivity.class);
+// TODO               startActivity(HealthProfileActivity.class);
                 break;
             case R.id.settings_layout:
-                startActivity(SettingsActivity.class);
+// TODO               startActivity(SettingsActivity.class);
                 break;
             case R.id.img_sound_or_text:
                 if (speak.getVisibility() == View.VISIBLE) {
@@ -190,11 +176,11 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     // success
                     switch (resultBean.getType()) {
                         case Constant.AskType.RE_ASK: // type=4 重开问询，引导进入结果页
-                            EventBusUtils.postSticky(new EventMessage<>(
+                            EventBusUtils.postSticky(getProxyActivity(), new EventMessage<>(
                                     EventCode.SUCCESS,
                                     resultBean.getResultContent()
                             ));
-                            startActivity(ResultActivity.class);
+//                            startActivity(ResultActivity.class);
                             break;
                         default: // type= 1 2 3
                             break;
@@ -217,33 +203,34 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
                     // TODO 问用户是否继续之前问询
                     String[] list = bean.getList();
                 }
-                EventBusUtils.removeStickyEvent(EventMessage.class);
+                EventBusUtils.removeStickyEvent(getProxyActivity(), EventMessage.class);
             }
         }
     }
 
     @Override
-    public void onBackPressed() {
+    public boolean onBackPressedSupport() {
         // 关闭抽屉
         mDrawerLayout.closeDrawers();
 
         long mNowTime = System.currentTimeMillis();// 获取第一次按键时间
         if ((mNowTime - mPressedTime) > 2000) {// 比较两次按键时间差
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
             mPressedTime = mNowTime;
         } else {// 退出程序
             // 切换gif，并使inputBar消失
-            ImageUtils.showGif(this, R.drawable.sleep, baymax);
+            ImageUtils.showGif(getContext(), R.drawable.sleep, baymax);
             inputBar.setVisibility(View.GONE);
             // 计时器延时gif持续时间 1s 并退出
             new TimerHelper() {
                 @Override
                 public void run() {
-                    finish();
+                    getProxyActivity().finish();
                     System.exit(0);
                 }
             }.start(1000);
         }
+        return true;
     }
 
     @SuppressLint("ClickableViewAccessibility")
@@ -262,48 +249,6 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         return false;
     }
 
-    /**
-     * 仅针对此页面gif格式图片做frameLayout背景
-     * 而ScrollView失效的特殊情况
-     */
-    @Override
-    public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (ev.getAction() == MotionEvent.ACTION_DOWN) {
-            // 获得当前得到焦点的View，一般情况下就是EditText（特殊情况就是轨迹求或者实体案件会移动焦点）
-            View v = getCurrentFocus();
-            if (isShouldHideInput(v, ev)) {
-                hideSoftInput(v);
-            }
-            return super.dispatchTouchEvent(ev);
-        }
-        // 必不可少，否则所有的组件都不会有TouchEvent了
-        if (getWindow().superDispatchTouchEvent(ev)) {
-            return true;
-        }
-        return onTouchEvent(ev);
-    }
-
-    /**
-     * 根据EditText所在坐标和用户点击的坐标相对比，来判断是否隐藏键盘，因为当用户点击EditText时没必要隐藏
-     */
-    private boolean isShouldHideInput(View v, MotionEvent event) {
-        if (v instanceof EditText) {
-            int[] l = {0, 0};
-            v.getLocationInWindow(l);
-            View view = UIHelper.getViewAtActivity(
-                    this, (int) event.getRawX(), (int) event.getRawY());
-            // 除下述几种情况隔离
-            if (view instanceof EditText || view instanceof Button) {
-                return false;
-            }
-            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
-            return !(event.getX() > left) || !(event.getX() < right) || !(event.getY() > top) || !(event.getY() < bottom);
-        }
-        // 如果焦点不是EditText则忽略，这个发生在视图刚绘制完，第一个焦点不在EditView上，和用户用轨迹球选择其他的焦点
-        return false;
-    }
-
-
     private void start() {
         Map<String, Object> params = new LinkedHashMap<>();
         params.put(SpeechConstant.ACCEPT_AUDIO_VOLUME, false);
@@ -320,7 +265,7 @@ public class HomeActivity extends BaseActivity implements View.OnClickListener, 
         HttpUtils.ask(
                 Constant.AskType.NORMAL_ASK,
                 content,
-                response -> EventBusUtils.post(new EventMessage<>(
+                response -> EventBusUtils.post(getProxyActivity(), new EventMessage<>(
                         EventCode.SUCCESS,
                         response
                 )));

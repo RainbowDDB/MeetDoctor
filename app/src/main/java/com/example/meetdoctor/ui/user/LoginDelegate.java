@@ -1,6 +1,5 @@
 package com.example.meetdoctor.ui.user;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Editable;
@@ -15,43 +14,46 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.LoginEvent;
-import com.example.meetdoctor.ui.HomeActivity;
+import com.example.meetdoctor.ui.HomeDelegate;
+import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
+import com.google.gson.Gson;
 
-public class LoginDelegate extends BaseActivity
+public class LoginDelegate extends LatteDelegate
         implements View.OnClickListener, TextView.OnEditorActionListener {
 
+    @SuppressWarnings("unused")
     private static final String TAG = "LoginActivity";
     private EditText mAccount, mPassword;
     private TextView errMsg;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public Object setLayout() {
+        return R.layout.activity_login;
     }
 
     @Override
-    public void initView() {
-        TextView register = findViewById(R.id.tv_register);
-        TextView forgetPassword = findViewById(R.id.tv_forget_password);
-        mAccount = findViewById(R.id.edt_account);
-        mPassword = findViewById(R.id.edt_password);
-        Button login = findViewById(R.id.btn_login);
-        ImageView qqLogin = findViewById(R.id.img_qq_login);
-        ImageView wechatLogin = findViewById(R.id.img_wechat_login);
-        ImageView otherLogin = findViewById(R.id.img_other_login);
-        errMsg = findViewById(R.id.tv_error_msg);
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        TextView register = rootView.findViewById(R.id.tv_register);
+        TextView forgetPassword = rootView.findViewById(R.id.tv_forget_password);
+        mAccount = rootView.findViewById(R.id.edt_account);
+        mPassword = rootView.findViewById(R.id.edt_password);
+        Button login = rootView.findViewById(R.id.btn_login);
+        ImageView qqLogin = rootView.findViewById(R.id.img_qq_login);
+        ImageView wechatLogin = rootView.findViewById(R.id.img_wechat_login);
+        ImageView otherLogin = rootView.findViewById(R.id.img_other_login);
+        errMsg = rootView.findViewById(R.id.tv_error_msg);
 
-        ScrollView scrollView = findViewById(R.id.scroll_view);
+        ScrollView scrollView = rootView.findViewById(R.id.scroll_view);
         // 监听软键盘状态从而改变ScrollView高度
-        UIHelper.setScrollViewHeight(getWindow(), scrollView);
+        UIHelper.setScrollViewHeight(getProxyActivity().getWindow(), scrollView);
 
         register.setOnClickListener(this);
         forgetPassword.setOnClickListener(this);
@@ -83,18 +85,13 @@ public class LoginDelegate extends BaseActivity
     }
 
     @Override
-    public Object getLayout() {
-        return R.layout.activity_login;
-    }
-
-    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_register:
-                startActivity(RegisterActivity.class);
+                start(new RegisterDelegate());
                 break;
             case R.id.tv_forget_password:
-                startActivity(SecretProtectActivity.class);
+                start(new SecretProtectDelegate());
                 break;
             case R.id.btn_login:
 //                HttpUtils.login(this, mAccount.getText().toString(), mPassword.getText().toString());
@@ -130,7 +127,7 @@ public class LoginDelegate extends BaseActivity
                     // 登录成功
                     hideErrorMessage(errMsg);
                     showToast(MessageConstant.LOGIN_SUCCESS);
-                    startNewActivity(HomeActivity.class);
+                    startWithPop(new HomeDelegate());
                 } else {
                     showErrorMessage(errMsg, bean.getError());
                 }
@@ -138,17 +135,17 @@ public class LoginDelegate extends BaseActivity
         }
     }
 
-    // 忘记密码修改成功后返回调用
-    @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-    }
-
     private void login() {
         String userName = mAccount.getText().toString();
         String password = mPassword.getText().toString();
         if (!userName.isEmpty() && !password.isEmpty()) {
-            HttpUtils.login(this, userName, password);
+            HttpUtils.login(getContext(), userName, password, (response) -> {
+                if (response != null) {
+                    LatteLogger.d("login success: responseData = " + response);
+                    LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
+                    EventBusUtils.post(getProxyActivity(), new EventMessage<>(EventCode.SUCCESS, bean));
+                }
+            });
         }
     }
 

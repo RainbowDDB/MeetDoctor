@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.meetdoctor.core.app.ProxyActivity;
+import com.example.meetdoctor.core.activity.ProxyActivity;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
@@ -42,7 +42,7 @@ public abstract class BaseDelegate extends SwipeBackFragment {
         if (rootView != null) {
             onBindView(savedInstanceState, rootView);
         }
-        return rootView;
+        return attachToSwipeBack(rootView);
     }
 
     public final ProxyActivity getProxyActivity() {

@@ -1,4 +1,4 @@
-package com.example.meetdoctor.core.app;
+package com.example.meetdoctor.core.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,6 @@ import android.widget.FrameLayout;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.core.img.GlideApp;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.umeng.analytics.MobclickAgent;
 
 import me.yokeyword.fragmentation.SupportActivity;
@@ -29,7 +28,9 @@ public abstract class ProxyActivity extends SupportActivity {
         container.setId(R.id.delegate_container);
         setContentView(container);
         if (savedInstanceState == null) {
-            loadRootFragment(R.id.delegate_container, setRootDelegate());
+            if (findFragment(setRootDelegate().getClass()) == null) {
+                loadRootFragment(R.id.delegate_container, setRootDelegate());
+            }
         }
     }
 
@@ -73,7 +74,7 @@ public abstract class ProxyActivity extends SupportActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-                finish();
+                pop(); // 出栈此Fragment
                 break;
         }
         return true;
