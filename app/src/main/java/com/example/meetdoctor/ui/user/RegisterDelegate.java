@@ -1,6 +1,5 @@
 package com.example.meetdoctor.ui.user;
 
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -16,7 +15,6 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -141,8 +139,22 @@ public class RegisterDelegate extends LatteDelegate implements
         mPassword.addTextChangedListener(passwordWatcher);
         mConfirmedPassword.addTextChangedListener(passwordWatcher);
         mConfirmedPassword.setOnEditorActionListener(this);
+    }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
     }
 
     @Override
@@ -161,16 +173,6 @@ public class RegisterDelegate extends LatteDelegate implements
     public void onGlobalLayout() {
         final View decorView = getProxyActivity().getWindow().getDecorView();
         UIHelper.setScrollViewHeight(decorView, scrollView);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        } else {
-            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        }
-        super.onDestroyView();
     }
 
     // 再次输入密码时，点击右下角done按键可直接注册

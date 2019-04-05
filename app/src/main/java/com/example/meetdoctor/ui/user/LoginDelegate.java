@@ -1,6 +1,5 @@
 package com.example.meetdoctor.ui.user;
 
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,7 +11,6 @@ import android.view.ViewTreeObserver;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -91,8 +89,24 @@ public class LoginDelegate extends LatteDelegate
         mAccount.addTextChangedListener(watcher);
         mPassword.addTextChangedListener(watcher);
         mPassword.setOnEditorActionListener(this);
+    }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
+        // 当此碎片可见时注册
         scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        // 不可见时就将其remove，这样可尽可能避免Memory Leak
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
     }
 
     @Override
@@ -120,18 +134,9 @@ public class LoginDelegate extends LatteDelegate
 
     @Override
     public void onGlobalLayout() {
+        // 监听软键盘，屏幕高度以改变ScrollView的高度
         final View decorView = getProxyActivity().getWindow().getDecorView();
         UIHelper.setScrollViewHeight(decorView, scrollView);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        } else {
-            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        }
-        super.onDestroyView();
     }
 
     @Override

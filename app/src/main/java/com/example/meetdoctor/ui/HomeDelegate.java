@@ -2,12 +2,14 @@ package com.example.meetdoctor.ui;
 
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -37,7 +39,9 @@ import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class HomeDelegate extends LatteDelegate implements View.OnClickListener, View.OnTouchListener {
+public class HomeDelegate extends LatteDelegate implements
+        View.OnClickListener, View.OnTouchListener,
+        ViewTreeObserver.OnGlobalLayoutListener {
 
     @SuppressWarnings("unused")
     private static final String TAG = "HomeActivity";
@@ -106,24 +110,41 @@ public class HomeDelegate extends LatteDelegate implements View.OnClickListener,
 
         ImageUtils.showImg(getContext(), R.drawable.home_background, background);
         ImageUtils.showGif(getContext(), R.drawable.listen, baymax);
+    }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         // 当键盘弹出隐藏的时候会 调用此方法。
-        askContent.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            Rect r = new Rect();
-            // 获取当前界面可视部分
-            View decorView = getProxyActivity().getWindow().getDecorView();
-            decorView.getWindowVisibleDisplayFrame(r);
-            // 获取屏幕的高度
-            int screenHeight = decorView.getRootView().getHeight();
-            // 此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
-            int heightDifference = screenHeight - r.bottom;
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
-            if (lp.bottomMargin != heightDifference) {
-                lp.setMargins(0, 0, 0,
-                        heightDifference + UIHelper.getVirtualBarHeight(getContext()));
-                inputBar.setLayoutParams(lp);
-            }
-        });
+        askContent.getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            askContent.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            askContent.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        Rect r = new Rect();
+        // 获取当前界面可视部分
+        View decorView = getProxyActivity().getWindow().getDecorView();
+        decorView.getWindowVisibleDisplayFrame(r);
+        // 获取屏幕的高度
+        int screenHeight = decorView.getRootView().getHeight();
+        // 此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
+        int heightDifference = screenHeight - r.bottom;
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
+        if (lp.bottomMargin != heightDifference) {
+            lp.setMargins(0, 0, 0,
+                    heightDifference + UIHelper.getVirtualBarHeight(getContext()));
+            inputBar.setLayoutParams(lp);
+        }
     }
 
     @Override

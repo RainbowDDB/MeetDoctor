@@ -1,6 +1,5 @@
 package com.example.meetdoctor.ui.user;
 
-import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ScrollView;
 
 import com.example.meetdoctor.R;
@@ -50,8 +48,22 @@ public class RetrievePasswordDelegate extends LatteDelegate implements
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
         confirm.setOnClickListener(this);
+    }
 
+    @Override
+    public void onSupportVisible() {
+        super.onSupportVisible();
         scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    @Override
+    public void onSupportInvisible() {
+        super.onSupportInvisible();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        } else {
+            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
+        }
     }
 
     @Override
@@ -67,15 +79,5 @@ public class RetrievePasswordDelegate extends LatteDelegate implements
     public void onGlobalLayout() {
         final View decorView = getProxyActivity().getWindow().getDecorView();
         UIHelper.setScrollViewHeight(decorView, scrollView);
-    }
-
-    @Override
-    public void onDestroyView() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
-        } else {
-            scrollView.getViewTreeObserver().removeGlobalOnLayoutListener(this);
-        }
-        super.onDestroyView();
     }
 }
