@@ -2,6 +2,7 @@ package com.example.meetdoctor.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 
 import com.example.meetdoctor.core.log.LatteLogger;
@@ -16,6 +17,8 @@ import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
 import com.google.gson.Gson;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.util.WeakHashMap;
 
 /**
@@ -25,6 +28,39 @@ import java.util.WeakHashMap;
 public class HttpUtils {
 
     private static final String TAG = "HttpUtils";
+
+    /**
+     * 问询
+     *
+     * @param type     类型，参照Constant.AskType说明
+     * @param question 问题，当type为NORMAL_ASK或RE_ASK时为null，不传此参数
+     * @param response 回答
+     * @param iSuccess 成功的回调
+     */
+    public static void ask(Context context,
+                           @AskMode int type,
+                           String question,
+                           String response,
+                           ISuccess iSuccess) {
+        RestClientBuilder builder = RestClient.builder()
+                .url("ask/answer")
+                .params("type", type)
+                .params("w", response)
+                .success(iSuccess)
+                .error(new Error((Activity) context));
+        switch (type) {
+            case Constant.AskType.LEVEL_ASK:
+            case Constant.AskType.SELECTION_ASK:
+                builder.params("question", question).build().post();
+                break;
+            case Constant.AskType.NORMAL_ASK:
+            case Constant.AskType.RE_ASK:
+                builder.build().post();
+                break;
+            default:
+                throw new IllegalArgumentException("type is not right.");
+        }
+    }
 
     /**
      * 登录
@@ -207,37 +243,16 @@ public class HttpUtils {
                 .post();
     }
 
-    /**
-     * 问询
-     *
-     * @param type     类型，参照Constant.AskType说明
-     * @param question 问题，当type为NORMAL_ASK或RE_ASK时为null，不传此参数
-     * @param response 回答
-     * @param iSuccess 成功的回调
-     */
-    public static void ask(Context context, int type, String question, String response, ISuccess iSuccess) {
-        RestClientBuilder builder = RestClient.builder()
-                .url("ask/answer")
-                .params("type", type)
-                .params("w", response)
-                .success(iSuccess)
-                .error(new Error((Activity) context));
-        switch (type) {
-            case Constant.AskType.LEVEL_ASK:
-            case Constant.AskType.SELECTION_ASK:
-                builder.params("question", question).build().post();
-                break;
-            case Constant.AskType.NORMAL_ASK:
-            case Constant.AskType.RE_ASK:
-                builder.build().post();
-                break;
-            default:
-                throw new IllegalArgumentException("type is not right.");
-        }
+    public static void ask(Context context, @AskMode int type, String response, ISuccess iSuccess) {
+        ask(context, type, null, response, iSuccess);
     }
 
-    public static void ask(Context context, int type, String response, ISuccess iSuccess) {
-        ask(context, type, null, response, iSuccess);
+    @IntDef({Constant.AskType.NORMAL_ASK,
+            Constant.AskType.LEVEL_ASK,
+            Constant.AskType.SELECTION_ASK,
+            Constant.AskType.RE_ASK})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface AskMode {
     }
 
     /**
