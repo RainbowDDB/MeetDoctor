@@ -17,16 +17,13 @@ import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
-import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.ui.HomeDelegate;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
-import com.google.gson.Gson;
 
 public class LoginDelegate extends LatteDelegate
         implements View.OnClickListener, TextView.OnEditorActionListener,
@@ -171,13 +168,7 @@ public class LoginDelegate extends LatteDelegate
         String userName = mAccount.getText().toString();
         String password = mPassword.getText().toString();
         if (!userName.isEmpty() && !password.isEmpty()) {
-            HttpUtils.login(getContext(), userName, password, (response) -> {
-                if (response != null) {
-                    LatteLogger.d("login success: responseData = " + response);
-                    LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
-                    EventBusUtils.post(getProxyActivity(), new EventMessage<>(EventCode.SUCCESS, bean));
-                }
-            });
+            HttpUtils.login(getProxyActivity(), userName, password);
         }
     }
 

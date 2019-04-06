@@ -1,5 +1,6 @@
 package com.example.meetdoctor.utils;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.Nullable;
 
@@ -17,14 +18,13 @@ import com.google.gson.Gson;
 
 import java.util.WeakHashMap;
 
+/**
+ * 网络工具操作类，只是一些项目需求的接口
+ * Context 建议只使用 <b>getProxyActivity()</b>方法获取
+ */
 public class HttpUtils {
 
     private static final String TAG = "HttpUtils";
-
-    private static IError ERROR = (code, msg) -> {
-        LatteLogger.e(TAG, code + "   " + msg);
-        EventBusUtils.post(new EventMessage<>(code, msg));
-    };
 
     /**
      * 登录
@@ -32,15 +32,22 @@ public class HttpUtils {
      * @param userName 用户名
      * @param password 密码
      */
-    public static void login(Context context, String userName, String password, ISuccess iSuccess) {
+    public static void login(Context context, String userName, String password) {
         WeakHashMap<String, Object> params = new WeakHashMap<>();
         params.put("username", userName);
         params.put("password", SecurityUtils.md5(password));
         RestClient.builder().url("user/login")
                 .loader(context)
                 .params(params)
-                .success(iSuccess)
-                .error(ERROR)
+                .success((response) -> {
+                    if (response != null) {
+                        LatteLogger.d("login success: responseData = " + response);
+                        LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
+                        EventBusUtils.post((Activity) context,
+                                new EventMessage<>(EventCode.SUCCESS, bean));
+                    }
+                })
+                .error(new Error((Activity) context))
                 .build()
                 .post();
     }
@@ -62,10 +69,12 @@ public class HttpUtils {
                 .success((response) -> {
                     if (response != null) {
                         LatteLogger.d("register success: responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS, new RegisterEvent(userName, password)));
+                        EventBusUtils.post((Activity) context, new EventMessage<>(
+                                EventCode.SUCCESS,
+                                new RegisterEvent(userName, password)));
                     }
                 })
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .build()
                 .get();
     }
@@ -75,7 +84,7 @@ public class HttpUtils {
      *
      * @param userName 用户名
      */
-    public static void checkUser(String userName) {
+    public static void checkUser(Context context, String userName) {
         WeakHashMap<String, Object> params = new WeakHashMap<>();
         params.put("username", userName);
         RestClient.builder().url("user/check")
@@ -83,10 +92,18 @@ public class HttpUtils {
                 .success((response) -> {
                     if (response != null) {
                         LatteLogger.d("checkUser success：responseData=" + response);
-                        EventBusUtils.post(new EventMessage<>(EventCode.SUCCESS));
+                        EventBusUtils.post((Activity) context, new EventMessage<>(EventCode.SUCCESS));
                     }
                 })
-                .error(ERROR)
+                .error(new Error((Activity) context))
+                .build()
+                .get();
+    }
+
+    public static void checkState(Context context, ISuccess iSuccess) {
+        RestClient.builder().url("ask/state")
+                .success(iSuccess)
+                .error(new Error((Activity) context))
                 .build()
                 .get();
     }
@@ -102,14 +119,6 @@ public class HttpUtils {
                 .get();
     }
 
-    public static void checkState(ISuccess iSuccess) {
-        RestClient.builder().url("ask/state")
-                .success(iSuccess)
-                .error(ERROR)
-                .build()
-                .get();
-    }
-
     /**
      * 获取对象列表
      */
@@ -117,7 +126,7 @@ public class HttpUtils {
         RestClient.builder().url("person/GetMemberList")
                 .loader(context)
                 .success(iSuccess)
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .build()
                 .get();
     }
@@ -144,7 +153,7 @@ public class HttpUtils {
         map.put("birthday", birthday);
         RestClient.builder().url("person/CreateMember")
                 .success(iSuccess)
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .loader(context)
                 .params(map)
                 .build()
@@ -154,10 +163,10 @@ public class HttpUtils {
     /**
      * 切换对象
      */
-    public static void switchMember(int memberId, ISuccess iSuccess) {
+    public static void switchMember(Context context, int memberId, ISuccess iSuccess) {
         RestClient.builder().url("person/ChangeMember")
                 .success(iSuccess)
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .params("object", memberId)
                 .build()
                 .post();
@@ -191,7 +200,7 @@ public class HttpUtils {
 
         RestClient.builder().url("person/ModifyMember")
                 .success(iSuccess)
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .loader(context)
                 .params(map)
                 .build()
@@ -206,13 +215,13 @@ public class HttpUtils {
      * @param response 回答
      * @param iSuccess 成功的回调
      */
-    public static void ask(int type, String question, String response, ISuccess iSuccess) {
+    public static void ask(Context context, int type, String question, String response, ISuccess iSuccess) {
         RestClientBuilder builder = RestClient.builder()
                 .url("ask/answer")
                 .params("type", type)
                 .params("w", response)
                 .success(iSuccess)
-                .error(ERROR);
+                .error(new Error((Activity) context));
         switch (type) {
             case Constant.AskType.LEVEL_ASK:
             case Constant.AskType.SELECTION_ASK:
@@ -227,8 +236,8 @@ public class HttpUtils {
         }
     }
 
-    public static void ask(int type, String response, ISuccess iSuccess) {
-        ask(type, null, response, iSuccess);
+    public static void ask(Context context, int type, String response, ISuccess iSuccess) {
+        ask(context, type, null, response, iSuccess);
     }
 
     /**
@@ -238,8 +247,23 @@ public class HttpUtils {
         RestClient.builder().url("person/LoadHistory")
                 .loader(context)
                 .success(iSuccess)
-                .error(ERROR)
+                .error(new Error((Activity) context))
                 .build()
                 .get();
+    }
+
+    private static final class Error implements IError {
+
+        private final Activity mActivity;
+
+        private Error(Activity activity) {
+            this.mActivity = activity;
+        }
+
+        @Override
+        public void onError(int code, String msg) {
+            LatteLogger.e(TAG, code + "   " + msg);
+            EventBusUtils.post(mActivity, new EventMessage<>(code, msg));
+        }
     }
 }

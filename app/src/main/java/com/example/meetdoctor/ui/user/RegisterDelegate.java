@@ -20,18 +20,15 @@ import android.widget.TextView;
 
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
-import com.example.meetdoctor.core.log.LatteLogger;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
 import com.example.meetdoctor.ui.HomeDelegate;
-import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
-import com.google.gson.Gson;
 
 public class RegisterDelegate extends LatteDelegate implements
         View.OnClickListener, TextView.OnEditorActionListener,
@@ -200,15 +197,9 @@ public class RegisterDelegate extends LatteDelegate implements
                     RegisterEvent registerEvent = (RegisterEvent) event.getData();
                     showToast(registerEvent.getMessage());
                     // 自动登录
-                    HttpUtils.login(getContext(), registerEvent.getUserName(), registerEvent.getPassword(),
-                            (response) -> {
-                                if (response != null) {
-                                    LatteLogger.d("login success: responseData = " + response);
-                                    LoginEvent bean = new Gson().fromJson(response, LoginEvent.class);
-                                    EventBusUtils.post(getProxyActivity(),
-                                            new EventMessage<>(EventCode.SUCCESS, bean));
-                                }
-                            });
+                    HttpUtils.login(getProxyActivity(),
+                            registerEvent.getUserName(),
+                            registerEvent.getPassword());
                 } else if (event.getData() instanceof LoginEvent) {
                     LoginEvent bean = (LoginEvent) event.getData();
                     if (bean.getError() != null) {
@@ -248,13 +239,13 @@ public class RegisterDelegate extends LatteDelegate implements
 
     // 注册
     private void register(String userName, String password) {
-        HttpUtils.register(getContext(), userName, password);
+        HttpUtils.register(getProxyActivity(), userName, password);
     }
 
     // 检查用户是否存在
     private void checkUser(String userName) {
         if (userName.length() >= 6 && userName.length() <= 18 && StringUtils.isNumber(userName)) {
-            HttpUtils.checkUser(userName);
+            HttpUtils.checkUser(getProxyActivity(), userName);
         } else {
             showMessage(accountMsg, MessageConstant.USER_NAME_ILLEGAL, true);
         }

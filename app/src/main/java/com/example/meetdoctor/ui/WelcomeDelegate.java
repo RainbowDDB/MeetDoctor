@@ -76,7 +76,7 @@ public class WelcomeDelegate extends LatteDelegate {
                 HttpUtils.checkLogin(response -> {
                     // 已经登录则发送进入问询页面请求
                     // 发送粘性事件，当打开HomeActivity时触发
-                    HttpUtils.checkState((stateResponse) -> {
+                    HttpUtils.checkState(getProxyActivity(), (stateResponse) -> {
                         LatteLogger.d(stateResponse);
                         CheckStateEvent bean = new Gson()
                                 .fromJson(stateResponse, CheckStateEvent.class);

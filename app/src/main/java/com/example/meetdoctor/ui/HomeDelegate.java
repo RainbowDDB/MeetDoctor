@@ -241,6 +241,7 @@ public class HomeDelegate extends LatteDelegate implements
             mPressedTime = mNowTime;
         } else {// 退出程序
             // 切换gif，并使inputBar消失
+            // TODO 过度绘制现象，需优化
             ImageUtils.showGif(getContext(), R.drawable.sleep, baymax);
             inputBar.setVisibility(View.GONE);
             // 计时器延时gif持续时间 1s 并退出
@@ -284,7 +285,7 @@ public class HomeDelegate extends LatteDelegate implements
     }
 
     private void ask(String content) {
-        HttpUtils.ask(
+        HttpUtils.ask(getProxyActivity(),
                 Constant.AskType.NORMAL_ASK,
                 content,
                 response -> EventBusUtils.post(getProxyActivity(), new EventMessage<>(

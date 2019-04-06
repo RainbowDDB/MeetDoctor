@@ -74,7 +74,7 @@ public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
         });
 
         holder.itemView.setOnClickListener(view ->
-                HttpUtils.switchMember(bean.getId(), response -> {
+                HttpUtils.switchMember(getContext(), bean.getId(), response -> {
                     LatteLogger.i(TAG, response);
                     chosenId = bean.getId();
                     notifyItemChanged(chosenPosition);
