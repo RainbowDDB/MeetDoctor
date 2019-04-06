@@ -22,7 +22,7 @@ public class ImageUtils {
         GlideApp.with(context)
                 .asGif()
 //                .skipMemoryCache(true)
-                .priority(Priority.LOW)  // 低优先级提高性能
+                .priority(Priority.HIGH)  // 低优先级提高性能
                 .load(drawableId)
                 .into(imageView);
     }
