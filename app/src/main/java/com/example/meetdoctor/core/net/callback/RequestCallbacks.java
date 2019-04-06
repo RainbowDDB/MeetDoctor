@@ -70,7 +70,7 @@ public class RequestCallbacks implements Callback<String> {
 
     private void stopLoading() {
         if (LOADER_STYLE != null) {
-            HANDLER.post(LatteLoader::stopLoading);
+            HANDLER.postDelayed(LatteLoader::stopLoading, 1000);
         }
     }
 }
