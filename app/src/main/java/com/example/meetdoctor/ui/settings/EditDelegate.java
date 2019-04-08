@@ -22,7 +22,7 @@ import com.example.meetdoctor.widget.DateSelector;
 
 import java.util.ArrayList;
 
-public class EditActivity extends SettingsBaseActivity implements View.OnClickListener,
+public class EditDelegate extends SettingsBaseDelegate implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener {
 
     @SuppressWarnings("unused")
@@ -43,33 +43,29 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     private boolean flag;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setTitle("编辑/添加对象");
+    public Object setLayout() {
+        return R.layout.activity_edit;
     }
 
     @Override
-    protected void initView() {
-        name = findViewById(R.id.edt_person_name);
-        birthday = findViewById(R.id.tv_person_birthday);
-        height = findViewById(R.id.edt_person_height);
-        weight = findViewById(R.id.edt_person_weight);
-        alias = findViewById(R.id.edt_person_alias);
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        super.onBindView(savedInstanceState, rootView);
+        setTitle("编辑/添加对象");
 
-        radioGroup = findViewById(R.id.radio_group_gender);
+        name = rootView.findViewById(R.id.edt_person_name);
+        birthday = rootView.findViewById(R.id.tv_person_birthday);
+        height = rootView.findViewById(R.id.edt_person_height);
+        weight = rootView.findViewById(R.id.edt_person_weight);
+        alias = rootView.findViewById(R.id.edt_person_alias);
+
+        radioGroup = rootView.findViewById(R.id.radio_group_gender);
         radioGroup.setOnCheckedChangeListener(this);
 
         birthday.setOnClickListener(this);
-        Button confirm = findViewById(R.id.btn_confirm);
+        Button confirm = rootView.findViewById(R.id.btn_confirm);
         confirm.setOnClickListener(this);
 
         initData();
-    }
-
-    @Override
-    protected Object getLayout() {
-        return R.layout.activity_edit;
     }
 
     @Override
@@ -101,7 +97,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 }
             }
         }
-        EventBusUtils.removeStickyEvent(EventMessage.class);
+        EventBusUtils.removeStickyEvent(getProxyActivity(), EventMessage.class);
     }
 
     @Override
@@ -113,7 +109,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                     String w = weight.getText().toString();
                     if (flag) {
                         // 添加对象
-                        HttpUtils.createMember(this,
+                        HttpUtils.createMember(getProxyActivity(),
                                 name.getText().toString(),
                                 alias.getText().toString(),
                                 gender,
@@ -122,11 +118,11 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                                 birthday.getText().toString(),
                                 response -> {
                                     showToast("创建对象成功！");
-                                    finish();
+                                    pop();
                                 });
                     } else {
                         // 编辑对象
-                        HttpUtils.modifyMember(this,
+                        HttpUtils.modifyMember(getProxyActivity(),
                                 memberId,
                                 name.getText().toString(),
                                 alias.getText().toString(),
@@ -136,7 +132,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                                 birthday.getText().toString(),
                                 response -> {
                                     showToast("修改对象成功！");
-                                    finish();
+                                    pop();
                                 });
                     }
                 } else {
@@ -144,7 +140,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                 }
                 break;
             case R.id.tv_person_birthday:
-                DateSelector selectorView = new DateSelector(this, birthdayData);
+                DateSelector selectorView = new DateSelector(getProxyActivity(), birthdayData);
                 selectorView.setOnConfirmClickListener((year, month, day) -> {
                     if (birthdayData.size() == 0) {
                         birthdayData.add(year);
@@ -161,7 +157,7 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
                             Integer.parseInt(day)));
                     birthday.setTextColor(TEXT_COLOR);
                 });
-                selectorView.showAtLocation(getParentView(), Gravity.BOTTOM, 0, 0);
+                selectorView.showAtLocation(getView(), Gravity.BOTTOM, 0, 0);
                 break;
         }
     }
@@ -184,6 +180,10 @@ public class EditActivity extends SettingsBaseActivity implements View.OnClickLi
     }
 
     private void initData() {
-        flag = getIntent().getBooleanExtra(Constant.ADD_OR_EDIT, false);
+        if (getArguments() != null) {
+            flag = getArguments().getBoolean(Constant.ADD_OR_EDIT);
+        } else {
+            flag = false;
+        }
     }
 }

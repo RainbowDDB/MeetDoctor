@@ -1,7 +1,8 @@
 package com.example.meetdoctor.adapter;
 
+import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -12,7 +13,7 @@ import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.Constant;
 import com.example.meetdoctor.model.bean.MemberBean;
-import com.example.meetdoctor.ui.settings.EditActivity;
+import com.example.meetdoctor.ui.settings.EditDelegate;
 import com.example.meetdoctor.utils.DateUtils;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -22,6 +23,8 @@ import com.example.meetdoctor.widget.recycler.BaseRecyclerViewAdapter;
 import com.example.meetdoctor.widget.recycler.RecyclerViewHolder;
 
 import java.util.List;
+
+import me.yokeyword.fragmentation.SupportActivity;
 
 public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
 
@@ -67,10 +70,13 @@ public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
         }
         edit.setOnClickListener(view -> {
             // 编辑个人档案信息事件
-            EventBusUtils.postSticky(new EventMessage<>(EventCode.SUCCESS, bean));
-            Intent intent = new Intent(getContext(), EditActivity.class);
-            intent.putExtra(Constant.ADD_OR_EDIT, false);
-            getContext().startActivity(intent);
+            EventBusUtils.postSticky((Activity) getContext(),
+                    new EventMessage<>(EventCode.SUCCESS, bean));
+            Bundle bundle = new Bundle();
+            bundle.putBoolean(Constant.ADD_OR_EDIT, false);
+            EditDelegate editDelegate = new EditDelegate();
+            editDelegate.setArguments(bundle);
+            ((SupportActivity) getContext()).start(editDelegate);
         });
 
         holder.itemView.setOnClickListener(view ->

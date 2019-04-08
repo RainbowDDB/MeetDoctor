@@ -31,14 +31,8 @@
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".ui.launcher.LauncherDelegate" />-->
         <activity android:name=".ui.info.HealthProfileActivity" />
         <activity android:name=".ui.info.CollectionActivity" />
-        <activity android:name=".ui.settings.SwitchActivity" />
-        <activity
-            android:name=".ui.settings.EditActivity"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
-        <activity android:name=".ui.settings.SettingsActivity" />
         <activity android:name=".ui.ask.ResultActivity" />
         <activity android:name=".ui.info.HistoryActivity" />
 

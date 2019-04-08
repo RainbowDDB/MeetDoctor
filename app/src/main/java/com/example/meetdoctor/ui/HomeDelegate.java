@@ -29,6 +29,7 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.bean.AskResultBean;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.settings.SettingsDelegate;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.ImageUtils;
@@ -168,7 +169,7 @@ public class HomeDelegate extends LatteDelegate implements
 // TODO               startActivity(HealthProfileActivity.class);
                 break;
             case R.id.settings_layout:
-// TODO               startActivity(SettingsActivity.class);
+                start(new SettingsDelegate());
                 break;
             case R.id.img_sound_or_text:
                 if (speak.getVisibility() == View.VISIBLE) {
