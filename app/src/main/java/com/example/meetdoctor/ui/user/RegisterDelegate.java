@@ -25,7 +25,6 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.event.LoginEvent;
 import com.example.meetdoctor.model.event.RegisterEvent;
-import com.example.meetdoctor.ui.HomeDelegate;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
@@ -202,11 +201,9 @@ public class RegisterDelegate extends LatteDelegate implements
                             registerEvent.getPassword());
                 } else if (event.getData() instanceof LoginEvent) {
                     LoginEvent bean = (LoginEvent) event.getData();
+                    // 这里仅提示错误信息，剩下交给LoginDelegate中的event管理
                     if (bean.getError() != null) {
                         showMessage(passwordMsg, bean.getError(), true);
-                    } else {
-                        showToast(MessageConstant.LOGIN_SUCCESS);
-                        startWithPop(new HomeDelegate());
                     }
                 }
                 break;

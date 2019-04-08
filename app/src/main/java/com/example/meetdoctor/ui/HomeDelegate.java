@@ -87,14 +87,6 @@ public class HomeDelegate extends LatteDelegate implements
         response = rootView.findViewById(R.id.tv_ask_result);
         Button ask = rootView.findViewById(R.id.btn_ask);
 
-        recognizer = new SpeechRecognizer(getContext(), new RecogListener() {
-            @Override
-            public void onFinishResult(String recogResult) {
-                showToast(recogResult);
-                response.setText(recogResult);
-            }
-        });
-
         mSettingLayout.setOnClickListener(this);
         mHistoryLayout.setOnClickListener(this);
         mProfileLayout.setOnClickListener(this);
@@ -109,8 +101,16 @@ public class HomeDelegate extends LatteDelegate implements
     public void onLazyInitView(@Nullable Bundle savedInstanceState) {
         super.onLazyInitView(savedInstanceState);
 
-        ImageUtils.showImg(getContext(), R.drawable.home_background, background);
-        ImageUtils.showGif(getContext(), R.drawable.listen, baymax);
+        ImageUtils.showImg(getProxyActivity(), R.drawable.home_background, background);
+        ImageUtils.showGif(getProxyActivity(), R.drawable.listen, baymax);
+
+        recognizer = new SpeechRecognizer(getProxyActivity(), new RecogListener() {
+            @Override
+            public void onFinishResult(String recogResult) {
+                showToast(recogResult);
+                response.setText(recogResult);
+            }
+        });
     }
 
     @Override
