@@ -131,6 +131,12 @@ public class HomeDelegate extends LatteDelegate implements
     }
 
     @Override
+    public void onDestroy() {
+        recognizer.release(); // 释放 语音识别
+        super.onDestroy();
+    }
+
+    @Override
     public void onGlobalLayout() {
         Rect r = new Rect();
         // 获取当前界面可视部分
