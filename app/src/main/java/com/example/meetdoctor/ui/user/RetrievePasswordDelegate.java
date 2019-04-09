@@ -24,7 +24,7 @@ public class RetrievePasswordDelegate extends LatteDelegate implements
 
     @Override
     public Object setLayout() {
-        return R.layout.acticity_retrieve_password;
+        return R.layout.delegate_retrieve_password;
     }
 
     @Override

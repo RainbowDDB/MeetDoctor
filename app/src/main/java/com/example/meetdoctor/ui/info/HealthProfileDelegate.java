@@ -17,7 +17,7 @@ public class HealthProfileDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_health_profile;
+        return R.layout.delegate_health_profile;
     }
 
     @Override

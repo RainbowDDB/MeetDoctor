@@ -29,7 +29,7 @@ public class HistoryDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_history;
+        return R.layout.delegate_history;
     }
 
     @Override

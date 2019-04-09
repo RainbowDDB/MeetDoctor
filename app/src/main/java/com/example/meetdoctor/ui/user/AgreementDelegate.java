@@ -12,7 +12,7 @@ public class AgreementDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_agreement;
+        return R.layout.delegate_agreement;
     }
 
     @Override

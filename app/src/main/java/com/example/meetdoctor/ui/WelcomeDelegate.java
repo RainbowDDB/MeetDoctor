@@ -27,7 +27,7 @@ public class WelcomeDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_welcome;
+        return R.layout.delegate_welcome;
     }
 
     @Override

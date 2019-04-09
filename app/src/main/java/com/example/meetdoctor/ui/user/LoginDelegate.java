@@ -39,7 +39,7 @@ public class LoginDelegate extends LatteDelegate
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_login;
+        return R.layout.delegate_login;
     }
 
     @Override

@@ -24,7 +24,7 @@ public class ResultDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_result;
+        return R.layout.delegate_result;
     }
 
     @Override

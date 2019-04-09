@@ -65,7 +65,7 @@ public class HomeDelegate extends LatteDelegate implements
 
     @Override
     public Object setLayout() {
-        return R.layout.acticity_home;
+        return R.layout.delegate_home;
     }
 
     @SuppressLint("ClickableViewAccessibility")

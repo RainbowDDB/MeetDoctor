@@ -28,7 +28,7 @@ public class SwitchDelegate extends SettingsBaseDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_switch;
+        return R.layout.delegate_switch;
     }
 
     @Override

@@ -18,7 +18,7 @@ public class RetrieveSuccessDelegate extends LatteDelegate implements View.OnCli
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_retrieve_success;
+        return R.layout.delegate_retrieve_success;
     }
 
     @Override

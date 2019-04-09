@@ -15,7 +15,7 @@ public class SettingsDelegate extends SettingsBaseDelegate implements View.OnCli
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_settings;
+        return R.layout.delegate_settings;
     }
 
     @Override

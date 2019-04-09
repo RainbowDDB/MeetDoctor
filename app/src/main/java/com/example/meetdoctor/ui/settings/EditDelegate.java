@@ -44,7 +44,7 @@ public class EditDelegate extends SettingsBaseDelegate implements View.OnClickLi
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_edit;
+        return R.layout.delegate_edit;
     }
 
     @Override

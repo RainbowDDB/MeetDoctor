@@ -23,7 +23,7 @@ public class SecretProtectDelegate extends LatteDelegate implements
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_secret_protect;
+        return R.layout.delegate_secret_protect;
     }
 
     @Override

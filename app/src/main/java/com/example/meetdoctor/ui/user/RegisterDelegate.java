@@ -74,7 +74,7 @@ public class RegisterDelegate extends LatteDelegate implements
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_register;
+        return R.layout.delegate_register;
     }
 
     @Override

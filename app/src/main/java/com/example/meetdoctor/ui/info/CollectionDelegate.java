@@ -14,7 +14,7 @@ public class CollectionDelegate extends LatteDelegate {
 
     @Override
     public Object setLayout() {
-        return R.layout.activity_collection;
+        return R.layout.delegate_collection;
     }
 
     @Override
