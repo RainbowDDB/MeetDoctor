@@ -35,7 +35,8 @@ public class LoginDelegate extends LatteDelegate
     private TextView errMsg;
     private ScrollView scrollView;
 
-    private boolean flag = false; // 判断是否已经打开RegisterDelegate
+    private boolean isHidden = false; // 判断是否已经打开RegisterDelegate
+
     @Override
     public Object setLayout() {
         return R.layout.activity_login;
@@ -94,12 +95,12 @@ public class LoginDelegate extends LatteDelegate
         super.onSupportVisible();
         // 当此碎片可见时注册
         scrollView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        isHidden = false; // 恢复isHidden状态，重点
     }
 
     @Override
     public void onSupportInvisible() {
         super.onSupportInvisible();
-        flag = false; // 恢复flag状态，重点
         // 不可见时就将其remove，这样可尽可能避免Memory Leak
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             scrollView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
@@ -113,7 +114,7 @@ public class LoginDelegate extends LatteDelegate
         switch (view.getId()) {
             case R.id.tv_register:
                 start(new RegisterDelegate());
-                flag = true;
+                isHidden = true;
                 break;
             case R.id.tv_forget_password:
                 start(new SecretProtectDelegate());
@@ -162,7 +163,7 @@ public class LoginDelegate extends LatteDelegate
                     // 在这里也同时判断来自RegisterDelegate的消息，如果成功登陆，直接跳转
                     startWithPopTo(new HomeDelegate(), LoginDelegate.class, true);
                 } else {
-                    if (!flag) { // 只是在Login界面登陆才会提示错误信息
+                    if (!isHidden) { // 只是在Login界面登陆才会提示错误信息
                         showErrorMessage(errMsg, bean.getError());
                     }
                 }
