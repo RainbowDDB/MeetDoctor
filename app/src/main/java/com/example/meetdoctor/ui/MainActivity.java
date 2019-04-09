@@ -15,6 +15,10 @@ import me.yokeyword.fragmentation.SupportHelper;
 import me.yokeyword.fragmentation.anim.DefaultHorizontalAnimator;
 import me.yokeyword.fragmentation.anim.FragmentAnimator;
 
+/**
+ * 应用程序主入口
+ * 单Activity+多Fragment架构
+ */
 public class MainActivity extends ProxyActivity {
 
     @Override
@@ -67,7 +71,7 @@ public class MainActivity extends ProxyActivity {
             View view = UIHelper.getViewAtActivity(
                     this, (int) event.getRawX(), (int) event.getRawY());
             // 除下述几种情况隔离
-            if (view instanceof EditText || view instanceof Button) {
+            if (view instanceof EditText) {
                 return false;
             }
             int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();

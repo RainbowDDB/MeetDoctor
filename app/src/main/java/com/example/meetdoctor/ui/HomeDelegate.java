@@ -122,6 +122,8 @@ public class HomeDelegate extends LatteDelegate implements
         super.onSupportVisible();
         // 当键盘弹出隐藏的时候会 调用此方法。
         askContent.getViewTreeObserver().addOnGlobalLayoutListener(this);
+        // 确认还原状态栏样式
+        UIHelper.setAndroidNativeLightStatusBar(getProxyActivity(), true);
     }
 
     @Override
@@ -150,12 +152,7 @@ public class HomeDelegate extends LatteDelegate implements
         int screenHeight = decorView.getRootView().getHeight();
         // 此处就是用来获取键盘的高度的， 在键盘没有弹出的时候 此高度为0 键盘弹出的时候为一个正数
         int heightDifference = screenHeight - r.bottom;
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
-        if (lp.bottomMargin != heightDifference) {
-            lp.setMargins(0, 0, 0,
-                    heightDifference + UIHelper.getVirtualBarHeight(getContext()));
-            inputBar.setLayoutParams(lp);
-        }
+        setInputBarHeight(heightDifference);
     }
 
     @Override
@@ -214,6 +211,7 @@ public class HomeDelegate extends LatteDelegate implements
                                     resultBean.getResultContent()
                             ));
                             start(new ResultDelegate());
+                            setInputBarHeight(0); // 置于底部
                             break;
                         default: // type= 1 2 3
                             break;
@@ -303,5 +301,14 @@ public class HomeDelegate extends LatteDelegate implements
                         EventCode.SUCCESS,
                         response
                 )));
+    }
+
+    private void setInputBarHeight(int heightDifference) {
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) inputBar.getLayoutParams();
+        if (lp.bottomMargin != heightDifference) {
+            lp.setMargins(0, 0, 0,
+                    heightDifference + UIHelper.getVirtualBarHeight(getContext()));
+            inputBar.setLayoutParams(lp);
+        }
     }
 }
