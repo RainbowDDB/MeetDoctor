@@ -30,7 +30,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.ask.ResultActivity" />
 
         <meta-data
             android:name="com.baidu.speech.APP_ID"

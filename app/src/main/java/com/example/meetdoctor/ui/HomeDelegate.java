@@ -29,6 +29,7 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.bean.AskResultBean;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.ask.ResultDelegate;
 import com.example.meetdoctor.ui.info.CollectionDelegate;
 import com.example.meetdoctor.ui.info.HealthProfileDelegate;
 import com.example.meetdoctor.ui.info.HistoryDelegate;
@@ -212,7 +213,7 @@ public class HomeDelegate extends LatteDelegate implements
                                     EventCode.SUCCESS,
                                     resultBean.getResultContent()
                             ));
-//                            startActivity(ResultActivity.class);
+                            start(new ResultDelegate());
                             break;
                         default: // type= 1 2 3
                             break;

@@ -2,12 +2,12 @@ package com.example.meetdoctor.ui.ask;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.ActionBar;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.meetdoctor.R;
-import com.example.meetdoctor.base.BaseActivity;
+import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.model.EventCode;
 import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.bean.AskResultBean;
@@ -16,36 +16,28 @@ import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.UIHelper;
 import com.example.meetdoctor.widget.Header;
 
-public class ResultActivity extends BaseActivity {
+public class ResultDelegate extends LatteDelegate {
 
     private static final String TAG = "ResultActivity";
 
     private TextView result;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        Header header = findViewById(R.id.header);
-        setSupportActionBar(header.getToolbar());
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.setDisplayHomeAsUpEnabled(true);
-        }
-    }
-
-    @Override
-    protected void initView() {
-        ImageView baymax = findViewById(R.id.img_baymax);
-        ImageUtils.showImg(this, R.drawable.baymax, baymax,
-                UIHelper.dip2px(this, 150), UIHelper.dip2px(this, 191));
-
-        result = findViewById(R.id.result);
-    }
-
-    @Override
-    protected Object getLayout() {
+    public Object setLayout() {
         return R.layout.activity_result;
+    }
+
+    @Override
+    public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
+        Header header = rootView.findViewById(R.id.header);
+        setToolbar(header.getToolbar());
+
+        ImageView baymax = rootView.findViewById(R.id.img_baymax);
+        ImageUtils.showImg(getProxyActivity(), R.drawable.baymax, baymax,
+                UIHelper.dip2px(getProxyActivity(), 150),
+                UIHelper.dip2px(getProxyActivity(), 191));
+
+        result = rootView.findViewById(R.id.result);
     }
 
     @Override
@@ -56,7 +48,7 @@ public class ResultActivity extends BaseActivity {
                 AskResultBean.ResultContent resultContent = (AskResultBean.ResultContent) event.getData();
                 result.setText(resultContent.toString());
 //                showToast(resultContent.toString());
-                EventBusUtils.removeStickyEvent(EventMessage.class);
+                EventBusUtils.removeStickyEvent(getProxyActivity(), EventMessage.class);
             }
         }
     }

@@ -1,4 +1,4 @@
 package com.example.meetdoctor.ui.ask;
 
-public class HospitalActivity {
+public class HospitalDelegate {
 }

@@ -1,19 +1,9 @@
 package com.example.meetdoctor.utils;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Priority;
-import com.bumptech.glide.request.target.SimpleTarget;
-import com.bumptech.glide.request.target.ViewTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.example.meetdoctor.core.img.GlideApp;
 
 public class ImageUtils {
@@ -22,7 +12,7 @@ public class ImageUtils {
         GlideApp.with(context)
                 .asGif()
 //                .skipMemoryCache(true)
-                .priority(Priority.HIGH)  // 低优先级提高性能
+                .priority(Priority.NORMAL)  // 低优先级提高性能
                 .load(drawableId)
                 .into(imageView);
     }
