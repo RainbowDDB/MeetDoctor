@@ -29,6 +29,9 @@ import com.example.meetdoctor.model.EventMessage;
 import com.example.meetdoctor.model.MessageConstant;
 import com.example.meetdoctor.model.bean.AskResultBean;
 import com.example.meetdoctor.model.event.CheckStateEvent;
+import com.example.meetdoctor.ui.info.CollectionDelegate;
+import com.example.meetdoctor.ui.info.HealthProfileDelegate;
+import com.example.meetdoctor.ui.info.HistoryDelegate;
 import com.example.meetdoctor.ui.settings.SettingsDelegate;
 import com.example.meetdoctor.utils.EventBusUtils;
 import com.example.meetdoctor.utils.HttpUtils;
@@ -166,13 +169,13 @@ public class HomeDelegate extends LatteDelegate implements
             case R.id.ai_layout:
                 break;
             case R.id.collection_layout:
-// TODO               startActivity(CollectionActivity.class);
+                start(new CollectionDelegate());
                 break;
             case R.id.history_layout:
-// TODO               startActivity(HistoryActivity.class);
+                start(new HistoryDelegate());
                 break;
             case R.id.health_profile_layout:
-// TODO               startActivity(HealthProfileActivity.class);
+                start(new HealthProfileDelegate());
                 break;
             case R.id.settings_layout:
                 start(new SettingsDelegate());
