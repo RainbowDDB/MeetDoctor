@@ -14,6 +14,9 @@ import com.example.meetdoctor.ui.user.LoginDelegate;
 
 import java.util.ArrayList;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class LauncherDelegate extends LatteDelegate implements OnItemClickListener {
 
     private static final ArrayList<Integer> INTEGERS = new ArrayList<>();

@@ -22,6 +22,9 @@ import com.example.meetdoctor.widget.DateSelector;
 
 import java.util.ArrayList;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class EditDelegate extends SettingsBaseDelegate implements View.OnClickListener,
         RadioGroup.OnCheckedChangeListener {
 

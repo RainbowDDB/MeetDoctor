@@ -15,6 +15,10 @@ import java.util.WeakHashMap;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class RestClientBuilder {
 
     private static final Map<String, Object> PARAMS = RestCreator.getParams();

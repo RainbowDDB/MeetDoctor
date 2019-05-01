@@ -8,6 +8,9 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.widget.Header;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class AgreementDelegate extends LatteDelegate {
 
     @Override

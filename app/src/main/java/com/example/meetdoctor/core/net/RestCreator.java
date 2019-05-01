@@ -13,6 +13,10 @@ import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class RestCreator {
 
     public static WeakHashMap<String, Object> getParams() {
@@ -44,24 +48,6 @@ public class RestCreator {
         private static final OkHttpClient OK_HTTP_CLIENT = addInterceptors()
                 .connectTimeout(TIME_OUT, TimeUnit.SECONDS)
                 .cookieJar(new CookieManager(new PersistentCookieStore(App.getContext())))
-//                .cookieJar(new CookiesManager(MyApplication.getContext()))
-//                .cookieJar(new CookieJar() { // 全局设置cookie管理器，用户身份校验
-//                    private final HashMap<String, List<Cookie>> cookieStore = new HashMap<>();
-//
-//                    @Override
-//                    public void saveFromResponse(@NonNull HttpUrl url, @NonNull List<Cookie> cookies) {
-//                        cookieStore.put(url.host(), cookies);
-////                        LattePreference.addCustomAppProfile("cookies",cookies.toString());
-//                    }
-//
-//                    @NonNull
-//                    @Override
-//                    public List<Cookie> loadForRequest(@NonNull HttpUrl url) {
-//                        List<Cookie> cookies = cookieStore.get(url.host());
-//
-//                        return cookies != null ? cookies : new ArrayList<>();
-//                    }
-//                })
                 .build();
 
         // INTERCEPTORS可自行添加

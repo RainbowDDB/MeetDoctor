@@ -2,6 +2,10 @@ package com.example.meetdoctor.core.speech;
 
 import com.example.meetdoctor.core.log.LatteLogger;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public abstract class RecogListener implements IRecogListener {
 
     private static final String TAG = "RecogListener";

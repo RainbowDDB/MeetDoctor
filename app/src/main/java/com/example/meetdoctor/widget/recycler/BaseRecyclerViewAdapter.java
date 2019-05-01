@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 @SuppressWarnings("unused")
 public abstract class BaseRecyclerViewAdapter<T>
         extends RecyclerView.Adapter<RecyclerViewHolder> implements View.OnClickListener {

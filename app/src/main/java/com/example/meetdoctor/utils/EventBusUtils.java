@@ -8,6 +8,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import me.yokeyword.eventbusactivityscope.EventBusActivityScope;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class EventBusUtils {
 
     /**

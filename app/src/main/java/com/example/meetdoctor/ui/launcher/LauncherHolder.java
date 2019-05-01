@@ -7,6 +7,9 @@ import android.widget.ImageView;
 import com.bigkoo.convenientbanner.holder.Holder;
 import com.example.meetdoctor.utils.ImageUtils;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class LauncherHolder implements Holder<Integer> {
 
     private ImageView mImageView = null;

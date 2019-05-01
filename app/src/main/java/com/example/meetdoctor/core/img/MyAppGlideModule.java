@@ -17,6 +17,10 @@ import com.example.meetdoctor.core.log.LatteLogger;
 import static com.bumptech.glide.load.engine.executor.GlideExecutor.newDiskCacheExecutor;
 import static com.bumptech.glide.load.engine.executor.GlideExecutor.newSourceExecutor;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 @GlideModule
 public final class MyAppGlideModule extends AppGlideModule {
     @Override

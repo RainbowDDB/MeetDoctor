@@ -14,6 +14,9 @@ import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.utils.UIHelper;
 import com.example.meetdoctor.widget.Header;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SecretProtectDelegate extends LatteDelegate implements
         View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 

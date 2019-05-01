@@ -9,7 +9,9 @@ import okhttp3.CookieJar;
 import okhttp3.HttpUrl;
 
 /**
+ * Latte-Core
  * CookieJarImpl
+ * Created By Rainbow on 2019/4/30.
  */
 public class CookieManager implements CookieJar {
 

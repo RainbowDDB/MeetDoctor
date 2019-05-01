@@ -44,6 +44,9 @@ import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class HomeDelegate extends LatteDelegate implements
         View.OnClickListener, View.OnTouchListener,
         ViewTreeObserver.OnGlobalLayoutListener {

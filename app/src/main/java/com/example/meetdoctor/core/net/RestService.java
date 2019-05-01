@@ -18,6 +18,10 @@ import retrofit2.http.QueryMap;
 import retrofit2.http.Streaming;
 import retrofit2.http.Url;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public interface RestService {
 
     @GET

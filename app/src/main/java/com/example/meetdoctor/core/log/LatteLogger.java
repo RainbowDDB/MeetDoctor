@@ -2,6 +2,10 @@ package com.example.meetdoctor.core.log;
 
 import com.orhanobut.logger.Logger;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 @SuppressWarnings("all")
 public final class LatteLogger {
 

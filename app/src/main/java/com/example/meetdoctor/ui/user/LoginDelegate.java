@@ -25,6 +25,9 @@ import com.example.meetdoctor.ui.HomeDelegate;
 import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.UIHelper;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class LoginDelegate extends LatteDelegate
         implements View.OnClickListener, TextView.OnEditorActionListener,
         ViewTreeObserver.OnGlobalLayoutListener {

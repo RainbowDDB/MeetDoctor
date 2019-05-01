@@ -10,6 +10,9 @@ import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.utils.UIHelper;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class CollectionDelegate extends LatteDelegate {
 
     @Override

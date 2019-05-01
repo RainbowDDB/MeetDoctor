@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.widget.Toolbar;
 
 /**
+ * Latte-Core
  * 基础UI布局
  * 解决各种UI问题
  * 生命周期：
@@ -16,6 +17,8 @@ import android.support.v7.widget.Toolbar;
  * -> onSupportVisible
  * -> onSupportInvisible()
  * -> onPause()
+ *
+ * Created By Rainbow on 2019/4/30.
  */
 public abstract class LatteDelegate extends PermissionCheckerDelegate {
 

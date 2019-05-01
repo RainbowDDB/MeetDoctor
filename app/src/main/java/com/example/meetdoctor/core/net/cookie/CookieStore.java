@@ -6,7 +6,9 @@ import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
 /**
+ * Latte-Core
  * Cookie缓存接口
+ * Created By Rainbow on 2019/4/30.
  */
 public interface CookieStore {
 

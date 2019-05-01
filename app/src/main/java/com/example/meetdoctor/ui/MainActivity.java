@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.meetdoctor.core.activity.ProxyActivity;
@@ -18,6 +17,7 @@ import me.yokeyword.fragmentation.anim.FragmentAnimator;
 /**
  * 应用程序主入口
  * 单Activity+多Fragment架构
+ * Created By Rainbow on 2019/4/30.
  */
 public class MainActivity extends ProxyActivity {
 

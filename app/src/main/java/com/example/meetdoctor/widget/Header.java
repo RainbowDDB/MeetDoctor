@@ -12,6 +12,9 @@ import android.widget.TextView;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.utils.UIHelper;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 @SuppressWarnings("unused")
 public class Header extends AppBarLayout {
 

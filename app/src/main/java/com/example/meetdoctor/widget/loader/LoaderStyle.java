@@ -1,5 +1,8 @@
 package com.example.meetdoctor.widget.loader;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public enum LoaderStyle {
     BallPulseIndicator,
     BallGridPulseIndicator,

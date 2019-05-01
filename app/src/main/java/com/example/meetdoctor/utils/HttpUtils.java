@@ -24,6 +24,7 @@ import java.util.WeakHashMap;
 /**
  * 网络工具操作类，只是一些项目需求的接口
  * Context 建议只使用 <b>getProxyActivity()</b>方法获取
+ * Created By Rainbow on 2019/4/30.
  */
 public class HttpUtils {
 

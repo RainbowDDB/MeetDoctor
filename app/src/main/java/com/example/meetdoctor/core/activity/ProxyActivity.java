@@ -12,6 +12,10 @@ import com.umeng.analytics.MobclickAgent;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public abstract class ProxyActivity extends SupportActivity {
 
     public abstract LatteDelegate setRootDelegate();

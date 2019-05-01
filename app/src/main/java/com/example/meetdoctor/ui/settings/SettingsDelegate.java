@@ -9,6 +9,9 @@ import android.widget.TextView;
 import com.example.meetdoctor.R;
 import com.example.meetdoctor.core.img.GlideCache;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SettingsDelegate extends SettingsBaseDelegate implements View.OnClickListener {
 
     private TextView cacheMemory;

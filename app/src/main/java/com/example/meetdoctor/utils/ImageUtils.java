@@ -6,6 +6,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Priority;
 import com.example.meetdoctor.core.img.GlideApp;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class ImageUtils {
 
     public static void showGif(Context context, int drawableId, ImageView imageView) {

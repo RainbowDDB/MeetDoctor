@@ -16,7 +16,9 @@ import com.example.meetdoctor.utils.EventBusUtils;
 import java.util.ArrayList;
 
 /**
+ * Latte-Core
  * 进行权限检查
+ * Created By Rainbow on 2019/4/30.
  */
 public abstract class PermissionCheckerDelegate extends BaseDelegate {
 

@@ -15,6 +15,7 @@ import me.yokeyword.fragmentation.Fragmentation;
 /**
  * 全局Application
  * 作用：初始化以及销毁一些东西
+ * Created By Rainbow on 2019/4/30.
  */
 public class App extends Application {
 

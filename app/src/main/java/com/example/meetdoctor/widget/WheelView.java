@@ -22,7 +22,7 @@ import java.util.Arrays;
  * 使用方法：声明变量后，setData即可使用
  * 可通过set方法设置各种属性
  *
- * @author Rainbow
+ * Created By Rainbow on 2019/4/30.
  */
 public class WheelView extends View {
     private static final int RATE = 120;  // 惯性滑动比率，rate越大，速率越快

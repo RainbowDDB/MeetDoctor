@@ -2,6 +2,9 @@ package com.example.meetdoctor.model.event;
 
 import com.example.meetdoctor.model.MessageConstant;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class LoginEvent {
 
     private int result;

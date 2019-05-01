@@ -20,9 +20,10 @@ import org.greenrobot.eventbus.ThreadMode;
 import me.yokeyword.fragmentation_swipeback.SwipeBackFragment;
 
 /**
- * BaseDelegate
+ * Latte-Core BaseDelegate
  * 初始化友盟统计和EventBus
  * 以及封装一些常规操作
+ * Created By Rainbow on 2019/4/30.
  */
 public abstract class BaseDelegate extends SwipeBackFragment {
 

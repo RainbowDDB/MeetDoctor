@@ -6,6 +6,9 @@ import android.content.Context;
 
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class InfoUtil {
 
     public static String getAppPackageName(Context context) {

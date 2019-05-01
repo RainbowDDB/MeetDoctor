@@ -8,13 +8,9 @@ import java.io.Serializable;
 import okhttp3.Cookie;
 
 /**
+ * Latte-Core
  * 仿照android-async-http的SerializableCookie实现，用处是cookie对象与对象流的互转，保存和读取cookie
- *
- * @author linzhiyong
- * @email wflinzhiyong@163.com
- * @blog https://blog.csdn.net/u012527802
- * @time 2018/7/20
- * @desc
+ * Created By Rainbow on 2019/4/30.
  */
 public class SerializableCookie implements Serializable {
     private static final long serialVersionUID = 6374381828722046732L;

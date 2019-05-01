@@ -2,6 +2,9 @@ package com.example.meetdoctor.model.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class HistoryListBean {
 
     @SerializedName("u_a") // 用户回的话u，AI回的话a

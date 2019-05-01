@@ -22,8 +22,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 /**
- * 建造者模式
- * 生成RestClient代理类
+ * Latte-Core
+ * 建造者模式，生成RestClient代理类
+ * Created By Rainbow on 2019/4/30.
  */
 public class RestClient {
 

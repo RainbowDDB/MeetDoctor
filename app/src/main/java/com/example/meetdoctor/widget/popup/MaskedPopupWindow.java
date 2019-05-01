@@ -13,7 +13,7 @@ import com.example.meetdoctor.utils.UIHelper;
  * 使用方法：extends即可
  * PS：可能会有bug，希望后人完善下去
  *
- * @author Rainbow
+ * Created By Rainbow on 2019/4/30.
  */
 public class MaskedPopupWindow extends PopupWindow {
     public MaskedPopupWindow(Context context) {

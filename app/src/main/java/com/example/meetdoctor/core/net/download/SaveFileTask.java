@@ -14,6 +14,10 @@ import java.io.InputStream;
 
 import okhttp3.ResponseBody;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SaveFileTask extends AsyncTask<Object, Void, File> {
 
     private final IRequest REQUEST;

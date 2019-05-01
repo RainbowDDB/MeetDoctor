@@ -26,6 +26,9 @@ import java.util.List;
 
 import me.yokeyword.fragmentation.SupportActivity;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class MemberAdapter extends BaseRecyclerViewAdapter<MemberBean> {
 
     private static final String TAG = "MemberAdapter";

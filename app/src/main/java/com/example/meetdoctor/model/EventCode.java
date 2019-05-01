@@ -2,6 +2,7 @@ package com.example.meetdoctor.model;
 
 /**
  * EventBus的事件Code
+ * Created By Rainbow on 2019/4/30.
  */
 public class EventCode {
     public static final int NET_ERROR = -1;

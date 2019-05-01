@@ -12,6 +12,9 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import java.util.ArrayList;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 @SuppressWarnings("unused")
 public class LatteLoader {
 

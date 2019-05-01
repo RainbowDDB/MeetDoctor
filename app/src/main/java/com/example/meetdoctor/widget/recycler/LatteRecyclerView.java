@@ -8,6 +8,9 @@ import android.util.AttributeSet;
 
 import com.example.meetdoctor.core.img.GlideApp;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class LatteRecyclerView extends RecyclerView {
 
     private Context mContext;

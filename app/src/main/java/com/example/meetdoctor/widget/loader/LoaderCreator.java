@@ -7,6 +7,9 @@ import com.wang.avi.Indicator;
 
 import java.util.WeakHashMap;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public final class LoaderCreator {
 
     private static final WeakHashMap<String, Indicator> LOADING_MAP = new WeakHashMap<>();

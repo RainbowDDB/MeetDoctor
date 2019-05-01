@@ -18,6 +18,9 @@ import com.google.gson.Gson;
 
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SwitchDelegate extends SettingsBaseDelegate {
 
     private static final String TAG = "SwitchActivity";

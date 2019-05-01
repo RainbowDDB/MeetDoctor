@@ -6,6 +6,10 @@ import android.preference.PreferenceManager;
 
 import com.example.meetdoctor.core.app.App;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 @SuppressWarnings("unused")
 public final class LattePreference {
     /**

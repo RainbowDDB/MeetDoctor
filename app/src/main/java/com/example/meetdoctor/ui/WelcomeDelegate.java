@@ -19,6 +19,9 @@ import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.TimerHelper;
 import com.google.gson.Gson;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class WelcomeDelegate extends LatteDelegate {
 
     @SuppressWarnings("unused")

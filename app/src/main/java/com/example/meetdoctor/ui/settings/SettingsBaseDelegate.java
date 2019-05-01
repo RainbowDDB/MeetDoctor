@@ -10,6 +10,9 @@ import com.example.meetdoctor.core.delegate.LatteDelegate;
 import com.example.meetdoctor.utils.UIHelper;
 import com.example.meetdoctor.widget.Header;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public abstract class SettingsBaseDelegate extends LatteDelegate {
 
     private Header header;

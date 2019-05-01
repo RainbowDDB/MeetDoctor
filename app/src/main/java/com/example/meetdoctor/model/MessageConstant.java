@@ -1,5 +1,8 @@
 package com.example.meetdoctor.model;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class MessageConstant {
     public static final String NET_ERROR = "网络连接错误，请检查网络连接！";
     public static final String USER_EXISTED = "用户已存在";

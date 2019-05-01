@@ -16,6 +16,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class DownloadHandler {
 
     private static final WeakHashMap<String, Object> PARAMS = RestCreator.getParams();

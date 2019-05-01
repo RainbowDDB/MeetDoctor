@@ -7,6 +7,10 @@ import okhttp3.HttpUrl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public abstract class BaseInterceptor implements Interceptor {
     /**
      * 获得url参数对

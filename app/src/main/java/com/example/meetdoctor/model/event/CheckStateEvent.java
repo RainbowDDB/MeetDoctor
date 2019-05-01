@@ -1,5 +1,8 @@
 package com.example.meetdoctor.model.event;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class CheckStateEvent {
 
     private int state;

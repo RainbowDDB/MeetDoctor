@@ -12,8 +12,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /**
+ *
+ */
+/**
+ * Latte-Core
  * 自定义回调，有IRequest,ISuccess,IFailure,IError多种回调可以任意使用
  * 且中间加入了加载Loading的实现
+ * Created By Rainbow on 2019/4/30.
  */
 public class RequestCallbacks implements Callback<String> {
 

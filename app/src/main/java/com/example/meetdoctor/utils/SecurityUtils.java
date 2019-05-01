@@ -11,6 +11,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * 数据加密工具类
+ * Created By Rainbow on 2019/4/30.
  */
 public class SecurityUtils {
     /**

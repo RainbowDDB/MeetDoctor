@@ -1,5 +1,8 @@
 package com.example.meetdoctor.utils;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class StringUtils {
 
     // 判断一个字符串是否都为数字

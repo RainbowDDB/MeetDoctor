@@ -4,6 +4,7 @@ import com.example.meetdoctor.model.MessageConstant;
 
 /**
  * 注册成功进入此事件
+ * Created By Rainbow on 2019/4/30.
  */
 public class RegisterEvent {
 

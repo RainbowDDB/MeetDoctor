@@ -1,7 +1,9 @@
 package com.example.meetdoctor.core.speech;
 
 /**
+ * Latte-Core
  * 与SDK中回调参数的对应关系定义在RecogEventAdapter类中
+ * Created By Rainbow on 2019/4/30.
  */
 public interface IRecogListener {
     /**

@@ -12,6 +12,10 @@ import org.json.JSONObject;
 
 import java.util.Map;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SpeechRecognizer {
 
     private static final String TAG = "SpeechRecognizer";

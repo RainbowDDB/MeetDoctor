@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class HistoryBean {
 
     @SerializedName("list")

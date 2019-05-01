@@ -7,6 +7,10 @@ import com.example.meetdoctor.model.bean.AsrFinishBean;
 import com.example.meetdoctor.model.bean.AsrPartialBean;
 import com.google.gson.Gson;
 
+/**
+ * Latte-Core
+ * Created By Rainbow on 2019/4/30.
+ */
 public class RecogEventAdapter implements EventListener {
 
     private IRecogListener listener;

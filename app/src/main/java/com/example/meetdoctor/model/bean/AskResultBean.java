@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import androidx.annotation.NonNull;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class AskResultBean {
 
     private int type;

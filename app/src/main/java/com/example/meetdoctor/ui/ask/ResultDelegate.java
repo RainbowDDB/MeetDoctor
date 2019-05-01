@@ -16,6 +16,9 @@ import com.example.meetdoctor.utils.ImageUtils;
 import com.example.meetdoctor.utils.UIHelper;
 import com.example.meetdoctor.widget.Header;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class ResultDelegate extends LatteDelegate {
 
     private static final String TAG = "ResultActivity";
@@ -30,6 +33,7 @@ public class ResultDelegate extends LatteDelegate {
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         Header header = rootView.findViewById(R.id.header);
+//        header.setTitle("结果");
         setToolbar(header.getToolbar());
 
         ImageView baymax = rootView.findViewById(R.id.img_baymax);

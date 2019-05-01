@@ -5,9 +5,8 @@ import android.util.SparseArray;
 import android.view.View;
 
 /**
- * Created by 帅郑 on 2018/9/26.
+ * Created By Rainbow on 2019/4/30.
  */
-
 public class RecyclerViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> mViews;

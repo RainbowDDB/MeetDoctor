@@ -2,6 +2,9 @@ package com.example.meetdoctor.model;
 
 import android.support.annotation.NonNull;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class EventMessage<T> {
 
     private int code;

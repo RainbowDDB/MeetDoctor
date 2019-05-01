@@ -3,8 +3,12 @@ package com.example.meetdoctor.utils;
 import java.util.Calendar;
 
 /**
+
+ */
+/**
  * 时间日期操作类(内容不全待补充)
  * 避免使用全局静态Calendar变量,因为会有set的问题出现
+ * Created By Rainbow on 2019/4/30.
  */
 public class DateUtils {
     public static int getDay() {

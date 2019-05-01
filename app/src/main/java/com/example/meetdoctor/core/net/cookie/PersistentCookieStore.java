@@ -22,13 +22,9 @@ import okhttp3.Cookie;
 import okhttp3.HttpUrl;
 
 /**
+ * Latte-Core
  * Cookie缓存持久化实现类
- *
- * @author linzhiyong
- * @email wflinzhiyong@163.com
- * @blog https://blog.csdn.net/u012527802
- * @time 2018/7/20
- * @desc
+ * Created By Rainbow on 2019/4/30.
  */
 public class PersistentCookieStore implements CookieStore {
 

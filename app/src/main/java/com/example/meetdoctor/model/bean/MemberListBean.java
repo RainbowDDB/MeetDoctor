@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class MemberListBean {
 
     private ArrayList<MemberBean> list;

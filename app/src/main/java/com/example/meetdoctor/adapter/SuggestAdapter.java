@@ -15,6 +15,9 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class SuggestAdapter extends BaseRecyclerViewAdapter<SuggestBean> {
     public SuggestAdapter(Context context, List<SuggestBean> data) {
         super(context, data, R.layout.item_suggest_info);

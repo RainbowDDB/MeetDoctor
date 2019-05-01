@@ -29,6 +29,9 @@ import com.example.meetdoctor.utils.HttpUtils;
 import com.example.meetdoctor.utils.StringUtils;
 import com.example.meetdoctor.utils.UIHelper;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class RegisterDelegate extends LatteDelegate implements
         View.OnClickListener, TextView.OnEditorActionListener,
         ViewTreeObserver.OnGlobalLayoutListener {

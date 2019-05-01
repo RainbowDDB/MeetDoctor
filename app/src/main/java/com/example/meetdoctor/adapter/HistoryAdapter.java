@@ -12,6 +12,9 @@ import com.example.meetdoctor.widget.recycler.RecyclerViewHolder;
 
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class HistoryAdapter extends BaseRecyclerViewAdapter<HistoryBean> {
 
     public HistoryAdapter(Context context, List<HistoryBean> data) {
@@ -35,10 +38,10 @@ public class HistoryAdapter extends BaseRecyclerViewAdapter<HistoryBean> {
 //        bean.getHistoryList();
         for (HistoryListBean data : bean.getHistoryList()) {
             if (data.getResult() == 1) { // 判断是此次问询最后一次的结果，结束
-                detail.setText(data.getWord().getName() + "\n" + data.getWord().getTreatment());
+                detail.setText(data.getWord().getName());
             }
         }
-
+//        + "\n" + data.getWord().getTreatment()
 //        detail.setText(MessageFormat.format("{0}:{1}", bean.getWay(), bean.getQuestion()));
 
         holder.itemView.setOnClickListener(view -> {

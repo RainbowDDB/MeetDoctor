@@ -1,5 +1,8 @@
 package com.example.meetdoctor.model;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class Constant {
 
     public static final String ADD_OR_EDIT = "add_or_edit";

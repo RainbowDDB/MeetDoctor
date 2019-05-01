@@ -21,6 +21,9 @@ import com.google.gson.JsonParser;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class HistoryDelegate extends LatteDelegate {
 
     private static final String TAG = "HistoryActivity";
@@ -36,6 +39,7 @@ public class HistoryDelegate extends LatteDelegate {
     public void onBindView(@Nullable Bundle savedInstanceState, View rootView) {
         Header header = rootView.findViewById(R.id.header);
         header.setTitle("历史记录");
+//        header.setBackgroundColor(getResources().getColor(R.color.textBlack));
         setToolbar(header.getToolbar());
 
         recyclerView = rootView.findViewById(R.id.recycler_view);

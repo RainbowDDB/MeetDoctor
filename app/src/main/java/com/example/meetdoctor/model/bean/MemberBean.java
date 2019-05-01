@@ -4,6 +4,9 @@ import android.support.annotation.Nullable;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Created By Rainbow on 2019/4/30.
+ */
 public class MemberBean {
 
     private int id;
