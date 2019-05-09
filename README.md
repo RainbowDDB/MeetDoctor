@@ -46,9 +46,9 @@
     folder | file | function
     ---|---|---
     activity|ProxyActivity|单activity的基类，用于进行初始配置
-    delegate|BaseDelegate|基类Fragment继承自`SwipeBackFragment`，管理通信、数据
-    delegate|PermissionDelegate|权限检查基类，继承自`BaseDelegate`，所有的必须权限要放进去
-    delegate|LatteDelegate|UI基类，继承自`PermissionDelegate`，全局UI配置
+    delegate|BaseDelegate|基类Fragment继承自SwipeBackFragment，管理通信、数据
+    delegate|PermissionDelegate|权限检查基类，继承自BaseDelegate，所有的必须权限要放进去
+    delegate|LatteDelegate|UI基类，继承自PermissionDelegate，全局UI配置
 
     ```
     /**
@@ -124,7 +124,7 @@
 
     // 语音识别模块，重点！
     private SpeechRecognizer recognizer;
-    recoginer = new SpeechRecognizer(activity, new RecogListener() {
+    recognizer = new SpeechRecognizer(activity, new RecogListener() {
             // 所有回调见 IRecogListener
             // 部分全局实现见 RecogListener
             @Override
