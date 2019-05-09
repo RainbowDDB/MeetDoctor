@@ -23,26 +23,25 @@
 ### <span id="readme">3.使用说明</span>
 
 > `core`模块是**核心**，考虑到封装代码复用等因素，如果没有高复用性的内容，**请不要**添加在里面，下面**仅**对`core`模块做具体说明
-
 ------
-    folder  | function
-    ---|---
-    activity | 基类活动
-    app | 应用Application
-    database | 数据库
-    delegate | Fragment页面
-    img | 图片加载Glide
-    net | 网络核心库
-    log | 日志工具类
-    speech | 语音模块
-    storage | 缓存SharePreference
-------
+folder | function
+---|---
+activity | 基类活动
+app | 应用Application
+database | 数据库
+delegate | Fragment页面
+img | 图片加载Glide
+net | 网络核心库
+log | 日志工具类
+speech | 语音模块
+storage | 缓存SharePreference
 
 - 本模块UI采用[Fragmentation](https://github.com/YoKeyword/Fragmentation)的**单Activity+多Fragment**架构。具体参见文档 [Fragmentation Wiki](https://github.com/YoKeyword/Fragmentation/wiki)
 
 - activity 用代理模式实现`ProxyActivity`
 
 - UI
+
     folder | file | function
     ---|---|---
     activity|ProxyActivity|单activity的基类，用于进行初始配置
