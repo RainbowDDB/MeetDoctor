@@ -9,5 +9,4 @@
 .settings
 .vscode
 .project
-*.jks
 app/release/
