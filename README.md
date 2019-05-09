@@ -1,48 +1,49 @@
 # MeetDoctor
 
 ## 目录
-> * [项目介绍](#1.项目介绍)
-> * [配置](#2.配置)
-> * [部分文件使用说明](#3.使用说明)
-> * [待完善TODO](#4.待完善TODO（潜在会引发bug）)
-> * [贡献者](#5.贡献者)
+> * [项目介绍](#1-项目介绍)
+> * [配置](#2-配置)
+> * [部分文件使用说明](#3-使用说明)
+> * [待完善TODO](#4-待完善TODO（潜在会引发bug）)
+> * [贡献者](#5-贡献者)
 
 ------
 
-### 1.项目介绍
+### 1. 项目介绍
 
 安心了(原名遇医)App
 
-### 2.配置
+### 2. 配置
 
 1. 本项目使用主流IDE `Android Studio` 开发，版本为 **v3.3.2**
 2. `clone`即可，注意**不要**修改`gradle 3.2.1`版本（因为并没有做`androidX`的适配，如果想适配你也真是个天才...）
 3. 本项目使用了**混淆**，如果要添加其他的库注意根据说明在`proguard.pro`中添加相应的混淆
 4. 本项目已经使用了签名文件`keystore.jks`，账号与密码在`gradle`文件中，想改自己就改
 
-### <span id="readme">3.使用说明</span>
+### 3. 使用说明
 
 > `core`模块是**核心**，考虑到封装代码复用等因素，如果没有高复用性的内容，**请不要**添加在里面，下面**仅**对`core`模块做具体说明
 
 ------
-    folder  | function
-    ---|---
-    activity | 基类活动
-    app | 应用Application
-    database | 数据库
-    delegate | Fragment页面
-    img | 图片加载Glide
-    net | 网络核心库
-    log | 日志工具类
-    speech | 语音模块
-    storage | 缓存SharePreference
-------
+folder  | function
+---|---
+activity | 基类活动
+app | 应用Application
+database | 数据库
+delegate | Fragment页面
+img | 图片加载Glide
+net | 网络核心库
+log | 日志工具类
+speech | 语音模块
+storage | 缓存SharePreference
+
 
 - 本模块UI采用[Fragmentation](https://github.com/YoKeyword/Fragmentation)的**单Activity+多Fragment**架构。具体参见文档 [Fragmentation Wiki](https://github.com/YoKeyword/Fragmentation/wiki)
 
 - activity 用代理模式实现`ProxyActivity`
 
 - UI
+    
     folder | file | function
     ---|---|---
     activity|ProxyActivity|单activity的基类，用于进行初始配置
@@ -135,13 +136,13 @@
 
     ```
 
-### 4.待完善TODO（潜在会引发bug）
+### 4. 待完善TODO（潜在会引发bug）
 
 1. png及jpg格式背景图优化，考虑使用`Glide`减少占用内存并提高清晰度
 2. `View`重叠重复绘制问题严重，一开始没有考虑，现在导致`Graphics层`占用过高产生卡顿(比如`HomeActivity`)
 3. **代码复用**问题，除`core`外，其他或多或少尤其是在UI方面的重复比较多，还在思考如何解决
 4. **（处理完成）**考虑使用单Activity多Fragment的框架`Fragmentation`作为主架构亦可显著提高流畅度，但现在可能有bug待修复
 
-### 5.贡献者
+### 5. 贡献者
 
 [@Rainbow](https://github.com/RainbowDDB) 主架构开发，如有问题请联系`1274200453@qq.com`
