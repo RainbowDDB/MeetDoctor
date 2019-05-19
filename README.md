@@ -103,12 +103,12 @@ storage | 缓存SharePreference
                 .error((code, msg) -> {
                     // 请求失败，返回restful 错误码和错误信息
                 });
-    builder.build.post(); // 还可 get,put,delete,postRow,putRow,upload,download
+    builder.build().post(); // 还可 get,put,delete,postRow,putRow,upload,download
 
     ```
 
 
-- img [`Glide`](https://github.com/bumptech/glide)，log [`Logger`](https://github.com/orhanobut/logger)，storage `SharePreference`,speech [`Baidu Speech API`](https://ai.baidu.com/docs#/ASR-Android-SDK/top)
+- img [`Glide`](https://github.com/bumptech/glide)，log [`Logger`](https://github.com/orhanobut/logger)，storage `SharePreference`，speech [`Baidu Speech API`](https://ai.baidu.com/docs#/ASR-Android-SDK/top)
     ```
     // 具体使用方法
 
@@ -145,4 +145,4 @@ storage | 缓存SharePreference
 
 ### 5. 贡献者
 
-[@Rainbow](https://github.com/RainbowDDB) 主架构开发，如有问题请联系`1274200453@qq.com`
+[@Rainbow](https://github.com/RainbowDDB) 主架构开发，如有问题请联系`Rainbow@100steps.net`
